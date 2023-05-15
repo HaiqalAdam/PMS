@@ -5,35 +5,46 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Main Menu</Menu></title>
+    <!-- Topbar-->
+    <div class="topnav">
+      <a class="active" href="#home">Home</a>
+      <a href="#news">News</a>
+      <a href="#contact">Contact</a>
+      <a href="#about">About</a>
+    </div>
 </head>
 <body>
 
 <!-- Sidebar -->
-<div class="w3-sidebar w3-light-grey w3-bar-block" style="width:25%">
-  <h3 class="w3-bar-item">Menu</h3>
+<div class="w3-sidebar w3-bar-block w3-collapse w3-card" style="width:200px;" id="mySidebar">
+  <button class="w3-bar-item w3-button w3-hide-large"
+  onclick="w3_close()">Close &times;</button>
+  <p>Menu</p>
   <a href="#" class="w3-bar-item w3-button">Dashboard</a>
   <a href="#" class="w3-bar-item w3-button">Schedule</a>
-
   <a href="#" class="w3-bar-item w3-button">Therapist</a>
   <a href="#" class="w3-bar-item w3-button">Patient</a>
   <a href="#" class="w3-bar-item w3-button">Record</a>
 </div>
 
-<!-- Page Content -->
-<div style="margin-left:25%">
+<div class="w3-main" style="margin-left:200px">
 
-<div class="w3-container w3-teal">
-  <h4>Dashboard Overview</h4>
-</div>
-<img src="img_car.jpg" alt="Car" style="width:100%">
-
-<div class="w3-container">
-<h2>Sidebar Navigation Example</h2>
-<p>The sidebar with is set with "style="width:25%".</p>
-<p>The left margin of the page content is set to the same value.</p>
+<div class="w3-teal">
+  <button class="w3-button w3-teal w3-xlarge" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1>Dashboard Overview</h1>
+  </div>
+  </div>
 </div>
 
-</div>
-      
+<script>
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
 </body>
 </html>
