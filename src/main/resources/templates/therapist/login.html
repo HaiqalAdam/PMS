@@ -14,29 +14,26 @@
 
             background: #E3F7FA;
         }
-        input[type=text]{
-        position: absolute;
-        width: 534px;
-        height: 667px;
-        left: 453px;
-        top: 179px;
 
-        background: #E3F7FA;
+        form{
+            border: 3px solid #f1f1f1;
+            position: absolute;
+            width: 534px;
+            height: 667px;
+            left: 35%;
+            padding-top: 5%;
+        }
+
+        input[type=text],[type=password]{
+        position: relative;
+        width: 150px;
+        height: 50px;
+
+        background: #9e0202;
         box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25), 4px 4px 4px rgba(0, 0, 0, 0.25);
         border-radius: 30px;
         }
 
-        input[type=password]{
-        position: absolute;
-        width: 534px;
-        height: 667px;
-        left: 453px;
-        top: 179px;
-
-        background: #E3F7FA;
-        box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25), 4px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 30px;
-        }
         input[type=submit]{
             position: absolute;
             width: 440.82px;
@@ -82,10 +79,10 @@
     <h1>Login</h1>
     <div class="container">
     <form action="login.html">
-        <label for="username"></label><br>
-        <input type="text" id="username" name="username" value="" required><br><br>
+        <label for="emailThe">Email</label><br>
+        <input type="text" id="username" name="emailTherapist" value="" required><br><br>
         
-        <label for="pwd"></label>
+        <label for="pwd">Password</label><br>
         <input type="password" id="pwd" name="pwd" required><br><br>
 
         <input type="submit" value="Login">
