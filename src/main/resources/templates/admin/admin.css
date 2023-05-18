@@ -53,7 +53,6 @@ form {
     background: #00BAD4;
 }
 
-/* adminmainmenu */
 /* top bar */
 .topnav {
     background-color: white;
@@ -87,11 +86,16 @@ form {
 
 /* side bar */
 .sidebar{
+    margin: 0;
+    padding: 0;
+    outline: none;
     position: fixed;
     left: 0;
     width: 250px;
     height: 100%;
     background: white;
+    border-left: 1px solid #717070;
+    border-right: 1px solid #717070;
 }
 .sidebar header{
     font-size: 22px;
@@ -100,6 +104,7 @@ form {
     line-height: 70px;
     background: white; 
     user-select: none;
+
 }
 .sidebar ul a{
     display: block;
@@ -110,8 +115,8 @@ form {
     color: rgb(0, 0, 0);
     padding-left: 20px;
     box-sizing: border-box;
-    border-top: 1px solid rgba(255,255,255,.1);
-    border-bottom: 1px solid black;
+    border-top: 1px solid #717070;
+    border-bottom: 1px solid #717070;
     transition: .4s;
 }
 ul li:hover a{
@@ -120,4 +125,28 @@ ul li:hover a{
 
 .sidebar ul a i{
     margin-right: 16px;
+}
+
+#therapistdashboard{
+    position: absolute;
+    width: 889px;
+    height: 320px;
+    left: 387px;
+    top: 150px;
+
+    background: rgba(0, 186, 212, 0.11);
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.25), 4px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
+}
+
+#patientdashboard{
+    position: absolute;
+    width: 892px;
+    height: 320px;
+    left: 384px;
+    top: 500px;
+
+    background: #FFCBC0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
 }
