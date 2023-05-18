@@ -8,34 +8,52 @@
     <title>Registration Patient</title>
 </head>
 <body>
- <!-- Topbar-->
+  <!-- Topbar-->
   <div class="topnav">
-    <a class="active" href="#home">PMSystems</a>
-    <a href="#search">Search</a>
-    <a class="noti" href="#notification">notification</a>
-    <a class="profile" href="#profile">profile</a>
+    <div class="top-left"></div>
+      <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\hamburger.png" width="4%" height="4%" alt="Avatar" class="hamburger">
+      <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\logoPMS.png" width="4%" height="4%" alt="Avatar" class="logo">
+      <a class="home" href="#">PM</a>
+      <a class="home1" href="#">Systems</a>
+    </div>
+    
+    <input type="text" id="search" name="search" value="  Search"><img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\enter.png" width="4%" height="4%" alt="Avatar" class="enter">
+  
+    <div class="top-right">
+      <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\bell-ring.png" width="4%" height="4%" alt="Avatar" class="bell">
+      <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\profile.png" width="4%" height="4%" alt="Avatar" class="profile">
+      <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\down.png" width="4%" height="4%" alt="Avatar" class="down">
+    </div>
   </div>
 
   <!-- Sidebar -->
-<div class="sidebar">
-  <header>Menu</header>
+ <div class="sidebar">
+    <p class="menu">Menu</p>
     <ul>
-      <li><a href="#"><i class="fas fa-dashboard"></i>Dashboard</a></li>
-      <li><a href="#"><i class="far fa-schedule"></i>Schedule</a></li>
-      <li><a href="#"><i class="fas fa-therapist"></i>Therapist</a></li>
-      <li><a href="#"><i class="far fa-patient"></i>Patient</a></li>
-      <li><a href="#"><i class="fas fa-record"></i>Record</a></li>
-      <li><a href="#"><i class="far fa-logout"></i>Log Out</a></li>
+      <a href="#" class="dash">
+        <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\dashboard.png" class="dashboard"><i class="fas fa-dashboard"></i>Dashboard</a>
+      <a href="#" class="sch">
+        <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\schedule.png" class="schedule"></i><i class="far fa-schedule"></i>Schedule</a>
+      
+      <a href="#" class="line1"></a>
+        <a href="#" class="ther">
+        <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\therapist.png" width="6%" height="6%" alt="Avatar" class="therapist"><i class="fas fa-therapist"></i>Therapist</a>
+      <a href="#" class="pat">
+        <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\patient.png" width="6%" height="6%" alt="Avatar" class="patient"></i><i class="far fa-patient"></i>Patient</a>
+      <a href="#" class="rec">
+        <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\record.png" width="6%" height="6%" alt="Avatar" class="record"><i class="fas fa-record"></i>Record</a>
+      
+      <a href="#" class="line2"></a>
+      <a href="#" class="log">
+        <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\logout.png" width="6%" height="6%" alt="Avatar" class="logout"><i class="far fa-logout"></i>Log Out</a>
     </ul>
   </div>
   
   <!-- Page Content -->
-  <div style="margin-left:25%">
-  
-  <div class="w3-container w3-teal">
-<!--content-->
-<div style="margin-left:25%"></div>
+ 
+<div class="view">
 <h1>Registration form</h1>
+</div>
 <div class = "container">
     <form action="#" name="registerform">
 
@@ -61,9 +79,9 @@
         <input type="text" id="blood" name="blood" required><br><br>
         
         
-        <input type="submit" value="Search">
+        <input type="reset" value="reset">
+        <input type="submit" value="submit">
     </form>
-</div>
 </div>
 
     
