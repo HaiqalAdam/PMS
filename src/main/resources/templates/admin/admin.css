@@ -2,8 +2,8 @@
 
 body{
     position: relative;
-    width: 1440px;
-    height: 1024px;
+    width: fit-content;
+    height: fit-content;
 
 background: #E3F7FA;
 }
@@ -375,18 +375,12 @@ form {
     width: 265px;
     height: 41px;
     left: 691px;
-    top: 188px;
-    
-    font-family: 'Chivo';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 36px;
-    line-height: 27px;
-    /* or 75% */
-    
+    top: 150px;    
     display: flex;
     align-items: center;
     text-align: center;
+    font-family: 'Roboto';
+    font-style: normal;
     letter-spacing: 0.45px;
     
     color: #000000;
@@ -396,26 +390,38 @@ form {
 
 #therapistdashboard{
     position: absolute;
-width: 889px;
-height: 320px;
-left: 387px;
-top: 223px;
-
-background: rgba(0, 186, 212, 0.11);
-box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.25), 4px 4px 10px rgba(0, 0, 0, 0.25);
-border-radius: 30px;
+    width: 889px;
+    height: 250px;
+    left: 387px;
+    top: 223px;
+    align-items: center;
+    text-align: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    letter-spacing: 0.45px;
+    text-decoration: none;
+    color: #000000;
+    background: rgba(0, 186, 212, 0.11);
+    box-shadow: -4px 4px 10px rgba(0, 0, 0, 0.25), 4px 4px 10px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
 }
 
 #patientdashboard{
     position: absolute;
-width: 892px;
-height: 320px;
-left: 384px;
-top: 574px;
-
-background: #FFCBC0;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 30px;
+    width: 892px;
+    height: 250px;
+    left: 384px;
+    top: 500px;
+    align-items: center;
+    text-align: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    letter-spacing: 0.45px;
+    text-decoration: none;
+    color: #000000;
+    background: #FFCBC0;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 30px;
 }
 
 .container {
@@ -424,7 +430,6 @@ border-radius: 30px;
     height: 714px;
     left: 407px;
     top: 226px;
-
     background: #FFCBC0;
     box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25), 4px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
@@ -450,14 +455,11 @@ border-radius: 30px;
     height: 41px;
     top: 40px;
     right: 200px;
-
     font-family: 'Roboto';
     font-style: normal;
     font-weight: 700;
     font-size: 28px;
     line-height: 27px;
-    /* or 169% */
-
     display: flex;
     align-items: center;
     text-align: center;
@@ -495,6 +497,138 @@ border-radius: 30px;
     width: 90px;
     height: 30px;
     top: 150px;
+    text-decoration-line: none;
+    color: #000000;
+    border-width: thick;
+    background: #2CA5D3;
+    border-radius: 15px;
+}
+
+/*------ registration patient ----- */
+
+.registration-form {
+    position: absolute;
+    width: 500px;
+    height: 41px;
+    left: 580px;
+    top: 150px;    
+    display: flex;
+    align-items: center;
+    text-align: center;
+    font-family: 'Roboto';
+    font-style: normal;
+    letter-spacing: 0.45px;
+    
+    color: #000000;
+
+}
+
+.dcontainer {
+    position: absolute;
+    width: 700px;
+    height: 550px;
+    left: 407px;
+    top: 200px;
+
+    background: #FFCBC0;
+    box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25), 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+
+#formreg {
+    position: center;
+    width: fit-content;
+    height: fit-content;
+    top: 90px;
+    left: 50px;
+}
+
+#ref1 {
+    Width: 93px;
+    Height : 43px;
+    Top: 466px;
+    Left: 483px;
+}
+
+#name1 {
+    Width: 93px;
+    Height : 43px;
+    Top: 514px;
+    Left: 483px;
+}
+
+#sex1 {
+    Width: 93px;
+    Height : 43px;
+    Top: 562px;
+    Left: 483px;
+}
+
+#address1 {
+    Width: 93px;
+    Height : 43px;
+    Top: 610px;
+    Left: 483px;
+}
+
+#drug1 {
+    Width: 93px;
+    Height : 43px;
+    Top: 657px;
+    Left: 483px;
+}
+
+#date1 {
+    Width: 114px;
+    Height : 43px;
+    Top: 466px;
+    Left: 916px;
+}
+
+#status1 {
+    Width: 114px;
+    Height : 43px;
+    Top: 514px;
+    Left: 916px;
+}
+
+#datebirth1 {
+    Width: 114px;
+    Height : 43px;
+    Top: 562px;
+    Left: 916px;
+}
+
+#numphone1 {
+    Width: 114px;
+    Height : 43px;
+    Top: 610px;
+    Left: 916px;
+}
+
+#blood1 {
+    Width: 114px;
+    Height : 43px;
+    Top: 657px;
+    Left: 916px;
+}
+
+#resbutt {
+    position: absolute;
+    text-align: center;
+    right:300px;
+    width: 90px;
+    height: 30px;
+    background: #2CA5D3;
+    border-radius: 15px;
+}
+
+#subbutt {
+    position: absolute;
+    text-align: center;
+    right: 200px;
+    width: 90px;
+    height: 30px;
     background: #2CA5D3;
     border-radius: 15px;
 }
