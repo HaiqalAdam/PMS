@@ -174,7 +174,7 @@ form {
 .sidebar {
     position: absolute;
     width: 260px;
-    height: 900px;
+    height: 700px;
     left: 0px;
     top: 63px;
     filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.25));
@@ -368,23 +368,29 @@ form {
 }
 
 /*--------------------------------- Content --------------------------------------*/
+
+/* -- adminmainmenu --*/
 .view {
-position: absolute;
-width: 361px;
-height: 43px;
-left: 384px;
-top: 127px;
-
-font-family: 'Roboto';
-font-style: normal;
-font-weight: 600;
-font-size: 32px;
-line-height: 27px;
-/* or 84% */
-
-letter-spacing: 0.45px;
-
-color: #000000;
+    position: absolute;
+    width: 265px;
+    height: 41px;
+    left: 691px;
+    top: 188px;
+    
+    font-family: 'Chivo';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 36px;
+    line-height: 27px;
+    /* or 75% */
+    
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.45px;
+    
+    color: #000000;
+    
 
 }
 
@@ -414,12 +420,81 @@ border-radius: 30px;
 
 .container {
     position: absolute;
-width: 959px;
-height: 714px;
-left: 407px;
-top: 226px;
+    width: 959px;
+    height: 714px;
+    left: 407px;
+    top: 226px;
 
-background: #FFCBC0;
-box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25), 4px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 15px;
+    background: #FFCBC0;
+    box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25), 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+
+/* admission-page */
+
+.bcontainer {
+    position: absolute;
+    width: 400px;
+    height: 250px;
+    left: 572px;
+    top: 229px;
+
+    background: #FFCBC0;
+    box-shadow: -4px -4px 4px rgba(0, 0, 0, 0.25), 4px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 45px;
+}
+
+.ic {
+    position: absolute;
+    width: 162px;
+    height: 41px;
+    top: 40px;
+    right: 200px;
+
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 27px;
+    /* or 169% */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+    letter-spacing: 0.45px;
+
+    color: #000000;
+
+}
+
+#icpatient {
+    position: absolute;
+    right: 25px;
+    width: 350px;
+    height: 53px;
+    top: 85px;
+    background: #FFFFFF;
+    border-radius: 15px;
+}
+
+#sear {
+    position: absolute;
+    text-align: center;
+    right: 30px;
+    width: 90px;
+    height: 30px;
+    top: 150px;
+    background: #2CA5D3;
+    border-radius: 15px;
+}
+
+#reg {
+    position: absolute;
+    text-align: center;
+    right: 130px;
+    width: 90px;
+    height: 30px;
+    top: 150px;
+    background: #2CA5D3;
+    border-radius: 15px;
 }
