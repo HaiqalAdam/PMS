@@ -22,8 +22,8 @@ public class GettingStartedApplication {
     }
 
     @GetMapping("/")
-    public String index() {
-        return "index";
+    public String adminlogin() {
+        return "admin/adminlogin";
     }
 
     @GetMapping("/database")
