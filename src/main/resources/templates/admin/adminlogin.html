@@ -4,21 +4,24 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="admin.css" />
+    <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>PMSLogin</title>
 </head>
+
 <body>
-    <h1>Login</h1>
-    <div class = "container">
-        <form action="#" name="loginForm">
-            <label for="emailAd">Username</label><br>
-            <input type="text" id="emailAdmin" name="emailAdmin" value="" required><br><br>
+    <form action="login.html" method="post">
+        <div class="acontainer">
+            <img src="C:\Users\USER\PMS\PMS\src\main\resources\templates\icon-menu\logoPMS.png" width="10%" height="10%" alt="Avatar" class="avatar">
             
-            <label for="adminpwd">Password</label><br>
-            <input type="password" id="adminpwd" name="adminpwd" required><br><br>
+            <h2>Login</h2><br><br>
+            <input type="text" id="admusername" name="emailTherapist" value="" placeholder="  username" required><br><br>
             
-            <input type="submit" value="Login">
-        </form>
-    </div>
+            <input type="password" id="admpwd" name="pwd" placeholder="  password" required><br>
+            <a href="#" id="fp">forgot password?</a><br><br>
+
+            <input href="adminmainmenu.html" type="submit" id="admlogin" value="Login">
+        </div>
+    </form>
 </body>
 </html>
