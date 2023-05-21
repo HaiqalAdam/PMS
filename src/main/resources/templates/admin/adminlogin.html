@@ -10,17 +10,17 @@
 </head>
 
 <body>
-    <form action="login.html" method="post" id="formlogin" >
+    <form action="#" th:action="@{/successful}" th:object="${staff}"method="POST" id="formlogin" >
         <div class="acontainer">
             <img src="..\icon-menu\logoPMS.png" width="10%" height="10%" alt="Avatar" class="avatar">
             
             <h2>Login</h2><br><br>
-            <input type="text" id="admusername" name="emailTherapist" value="" placeholder="  username" required><br><br>
+            <input type="text" id="admusername" name="usr" value="" placeholder="  username" required><br><br>
             
             <input type="password" id="admpwd" name="pwd" placeholder="  password" required><br>
             <a href="#" id="fp">forgot password?</a><br><br>
 
-            <input href="adminmainmenu.html" type="submit" id="admlogin" value="Login">
+            <input type="submit" id="admlogin" value="Login">
         </div>
     </form>
 </body>

@@ -4,9 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.sql.DataSource;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
@@ -26,26 +31,17 @@ public class GettingStartedApplication {
         return "admin/adminlogin";
     }
 
-    @GetMapping("/database")
-    String database(Map<String, Object> model) {
-        try (Connection connection = dataSource.getConnection()) {
-            final var statement = connection.createStatement();
-            statement.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
-            statement.executeUpdate("INSERT INTO ticks VALUES (now())");
+    @GetMapping("/successful")
+    public String greetingForm(Model model) {
+        model.addAttribute("staff", new staffUser());
+        return "successful";
+    }
 
-            final var resultSet = statement.executeQuery("SELECT tick FROM ticks");
-            final var output = new ArrayList<>();
-            while (resultSet.next()) {
-                output.add("Read from DB: " + resultSet.getTimestamp("tick"));
-            }
-
-            model.put("records", output);
-            return "database";
-
-        } catch (Throwable t) {
-            model.put("message", t.getMessage());
-            return "error";
-        }
+    @PostMapping("/successful")
+    public String greetingSubmit(@ModelAttribute staffUser staff, Model model) {
+        model.addAttribute("staff", staff);
+        System.out.println("Staff data-------- : " + staff);
+        return "succesful";
     }
 
     public static void main(String[] args) {
