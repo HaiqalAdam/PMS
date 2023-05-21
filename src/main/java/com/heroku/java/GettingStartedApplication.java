@@ -33,12 +33,12 @@ public class GettingStartedApplication {
 
     @GetMapping("/successful")
     public String greetingForm(Model model) {
-        model.addAttribute("staff", new staffUser());
+        model.addAttribute("staff", new staffRole());
         return "successful";
     }
 
     @PostMapping("/successful")
-    public String greetingSubmit(@ModelAttribute staffUser staff, Model model) {
+    public String greetingSubmit(@ModelAttribute staffRole staff, Model model) {
         model.addAttribute("staff", staff);
         System.out.println("Staff data-------- : " + staff);
         return "succesful";
