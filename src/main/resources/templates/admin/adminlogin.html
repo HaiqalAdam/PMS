@@ -12,7 +12,7 @@
 <body>
     <form action="#" th:action="@{/adminmainmenu}" th:object="${staff}" method="post" id="formlogin" >
         <div class="acontainer">
-            <img src="..\icon-menu\logoPMS.png" width="10%" height="10%" alt="Avatar" class="avatar">
+            <img th:src="@{/icon/logoPMS.png}" width="10%" height="10%" alt="Avatar" class="avatar">
             
             <h2>Login</h2><br><br>
             <input type="text" id="admusername" name="usr" placeholder="  username" required th:value="${usr}"><br><br>
