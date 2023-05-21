@@ -31,17 +31,17 @@ public class GettingStartedApplication {
         return "admin/adminlogin";
     }
 
-    @GetMapping("/successful")
+    @GetMapping("/adminmainmenu")
     public String greetingForm(Model model) {
         model.addAttribute("staff", new staffRole());
-        return "admin/successful";
+        return "admin/adminmainmenu";
     }
 
-    @PostMapping("/successful")
+    @PostMapping("/adminmainmenu")
     public String greetingSubmit(@ModelAttribute staffRole staff, Model model) {
         model.addAttribute("staff", staff);
         System.out.println("Staff data-------- : " + staff);
-        return "admin/succesful";
+        return "admin/adminmainmenu";
     }
 
     @GetMapping("/database")
