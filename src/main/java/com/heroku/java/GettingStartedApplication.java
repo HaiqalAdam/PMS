@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.sql.DataSource;
@@ -34,14 +34,36 @@ public class GettingStartedApplication {
     @GetMapping("/successful")
     public String greetingForm(Model model) {
         model.addAttribute("staff", new staffRole());
-        return "successful";
+        return "admin/successful";
     }
 
     @PostMapping("/successful")
     public String greetingSubmit(@ModelAttribute staffRole staff, Model model) {
         model.addAttribute("staff", staff);
         System.out.println("Staff data-------- : " + staff);
-        return "succesful";
+        return "admin/succesful";
+    }
+
+    @GetMapping("/database")
+    String database(Map<String, Object> model) {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+            statement.executeUpdate("CREATE TABLE IF NOT EXISTS ticks (tick timestamp)");
+            statement.executeUpdate("INSERT INTO ticks VALUES (now())");
+
+            final var resultSet = statement.executeQuery("SELECT tick FROM ticks");
+            final var output = new ArrayList<>();
+            while (resultSet.next()) {
+                output.add("Read from DB: " + resultSet.getTimestamp("tick"));
+            }
+
+            model.put("records", output);
+            return "database";
+
+        } catch (Throwable t) {
+            model.put("message", t.getMessage());
+            return "error";
+        }
     }
 
     public static void main(String[] args) {
