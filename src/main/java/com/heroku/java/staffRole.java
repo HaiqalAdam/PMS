@@ -1,8 +1,6 @@
 package com.heroku.java;
 
-import java.util.*;
-
-public class staffUser {
+public class staffRole {
 
     public String usr;
     public String pwd;

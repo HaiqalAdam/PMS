@@ -10,14 +10,14 @@
 </head>
 
 <body>
-    <form action="#" th:action="@{/successful}" th:object="${staff}"method="POST" id="formlogin" >
+    <form action="#" th:action="@{/successful}" th:object="${staff}" method="post" id="formlogin" >
         <div class="acontainer">
             <img src="..\icon-menu\logoPMS.png" width="10%" height="10%" alt="Avatar" class="avatar">
             
             <h2>Login</h2><br><br>
-            <input type="text" id="admusername" name="usr" value="" placeholder="  username" required><br><br>
+            <input type="text" id="admusername" name="usr" placeholder="  username" required th:value="${usr}"><br><br>
             
-            <input type="password" id="admpwd" name="pwd" placeholder="  password" required><br>
+            <input type="password" id="admpwd" name="pwd" placeholder="  password" required required th:value="${pwd}"><br>
             <a href="#" id="fp">forgot password?</a><br><br>
 
             <input type="submit" id="admlogin" value="Login">
