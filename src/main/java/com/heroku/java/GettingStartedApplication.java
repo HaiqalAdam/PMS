@@ -4,9 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+// import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.sql.DataSource;
+
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Map;
@@ -22,8 +27,21 @@ public class GettingStartedApplication {
     }
 
     @GetMapping("/")
-    public String index() {
-        return "index";
+    public String adminlogin() {
+        return "admin/adminlogin";
+    }
+
+    @GetMapping("/adminmainmenu")
+    public String greetingForm(Model model) {
+        model.addAttribute("staff", new staffRole());
+        return "admin/adminmainmenu";
+    }
+
+    @PostMapping("/adminmainmenu")
+    public String greetingSubmit(@ModelAttribute staffRole staff, Model model) {
+        model.addAttribute("staff", staff);
+        System.out.println("Staff data-------- : " + staff);
+        return "admin/adminmainmenu";
     }
 
     @GetMapping("/database")
