@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="..\admin\admin.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
     <title>Patient</title>
 </head>
 <body>
   <!-- Topbar-->
  <div class="topnav">
   <div class="top-left"></div>
-    <img src="..\icon-menu\hamburger.png" width="4%" height="4%" alt="Avatar" class="hamburger">
-    <img src="..\icon-menu\logoPMS.png" width="4%" height="4%" alt="Avatar" class="logo">
+    <img th:src="@{/icon/hamburger.png}" width="4%" height="4%" alt="Avatar" class="hamburger">
+    <img th:src="@{/icon/logoPMS.png}" width="4%" height="4%" alt="Avatar" class="logo">
     <a class="home" href="adminmainmenu.html">PM</a>
     <a class="home1" href="adminmainmenu.html">Systems</a>
   </div>
   
-  <input type="text" id="search" name="search" value="  Search"><img src="..\icon-menu\enter.png" width="4%" height="4%" alt="Avatar" class="enter">
+  <input type="text" id="search" name="search" value="  Search"><img th:src="@{/icon/enter.png}" width="4%" height="4%" alt="Avatar" class="enter">
 
   <div class="top-right">
-    <img src="..\icon-menu\bell-ring.png" width="4%" height="4%" alt="Avatar" class="bell">
-    <img src="..\icon-menu\profile.png" width="4%" height="4%" alt="Avatar" class="profile">
-    <img src="..\icon-menu\down.png" width="4%" height="4%" alt="Avatar" class="down">
+    <img th:src="@{/icon/bell-ring.png}" width="4%" height="4%" alt="Avatar" class="bell">
+    <img th:src="@{/icon/profile.png}" width="4%" height="4%" alt="Avatar" class="profile">
+    <img th:src="@{/icon/down.png}" width="4%" height="4%" alt="Avatar" class="down">
   </div>
 </div>
  
@@ -31,21 +31,21 @@
   <p class="menu">Menu</p>
   <ul>
     <a href="adminmainmenu.html" class="dash">
-      <img src="..\icon-menu\dashboard.png" class="dashboard"><i class="fas fa-dashboard"></i>Dashboard</a>
+      <img th:src="@{/icon/dashboard.png}" class="dashboard"><i class="fas fa-dashboard"></i>Dashboard</a>
     <a href="#" class="sch">
-      <img src="..\icon-menu\schedule.png" class="schedule"></i><i class="far fa-schedule"></i>Schedule</a>
+      <img th:src="@{/icon/schedule.png}" class="schedule"></i><i class="far fa-schedule"></i>Schedule</a>
     
     <a href="#" class="line1"></a>
       <a href="#" class="ther">
-      <img src="..\icon-menu\therapist.png" width="6%" height="6%" alt="Avatar" class="therapist"><i class="fas fa-therapist"></i>Therapist</a>
+      <img th:src="@{/icon/therapist.png}" width="6%" height="6%" alt="Avatar" class="therapist"><i class="fas fa-therapist"></i>Therapist</a>
     <a href="#" class="pat">
-      <img src="..\icon-menu\patient.png" width="6%" height="6%" alt="Avatar" class="patient"></i><i class="far fa-patient"></i>Patient</a>
+      <img th:src="@{/icon/patient.png}" width="6%" height="6%" alt="Avatar" class="patient"></i><i class="far fa-patient"></i>Patient</a>
     <a href="#" class="rec">
-      <img src="..\icon-menu\record.png" width="6%" height="6%" alt="Avatar" class="record"><i class="fas fa-record"></i>Record</a>
+      <img th:src="@{/icon/record.png}" width="6%" height="6%" alt="Avatar" class="record"><i class="fas fa-record"></i>Record</a>
     
     <a href="#" class="line2"></a>
     <a href="adminlogin.html" class="log">
-      <img src="..\icon-menu\logout.png" width="6%" height="6%" alt="Avatar" class="logout"><i class="far fa-logout"></i>Log Out</a>
+      <img th:src="@{/icon/logout.png}" width="6%" height="6%" alt="Avatar" class="logout"><i class="far fa-logout"></i>Log Out</a>
   </ul>
 </div>
 
