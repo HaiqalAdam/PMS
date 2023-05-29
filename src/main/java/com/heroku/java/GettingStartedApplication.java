@@ -1,13 +1,15 @@
 package com.heroku.java;
 
+import org.apache.catalina.authenticator.SpnegoAuthenticator.AuthenticateAction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-// import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
 import javax.sql.DataSource;
@@ -31,11 +33,12 @@ public class GettingStartedApplication {
         return "admin/adminlogin";
     }
 
-    @GetMapping("/adminmainmenu")
-    public String greetingForm(Model model) {
-        model.addAttribute("staff", new staffRole());
-        return "admin/adminmainmenu";
-    }
+    // @GetMapping("/adminmainmenu")
+    // public String greetingForm(Model model, @RequestParam("usr") String usr,
+    // @RequestParam("pwd") String pwd) {
+    // User user = userRepository.findByUsername(usr);
+    // return "admin/adminmainmenu";
+    // }
 
     @PostMapping("/adminmainmenu")
     public String greetingSubmit(@ModelAttribute staffRole staff, Model model) {
