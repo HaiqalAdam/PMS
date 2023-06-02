@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <form action="#" th:action="@{/adminmainmenu}" th:object="${staff}" method="post" id="formlogin" >
+    <form th:action="@{/adminlogin}" th:object="${users}" method="post" modelAttribute="staff" id="formlogin" >
         <div class="acontainer">
             <img th:src="@{/icon/logoPMS.png}" width="10%" height="10%" alt="Avatar" class="avatar">
             
