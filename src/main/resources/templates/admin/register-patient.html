@@ -5,89 +5,98 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <title>Registration Patient</title>
+    <style>
+      body {
+  background-image: url("https://cdn.wallpapersafari.com/22/23/8wlVC4.png");
+  background-size: cover;
+  background-position: center;
+}
+      .custom-form {
+        background-color: #FFCBC0;
+        color: #333;
+      }
+    </style>
 </head>
 <body>
-  <!-- Topbar-->
-  <div class="topnav">
-    <div class="top-left"></div>
-      <img th:src="@{/icon/hamburger.png}" width="4%" height="4%" alt="Avatar" class="hamburger">
-      <img th:src="@{/icon/logoPMS.png}" width="4%" height="4%" alt="Avatar" class="logo">
-      <a class="home" href="adminmainmenu.html">PM</a>
-      <a class="home1" href="adminmainmenu.html">Systems</a>
-    </div>
-    
-    <input type="text" id="search" name="search" value="  Search"><img th:src="@{/icon/enter.png}" width="4%" height="4%" alt="Avatar" class="enter">
-  
-    <div class="top-right">
-      <img th:src="@{/icon/bell-ring.png}" width="4%" height="4%" alt="Avatar" class="bell">
-      <img th:src="@{/icon/profile.png}" width="4%" height="4%" alt="Avatar" class="profile">
-      <img th:src="@{/icon/down.png}" width="4%" height="4%" alt="Avatar" class="down">
-    </div>
-  </div>
-
-  <!-- Sidebar -->
- <div class="sidebar">
-    <p class="menu">Menu</p>
-    <ul>
-      <a href="adminmainmenu.html" class="dash">
-        <img th:src="@{/icon/dashboard.png}" class="dashboard"><i class="fas fa-dashboard"></i>Dashboard</a>
-      <a href="#" class="sch">
-        <img th:src="@{/icon/schedule.png}" class="schedule"></i><i class="far fa-schedule"></i>Schedule</a>
-      
-      <a href="#" class="line1"></a>
-        <a href="#" class="ther">
-        <img th:src="@{/icon/therapist.png}" width="6%" height="6%" alt="Avatar" class="therapist"><i class="fas fa-therapist"></i>Therapist</a>
-      <a href="#" class="pat">
-        <img th:src="@{/icon/patient.png}" width="6%" height="6%" alt="Avatar" class="patient"></i><i class="far fa-patient"></i>Patient</a>
-      <a href="#" class="rec">
-        <img th:src="@{/icon/record.png}" width="6%" height="6%" alt="Avatar" class="record"><i class="fas fa-record"></i>Record</a>
-      
-      <a href="#" class="line2"></a>
-      <a href="adminlogin.html" class="log">
-        <img th:src="@{/icon/logout.png}" width="6%" height="6%" alt="Avatar" class="logout"><i class="far fa-logout"></i>Log Out</a>
-    </ul>
-  </div>
-  
   <!-- Page Content -->
  
-<div class="registration-form">
-<h1>Registration form</h1>
+    <div class="container mt-4">
+      <div class="text-center">
+        <h2>Registration Form</h2>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-6">
+          <div class="card" style="background-color: #FFCBC0;">
+          <div class="card">
+            <div class="card-body custom-form">
+        <form>
+          <div class="form-group text-center">
+            <img src="https://cdn-icons-png.flaticon.com/512/18/18601.png" alt="Upload Icon" class="img-fluid" style="max-width: 50px;">
+            <br>
+            <label for="picture">Picture Upload</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="picture">
+              <label class="custom-file-label" for="picture">Choose File</label>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="refNo">Ref_No</label>
+              <input type="text" class="form-control" id="refNo" placeholder="Ref_No">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="date">Date</label>
+              <input type="text" class="form-control" id="date" placeholder="Date">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="name">Name</label>
+              <input type="text" class="form-control" id="name" placeholder="Name">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="status">Status</label>
+              <input type="text" class="form-control" id="status" placeholder="Status">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="sex">Sex</label>
+              <input type="text" class="form-control" id="sex" placeholder="Sex">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="dob">Date of Birth</label>
+              <input type="text" class="form-control" id="dob" placeholder="Date of Birth">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" class="form-control" id="address" placeholder="Address">
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="phone">Phone No.</label>
+              <input type="text" class="form-control" id="phone" placeholder="Phone No.">
+            </div>
+            <div class="form-group col-md-6">
+              <label for="drugType">Drug Type</label>
+              <input type="text" class="form-control" id="drugType" placeholder="Drug Type">
+            </div>
+          </div>
+          <div class="form-group text-center">
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
-<div class = "dcontainer">
-    <form action="#" id="formreg" name="registerform">
-
-        <label for="ref" id="ref1">Ref_No</label>
-        <input type="text" id="ref2" name="ref" value="" required>
-        <label for="date" id="date1">Date</label>
-        <input type="date" id="date2" name="date" value="" required><br><br>
-        
-        <label for="name" id="name1">Name</label>
-        <input type="text" id="name2" name="name" value="" required>
-        <label for="status" id="status1">Status</label>
-        <input type="text" id="status2" name="status" value="" required><br><br>
-
-        <label for="sex" id="sex1">Sex</label>
-        <input type="text" id="sex2" name="sex" value="" required>
-        <label for="dateBirth" id="datebirth1">Date Birth</label>
-        <input type="date" id="dateBirth2" name="dateBirth" value="" required><br><br>
-
-        <label for="address" id="address1">Address</label>
-        <input id="address" name="address2" value="" required>
-        <label for="numphone" id="numphone1">Phone No.</label>
-        <input type="text" id="numphone2" name="numphone" value="" required><br><br>
-
-        <label for="drug" id="drug1">Drugs Type</label>
-        <input type="text" id="drug2" name="drug" required>
-        <label for="blood" id="blood1">Blood Group</label>
-        <input type="text" id="blood2" name="blood" required><br><br>
-        
-        
-        <input type="reset" id="resbutt" value="reset">
-        <input type="submit" id="subbutt" value="submit">
-    </form>
-</div>
-
-    
-</body>
+    </div>
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  </body>
 </html>

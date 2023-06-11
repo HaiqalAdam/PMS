@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: url("https://papers.co/wallpaper/papers.co-se61-green-pastel-gradation-blur-29-wallpaper.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+
+    .therapist-card {
+      background-color: #1495CC;
+      color: #FFF;
+    }
+
+    .patient-card {
+      background-color: #FFCBC0;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div class="card text-center therapist-card">
+          <div class="card-body">
+            <h5 class="card-title">Total Therapists</h5>
+            <h3 id="totalTherapist">0</h3>
+          </div>
+        </div>
+        <div class="card text-center mt-4 patient-card">
+          <div class="card-body">
+            <h5 class="card-title">Total Patients</h5>
+            <h3 id="totalPatient">0</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <footer style="text-align: center;">
+    <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // JavaScript code to update the total therapist and total patient counts
+    document.addEventListener('DOMContentLoaded', function() {
+      // Simulating data retrieval from the backend
+      var totalTherapistCount = 10; // Replace with your actual data
+      var totalPatientCount = 50; // Replace with your actual data
+
+      // Update the total therapist count
+      document.getElementById('totalTherapist').textContent = totalTherapistCount;
+
+      // Update the total patient count
+      document.getElementById('totalPatient').textContent = totalPatientCount;
+    });
+            // JavaScript code to dynamically update the current year
+            var currentYear = new Date().getFullYear();
+        document.getElementById("currentYear").textContent = currentYear;
+
+  </script>
+</body>
+</html>

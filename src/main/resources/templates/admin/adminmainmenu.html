@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Main Menu</title>
     <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     
     <header>
       <!-- Topbar-->
@@ -54,6 +55,17 @@
 </div>
       <a href="admission-page.html" value="Patient" id="patientdashboard">Patient</a><br>
       <a href="#" value="Therapist" id="therapistdashboard">Therapist</a>
+
+      <footer style="text-align: center;">
+        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+      </footer>
+      
+      <script>
+        // JavaScript code to dynamically update the current year
+        var currentYear = new Date().getFullYear();
+        document.getElementById("currentYear").textContent = currentYear;
+      </script>
+      
 </div>
 </div>
 </body>
