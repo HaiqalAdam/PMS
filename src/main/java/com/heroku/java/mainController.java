@@ -87,6 +87,18 @@ public class mainController {
 
     }
 
+    @GetMapping("/patient")
+    public String patient() {
+        // model.addAttribute("user", model);
+        return "admin/patient";
+    }
+
+    @GetMapping("/admission")
+    public String admission() {
+        // model.addAttribute("user", model);
+        return "admin/admission";
+    }
+
     // @GetMapping("/adminmainmenu")
     // public String greetingForm(Model model, @RequestParam("usr") String usr,
     // @RequestParam("pwd") String pwd) {

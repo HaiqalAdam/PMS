@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/admin.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
     <title>Admission</title>
 
     <link
@@ -14,7 +14,6 @@
     crossorigin="anonymous">
   <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
-    <link rel="stylesheet" type="text/css" href="main.css">
 
 </head>
 <body>
@@ -46,7 +45,7 @@
 <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 92%;">
   <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
       <h5 style="margin-top: 20px;">Menu</h5>
-      <li><a href="/loginServlet"
+      <li><a th:href="@{/adminmainmenu}"
           class="nav-link text-black d-flex justify-content-start"
           aria-current="page"><span class="material-symbols-outlined"
           style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
@@ -54,7 +53,7 @@
           class="nav-link text-black d-flex justify-content-start">
           <span class="material-symbols-outlined"
           style="margin-right: 20px;"> calendar_month </span>Schedule</a></li>
-      <li class="nav-item"><a href="#"
+      <li class="nav-item"><a th:href="@{/admission}"
           class="nav-link active text-black d-flex justify-content-start">
               <span class="material-symbols-outlined"
               style="margin-right: 20px;"> group_add </span>Admission
@@ -66,7 +65,7 @@
           aria-current="page"><span class="material-symbols-outlined"
               style="margin-right: 20px;"> psychology </span> Therapist </a></li>
 
-      <li class="nav-item"><a href="#"
+      <li class="nav-item"><a th:href="@{/patient}"
           class="nav-link text-black d-flex justify-content-start"><span
           class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
       
