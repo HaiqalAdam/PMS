@@ -26,10 +26,12 @@ public class mainController {
     }
 
     @GetMapping("/")
-    public String adminlogin() {
-        // model.addAttribute("user", model);
-
-        return "admin/adminlogin";
+    public String adminlogin(HttpSession session) {
+        if(session.getAttribute("usr") != null){
+            return "admin/adminmainmenu";
+        }else{
+            return "admin/adminlogin";
+        }
     }
 
     @PostMapping("/adminlogin")
@@ -68,7 +70,7 @@ public class mainController {
     public String logout(HttpSession session) {
         session.invalidate();
         System.out.println("succesfully logout");
-        return "/";
+        return "redirect:/";
     }
 
     @GetMapping("/adminmainmenu")

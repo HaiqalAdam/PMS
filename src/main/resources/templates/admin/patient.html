@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" th:href="@{/icon/logoPMS.png}">
         <title>Patient</title>
 
         <link
@@ -30,13 +31,15 @@
             </a>
             </div>
         </div>
-    
-        <div class="d-flex justify-content-end" style="margin-right: 20px;">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="material-symbols-outlined"
-                style="margin-top: 10px;" > settings </span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#adminlogin.html">Log Out</a></li>
-                </ul>
+
+          <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
+            <button class="dropbtn"><span class="material-symbols-outlined"
+                style="margin-top: 10px;" > settings </span></button>
+            <div class="dropdown-content">
+                <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
+            </div>
+          </div>
+          
         </div>            
     </nav>
 
@@ -98,7 +101,7 @@
                     class="form-check-label" for="flexSwitchCheckDefault">all patients</label>
             </div>
         </div>
-        <table class="table table-success align-middle">
+        <table class="table table-success align-middle" style="border: solid 2px black; text-align: center;">
             <tr class="bg-info">
                 <th data-column="name" data-order="desc">Name</th>
                 <th data-column="sex" data-order="desc">Sex</th>
@@ -108,6 +111,7 @@
                 <th data-column="birth" data-order="desc">Birth</th>
                 <th data-column="phone" data-order="desc">Phone No.</th>
                 <th data-column="bloodtype" data-order="desc">Blood Type</th>
+                <th data-column="drugs" data-order="desc">Drug</th>
             </tr>
 
             <tbody id="myTable">
@@ -122,13 +126,13 @@
             <script>
                 var myArray =[
                     {'name':'Haris Azman', 'sex':'Male', 'address':'No.4 Jalan 5s, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'12/08/2022', 
-                    'status':'In progress', 'birth':'28/03/1988', 'phone':'0123321224', 'bloodtype':'O'},
+                    'status':'In progress', 'birth':'28/03/1988', 'phone':'0123321224', 'bloodtype':'O', 'drugs':'Weed'},
                     {'name':'Jalal Ajis', 'sex':'Male', 'address':'PG.23 PPR Permai, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'11/03/2022', 
-                    'status':'In progress', 'birth':'02/09/1978', 'phone':'0199324284', 'bloodtype':'A'},
+                    'status':'In progress', 'birth':'02/09/1978', 'phone':'0199324284', 'bloodtype':'A','drugs':'Weed'},
                     {'name':'Karim Suparno', 'sex':'Male', 'address':'Blok A-9-4 Apartment Kesuma, Cheras, 43200, Selangor', 'datein':'02/04/2022', 
-                    'status':'Recover', 'birth':'10/05/1998', 'phone':'0176544453', 'bloodtype':'AB'},
+                    'status':'Recover', 'birth':'10/05/1998', 'phone':'0176544453', 'bloodtype':'AB', 'drugs':'Weed'},
                     {'name':'Amin Ali', 'sex':'Male', 'address':'13-12-33c, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'19/07/2022', 
-                    'status':'In progress', 'birth':'02/01/1999', 'phone':'0189994284', 'bloodtype':'A'},
+                    'status':'In progress', 'birth':'02/01/1999', 'phone':'0189994284', 'bloodtype':'A', 'drugs':'Weed'},
                 ]
                 
 
@@ -147,6 +151,7 @@
                                             <td>${data[i].birth}</td>
                                             <td>${data[i].phone}</td>
                                             <td>${data[i].bloodtype}</td>
+                                            <td>${data[i].drugs}</td>
                                        </tr>`
 
                             table.innerHTML += row
@@ -176,7 +181,7 @@
                 integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
                 crossorigin="anonymous"></script>
             
-                <script src="script.js"></script>
+                <!-- <script src="script.js"></script> -->
     </body>
 
     </html>

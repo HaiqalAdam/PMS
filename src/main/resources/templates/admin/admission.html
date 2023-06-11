@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    <link rel="icon" th:href="@{/icon/logoPMS.png}">
     <title>Admission</title>
 
     <link
@@ -31,13 +32,13 @@
         </div>
     </div>
         
-    <div class="d-flex justify-content-end" style="margin-right: 20px;">
-        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><span class="material-symbols-outlined"
-           style="margin-top: 10px;" > settings </span></a>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#adminlogin.html">Log Out</a></li>
-                </ul>
-    </div>            
+    <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
+        <button class="dropbtn"><span class="material-symbols-outlined"
+            style="margin-top: 10px;" > settings </span></button>
+        <div class="dropdown-content">
+            <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
+        </div>
+      </div>        
 </nav>
 <!-- End Nav Bar-->
 
