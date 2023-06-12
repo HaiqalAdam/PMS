@@ -86,7 +86,7 @@ public class mainController {
             System.out.println("Session expired or invalid...");
             return "redirect:/";
         }
-
+//  return "admin/adminmainmenu";
     }
 
     @GetMapping("/patient")
@@ -95,10 +95,28 @@ public class mainController {
         return "admin/patient";
     }
 
+    @GetMapping("/therapist")
+    public String therapist() {
+        // model.addAttribute("user", model);
+        return "admin/therapist";
+    }
+
     @GetMapping("/admission")
     public String admission() {
         // model.addAttribute("user", model);
         return "admin/admission";
+    }
+
+    @GetMapping("/register-patient")
+    public String register() {
+        // model.addAttribute("user", model);
+        return "admin/register-patient";
+    }
+
+    @GetMapping("/add-account")
+    public String account() {
+        // model.addAttribute("user", model);
+        return "admin/add-account";
     }
 
     // @GetMapping("/adminmainmenu")

@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" th:href="@{/icon/logoPMS.png}">
-        <title>Patient</title>
+        <title>Therapist</title>
 
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -66,13 +66,13 @@
           </a></li>
       <hr class="hr-line">
           
-          <li><a th:href="@{/therapist}"
-              class="nav-link text-black d-flex justify-content-start"
+          <li><a href="#"
+              class="nav-link active text-black d-flex justify-content-start"
               aria-current="page"><span class="material-symbols-outlined"
                   style="margin-right: 20px;"> psychology </span> Therapist </a></li>
 
           <li class="nav-item"><a th:href="@{/patient}"
-              class="nav-link active text-black d-flex justify-content-start"><span
+              class="nav-link text-black d-flex justify-content-start"><span
               class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
           
           <li class="nav-item"><a href="#"
@@ -87,32 +87,26 @@
     <!-- Content -->
     <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-9">
     <div style="width: 80%;">
-        <h3 style="text-align: left;">Patient</h3>
+        <h3 style="text-align: left;">Therapist</h3>
         <div class="input-group mb-3 mt-4" style="height: 40px;">
             <input id="search-input" type="text" class="form-control"
-                placeholder="Enter Patient Ic" aria-label="Patient IC"
+                placeholder="Enter Therapist ID" aria-label="Patient IC"
                 aria-describedby="button-addon2">
             <button class="btn btn-outline-success me-2" type="button">Search</button>
         </div>
         <div class="alert alert-info" role="alert">Click on the row to
-            update and delete the patient details</div>
+            update and delete the therapist details</div>
         <div class="d-flex flex-row m-2">
             <div class="form-check form-switch">
                 <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked> <label
-                    class="form-check-label" for="flexSwitchCheckDefault">all patients</label>
+                    class="form-check-label" for="flexSwitchCheckDefault">all therapist</label>
             </div>
         </div>
-        <table class="table table-success align-middle" style="border: solid 2px black; text-align: center;">
+        <table class="table table-primary-emphasis align-middle" style="border: solid 2px black; text-align: center;">
             <tr class="bg-info">
                 <th data-column="name" data-order="desc">Name</th>
-                <th data-column="sex" data-order="desc">Sex</th>
-                <th data-column="address" data-order="desc">Address</th>
-                <th data-column="datein" data-order="desc">Date In</th>
-                <th data-column="status" data-order="desc">Status</th>
-                <th data-column="birth" data-order="desc">Birth</th>
-                <th data-column="phone" data-order="desc">Phone No.</th>
-                <th data-column="bloodtype" data-order="desc">Blood Type</th>
-                <th data-column="drugs" data-order="desc">Drug</th>
+                <th data-column="id" data-order="desc">ID</th>
+                <th data-column="specialist" data-order="desc">Specialist</th>
             </tr>
 
             <tbody id="myTable">
@@ -126,14 +120,12 @@
             <!--Table-->
             <script>
                 var myArray =[
-                    {'name':'Haris Azman', 'sex':'Male', 'address':'No.4 Jalan 5s, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'12/08/2022', 
-                    'status':'In progress', 'birth':'28/03/1988', 'phone':'0123321224', 'bloodtype':'O', 'drugs':'Weed'},
-                    {'name':'Jalal Ajis', 'sex':'Male', 'address':'PG.23 PPR Permai, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'11/03/2022', 
-                    'status':'In progress', 'birth':'02/09/1978', 'phone':'0199324284', 'bloodtype':'A','drugs':'Weed'},
-                    {'name':'Karim Suparno', 'sex':'Male', 'address':'Blok A-9-4 Apartment Kesuma, Cheras, 43200, Selangor', 'datein':'02/04/2022', 
-                    'status':'Recover', 'birth':'10/05/1998', 'phone':'0176544453', 'bloodtype':'AB', 'drugs':'Weed'},
-                    {'name':'Amin Ali', 'sex':'Male', 'address':'13-12-33c, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'19/07/2022', 
-                    'status':'In progress', 'birth':'02/01/1999', 'phone':'0189994284', 'bloodtype':'A', 'drugs':'Weed'},
+                    {'name':'Azri bin Ali', 'id':'T001', 'specialist':'Ustaz'},
+                    {'name':'Karim bin Majid', 'id':'T002', 'specialist':'Psychologist'},
+                    {'name':'Mazidah binti Mamat', 'id':'T003', 'specialist':'Psychologist'},
+                    {'name':'Hanan bin Jamal', 'id':'T004', 'specialist':'Ustaz'},
+                    {'name':'Kamsiah binti Yusoff', 'id':'T005', 'specialist':'Psychologist'}
+                    
                 ]
                 
 
@@ -145,14 +137,8 @@
                         for (var i = 0; i < data.length; i++){
                             var row = `<tr onclick="myFunction()">
                                             <td>${data[i].name}</td>
-                                            <td>${data[i].sex}</td>
-                                            <td>${data[i].address}</td>
-                                            <td>${data[i].datein}</td>
-                                            <td>${data[i].status}</td>
-                                            <td>${data[i].birth}</td>
-                                            <td>${data[i].phone}</td>
-                                            <td>${data[i].bloodtype}</td>
-                                            <td>${data[i].drugs}</td>
+                                            <td>${data[i].id}</td>
+                                            <td>${data[i].specialist}</td>
                                        </tr>`
 
                             table.innerHTML += row

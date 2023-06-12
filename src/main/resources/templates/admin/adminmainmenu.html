@@ -30,6 +30,7 @@
           <button class="dropbtn"><span class="material-symbols-outlined"
               style="margin-top: 10px;" > settings </span></button>
           <div class="dropdown-content">
+              <a class="dropdown-item" th:href="@{/add-account}">Add Account</a>
               <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
           </div>
         </div>        
@@ -57,7 +58,7 @@
           </a></li>
       <hr class="hr-line">
           
-          <li><a href="#"
+          <li><a th:href="@{/therapist}"
               class="nav-link text-black d-flex justify-content-start"
               aria-current="page"><span class="material-symbols-outlined"
                   style="margin-right: 20px;"> psychology </span> Therapist </a></li>
@@ -81,11 +82,95 @@
 <body>
 <!--content-->
 <div class="view">    
-  <h1>Dashboard Overview</h1>
-</div>
-      <a th:href="@{/patient}" value="Patient" id="patientdashboard">Patient</a><br>
-      <a href="#" value="Therapist" id="therapistdashboard">Therapist</a>
-</div>
+  <h3 class="d-flex justify-content-center offset-2" style="margin-top: 80px;">Dashboard Overview</h3>
+      <!-- <a th:href="@{/patient}" value="Patient" id="patientdashboard">Patient</a><br>
+      <a href="#" value="Therapist" id="therapistdashboard">Therapist</a> -->
+      <div class="card mb-3 d-flex justify-content-center col-8 offset-3" style="max-width: 100rem;">
+        <div class="row g-0">
+          <div class="col-md-6 offset-md-1">
+            <img th:src="@{icon/dashboard.jpg}" class="card-img-top" alt="...">
+          </div>
+          <div class="col-md-4 offset-md-1">
+            <div class="card-body">
+              <div class="justify-content-center" style="margin-top: 60px;">
+                <div class="row">
+                  <div class="col-md-10">
+                    <div class="card text-center therapist-card">
+                      <div class="card-body">
+                        <a th:href="@{/therapist}"><h5 class="card-title">Total Therapists</h5></a>
+                        <h3 id="totalTherapist">0</h3>
+                      </div>
+                    </div>
+                    <div class="card text-center mt-4 patient-card">
+                      <div class="card-body">
+                        <a th:href="@{/patient}"><h5 class="card-title">Total Patients</h5></a>
+                        <h3 id="totalPatient">0</h3>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer style="text-align: center;">
+          <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+        </footer>
+      </div>
+      
+
+      <!-- <div class="card mb-3 d-flex justify-content-center col-8 offset-3" style="width: 40rem;">
+        <div class="row g-0">
+          <div class="col-md-8">
+            <img th:src="@{icon/dashboard.jpg}" class="card-img-top" alt="...">
+          </div>
+            
+          <div class="col-md-6 card-body">
+          
+          <div class="justify-content-center" style="margin-top: 60px;">
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+                <div class="card text-center therapist-card">
+                  <div class="card-body">
+                    <a th:href="@{/therapist}"><h5 class="card-title">Total Therapists</h5></a>
+                    <h3 id="totalTherapist">0</h3>
+                  </div>
+                </div>
+                <div class="card text-center mt-4 patient-card">
+                  <div class="card-body">
+                    <a th:href="@{/patient}"><h5 class="card-title">Total Patients</h5></a>
+                    <h3 id="totalPatient">0</h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <footer style="text-align: center;">
+              <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+            </footer>
+          </div>
+
+        </div>
+      </div>
+      </div> -->
+    
+      <script>
+        // JavaScript code to update the total therapist and total patient counts
+        document.addEventListener('DOMContentLoaded', function() {
+          // Simulating data retrieval from the backend
+          var totalTherapistCount = 10; // Replace with your actual data
+          var totalPatientCount = 50; // Replace with your actual data
+    
+          // Update the total therapist count
+          document.getElementById('totalTherapist').textContent = totalTherapistCount;
+    
+          // Update the total patient count
+          document.getElementById('totalPatient').textContent = totalPatientCount;
+        });
+                // JavaScript code to dynamically update the current year
+                var currentYear = new Date().getFullYear();
+            document.getElementById("currentYear").textContent = currentYear;
+    
+      </script>
 </div>
       <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
