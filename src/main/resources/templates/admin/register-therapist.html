@@ -14,7 +14,7 @@
   background-position: center;
 }
       .custom-form {
-        background-color: #FFCBC0;
+        background-color: #ffffff;
         color: #333;
       }
     </style>
@@ -24,52 +24,68 @@
  
     <div class="container mt-4">
       <div class="text-center">
-        <h2>Registration Form</h2>
+        <h2>Registration Therapist</h2>
       </div>
       <div class="row justify-content-center">
         <div class="col-6">
-          <div class="card" style="background-color: #FFCBC0;">
-          <div class="card">
+          <div class="card" style="background-color: #ffffff;">
             <div class="card-body custom-form">
         <form>
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" placeholder="Name">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="namet">Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Name">
+              </div>
+            <div class="form-group col-md-6">
+              <label for="datet">Date</label>
+              <input type="date" class="form-control" id="date" placeholder="Date">
+            </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="date">Date</label>
-              <input type="date" class="form-control" id="date" placeholder="Date">
-            </div>
+                <label for="statet">State</label>
+                <input type="text" class="form-control" id="address" placeholder="State">
+              </div>
             <div class="form-group col-md-6">
-              <label for="status">Status</label>
+              <label for="statust">Status</label>
               <input type="text" class="form-control" id="status" placeholder="Status">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="sex">Sex</label>
+              <label for="sext">Sex</label>
               <input type="text" class="form-control" id="sex" placeholder="Sex">
             </div>
             <div class="form-group col-md-6">
-              <label for="dob">Date of Birth</label>
+              <label for="dobt">Date of Birth</label>
               <input type="text" class="form-control" id="dob" placeholder="Date of Birth">
             </div>
           </div>
           <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="phone">Phone No.</label>
-              <input type="text" class="form-control" id="phone" placeholder="Phone No.">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="drugType">Drug Type</label>
-              <input type="text" class="form-control" id="drugType" placeholder="Drug Type">
-            </div>
+          <div class="form-group col-md-6">
+            <label for="emailt">Email</label>
+            <input type="text" class="form-control" id="dob" placeholder="Email">
           </div>
-          <div class="form-group">
-            <label for="address">Address</label>
+          <div class="form-group col-md-6">
+            <label for="phonet">Phone No.</label>
+            <input type="text" class="form-control" id="dob" placeholder="Phone">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="qualificationt">Qualification</label>
+            <input type="text" class="form-control" id="dob" placeholder="Qualification">
+          </div>
+          <div class="form-group col-md-6">
+            <label for="specialtyt">Specialty</label>
+            <input type="text" class="form-control" id="dob" placeholder="Specialty">
+          </div>
+        </div>
+            <div class="form-group">
+            <label for="addresst">Address</label>
             <input type="text" class="form-control" id="address" placeholder="Address">
           </div>
+        </div>
           <div class="form-group text-center">
             <button type="reset" class="btn btn-secondary">Reset</button>
             <button type="submit" class="btn btn-primary">Submit</button>
@@ -79,7 +95,6 @@
     </div>
   </div>
 </div>
-    </div>
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Patient Details</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    .container {
+      margin-top: 50px;
+    }
+    .btn-delete {
+      background-color: red;
+      color: white;
+    }
+    .btn-update {
+      background-color: green;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Patient Details</h2>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Sex</th>
+          <th>Date of Birth</th>
+          <th>Phone No.</th>
+          <th>Drug Type</th>
+          <th>Address</th>
+          <th>Therapist Involved</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>John Doe</td>
+          <td>2023-06-13</td>
+          <td>Active</td>
+          <td>Male</td>
+          <td>1990-05-25</td>
+          <td>123-456-7890</td>
+          <td>Prescription</td>
+          <td>123 Main St, City</td>
+          <td>Dr. Smith</td>
+          <td>
+            <button type="button" class="btn btn-delete">Delete</button>
+            <button type="button" class="btn btn-update">Update</button>
+          </td>
+        </tr>
+        <!-- Add more rows as needed -->
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+</html>
