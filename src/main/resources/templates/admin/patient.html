@@ -130,13 +130,13 @@
             <script>
                 var myArray =[
                     {'name':'Haris Azman', 'sex':'Male', 'address':'No.4 Jalan 5s, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'12/08/2022', 
-                    'status':'In progress', 'birth':'28/03/1988', 'phone':'0123321224', 'bloodtype':'O', 'drugs':'Weed', 'action':'<a th:href="@{/update-patient}" type="button" class="btn btn-primary">edit</a>'},
+                    'status':'In progress', 'birth':'28/03/1988', 'phone':'0123321224', 'bloodtype':'O', 'drugs':'Weed'},
                     {'name':'Jalal Ajis', 'sex':'Male', 'address':'PG.23 PPR Permai, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'11/03/2022', 
-                    'status':'In progress', 'birth':'02/09/1978', 'phone':'0199324284', 'bloodtype':'A','drugs':'Weed' , 'action':'<button type="button" class="btn btn-primary">edit</button>'},
+                    'status':'In progress', 'birth':'02/09/1978', 'phone':'0199324284', 'bloodtype':'A','drugs':'Weed'},
                     {'name':'Karim Suparno', 'sex':'Male', 'address':'Blok A-9-4 Apartment Kesuma, Cheras, 43200, Selangor', 'datein':'02/04/2022', 
-                    'status':'Recover', 'birth':'10/05/1998', 'phone':'0176544453', 'bloodtype':'AB', 'drugs':'Weed', 'action':'<button type="button" class="btn btn-primary">edit</button>'},
+                    'status':'Recover', 'birth':'10/05/1998', 'phone':'0176544453', 'bloodtype':'AB', 'drugs':'Weed'},
                     {'name':'Amin Ali', 'sex':'Male', 'address':'13-12-33c, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'19/07/2022', 
-                    'status':'In progress', 'birth':'02/01/1999', 'phone':'0189994284', 'bloodtype':'A', 'drugs':'Weed', 'action':'<button type="button" class="btn btn-primary">edit</button>'},
+                    'status':'In progress', 'birth':'02/01/1999', 'phone':'0189994284', 'bloodtype':'A', 'drugs':'Weed'}
                 ]
                 
 
@@ -156,7 +156,7 @@
                                             <td>${data[i].phone}</td>
                                             <td>${data[i].bloodtype}</td>
                                             <td>${data[i].drugs}</td>
-                                            <td>${data[i].action}</td>
+                                            <td><a href="/update-patient"><button type="button" class="btn btn-primary">update</button></a> <a href="#"><button type="button" class="btn btn-danger">delete</button></a></td>
                                        </tr>`
 
                             table.innerHTML += row

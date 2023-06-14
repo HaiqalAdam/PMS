@@ -107,6 +107,7 @@
                 <th data-column="name" data-order="desc">Name</th>
                 <th data-column="id" data-order="desc">ID</th>
                 <th data-column="specialist" data-order="desc">Specialist</th>
+                <th data-column="action" data-order="desc">Action</th>
             </tr>
 
             <tbody id="myTable">
@@ -142,6 +143,7 @@
                                             <td>${data[i].name}</td>
                                             <td>${data[i].id}</td>
                                             <td>${data[i].specialist}</td>
+                                            <td><a href="/update-patient"><button type="button" class="btn btn-primary">update</button></a> <a href="#"><button type="button" class="btn btn-danger">delete</button></a></td>
                                        </tr>`
 
                             table.innerHTML += row
