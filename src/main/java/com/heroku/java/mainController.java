@@ -75,18 +75,18 @@ public class mainController {
 
     @GetMapping("/adminmainmenu")
     public String showDashboard(HttpSession session) {
-        // Check if user is logged in
-        if (session.getAttribute("usr") != null) {
-            if (session.getAttribute("role").equals("admin")) {
-                return "admin/adminmainmenu";
-            } else {
-                return "therapist/adminmainmenu";
-            }
-        } else {
-            System.out.println("Session expired or invalid...");
-            return "redirect:/";
-        }
-//  return "admin/adminmainmenu";
+    //     // Check if user is logged in
+    //     if (session.getAttribute("usr") != null) {
+    //         if (session.getAttribute("role").equals("admin")) {
+    //             return "admin/adminmainmenu";
+    //         } else {
+    //             return "therapist/adminmainmenu";
+    //         }
+    //     } else {
+    //         System.out.println("Session expired or invalid...");
+    //         return "redirect:/";
+    //     }
+  return "admin/adminmainmenu";
     }
 
     @GetMapping("/patient")
@@ -101,6 +101,18 @@ public class mainController {
         return "admin/therapist";
     }
 
+    @GetMapping("/register-therapist")
+    public String registerT() {
+        // model.addAttribute("user", model);
+        return "admin/register-therapist";
+    }
+
+     @GetMapping("/update-therapist")
+    public String updateT() {
+        // model.addAttribute("user", model);
+        return "admin/update-therapist";
+    }
+
     @GetMapping("/admission")
     public String admission() {
         // model.addAttribute("user", model);
@@ -108,9 +120,15 @@ public class mainController {
     }
 
     @GetMapping("/register-patient")
-    public String register() {
+    public String registerP() {
         // model.addAttribute("user", model);
         return "admin/register-patient";
+    }
+
+     @GetMapping("/update-patient")
+    public String updateP() {
+        // model.addAttribute("user", model);
+        return "admin/update-patient";
     }
 
     @GetMapping("/add-account")
