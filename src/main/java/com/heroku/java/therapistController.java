@@ -1,4 +1,4 @@
-package com.heroku;
+package com.heroku.java;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -17,15 +17,29 @@ import java.util.Map;
 
 @SpringBootApplication
 @Controller
-
 public class therapistController {
-    private DataSource dataSource;
+    private final DataSource dataSource;
 
     @Autowired
     public therapistController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
+@GetMapping("/therapist-progression")
+    public String therapist_progression() {
+        // model.addAttribute("user", model);
+        return "therapist/therapist-progression";
+    }
 
+@GetMapping("/therapist-patient")
+    public String therapist_patient() {
+        // model.addAttribute("user", model);
+        return "therapist/therapist-patient";
+    }
     
+@GetMapping("/therapist-update-patient")
+    public String therapist_update_patient() {
+        // model.addAttribute("user", model);
+        return "therapist/therapist-update-patient";
+    }
 }

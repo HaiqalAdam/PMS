@@ -54,4 +54,5 @@ public class staffController {
         // model.addAttribute("user", model);
         return "staff/staff-update-patient";
     }
+
 }
