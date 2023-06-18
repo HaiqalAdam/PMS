@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" th:href="@{/icon/logoPMS.png}">
+        <title>Patient</title>
+
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM"
+            crossorigin="anonymous">
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+            <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+    </head>
+
+    <body>
+        <!-- Start Nav Bar -->
+      <nav class="navbar fixed-top" style="border-bottom: 1px solid #cecece !important;">
+        <div class=" d-flex flex-row">
+            <a class="hamburger navbar-brand" href="#"> <img
+                th:src="@{/icon/hamburger.png}" alt="Logo" width="25"
+                height="30"></a>
+            <div class="container d-flex flex-row justify-content-start">
+            <a class="navbar-brand" href="#"> <img
+                th:src="@{/icon/logoPMS.png}" alt="Logo" width="35"
+                height="35" class="d-inline-block align-text-top"> PMSystems
+            </a>
+            </div>
+        </div>
+
+          <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
+            <button class="dropbtn"><span class="material-symbols-outlined"
+                style="margin-top: 10px;" > settings </span></button>
+            <div class="dropdown-content">
+                <a class="dropdown-item" th:href="@{/add-account}">Add Account</a>
+                <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
+            </div>
+          </div>
+          
+        </div>            
+    </nav>
+
+    <!-- End Nav Bar-->
+
+    <!-- Start Side Bar-->
+    <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 94%;">
+      <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
+          <h5 style="margin-top: 20px;">Menu</h5>
+          <li><a th:href="@{/adminmainmenu}"
+              class="nav-link text-black d-flex justify-content-start"
+              aria-current="page"><span class="material-symbols-outlined"
+                  style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
+          <li class="nav-item"><a href="#"
+              class="nav-link text-black d-flex justify-content-start">
+                  <span class="material-symbols-outlined"
+                  style="margin-right: 20px;"> calendar_month </span>Schedule
+          </a></li>
+          <li class="nav-item"><a th:href="@{/admission}"
+              class="nav-link text-black d-flex justify-content-start">
+                  <span class="material-symbols-outlined"
+                  style="margin-right: 20px;"> group_add </span>Admission
+          </a></li>
+      <hr class="hr-line">
+          
+          <li><a th:href="@{/therapist}"
+              class="nav-link text-black d-flex justify-content-start"
+              aria-current="page"><span class="material-symbols-outlined"
+                  style="margin-right: 20px;"> psychology </span> Therapist </a></li>
+
+          <li class="nav-item"><a th:href="@{/patient}"
+              class="nav-link active text-black d-flex justify-content-start"><span
+              class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
+          
+          <li class="nav-item"><a href="#"
+              class="nav-link text-black d-flex justify-content-start">
+                  <span class="material-symbols-outlined"
+                  style="margin-right: 20px;"> article </span>Record
+          </a></li>
+      </ul>
+      <hr style="margin-bottom: 0px !important;">
+  </div>
+  <!-- End Side Bar-->
+    <!-- Content -->
+    <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-9">
+    <div style="width: 80%;">
+        <h3 style="text-align: left;">Patient</h3>
+        <div class="input-group mb-3 mt-4" style="height: 40px;">
+            <input id="search-input" type="text" class="form-control"
+                placeholder="Enter Patient Ic" aria-label="Patient IC"
+                aria-describedby="button-addon2">
+            <button class="btn btn-outline-success me-2" type="button">Search</button>
+        </div>
+        <div class="alert alert-info" role="alert">Click on the row to
+            update and delete the patient details</div>
+        <div class="d-flex flex-row m-2">
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked> <label
+                    class="form-check-label" for="flexSwitchCheckDefault">all patients</label>
+            </div>
+        </div>
+        <table class="table table-success align-middle" style="border: solid 2px black; text-align: center;">
+            <tr class="bg-info">
+                <th id="name" data-column="name" data-order="desc">Name</th>
+                <th id="sex" data-column="sex" data-order="desc">Sex</th>
+                <th id="address" data-column="address" data-order="desc">Address</th>
+                <th id="datein" data-column="datein" data-order="desc">Date In</th>
+                <th id="status" data-column="status" data-order="desc">Status</th>
+                <th id="birth" data-column="birth" data-order="desc">Birth</th>
+                <th id="phone" data-column="phone" data-order="desc">Phone No.</th>
+                <th id="bloodtype" data-column="bloodtype" data-order="desc">Blood Type</th>
+                <th id="drugs" data-column="drugs" data-order="desc">Drug</th>
+                <th id="action" data-column="action" data-order="desc">Action</th>
+            </tr>
+
+            <tbody id="myTable">
+
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 text-center">
+        <a th:href="@{/register-patient}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
+    </div>
+    </div>
+    <!-- End Content-->
+            <!--Table-->
+            <script>
+                var myArray =[
+                    {'name':'Haris Azman', 'sex':'Male', 'address':'No.4 Jalan 5s, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'12/08/2022', 
+                    'status':'In progress', 'birth':'28/03/1988', 'phone':'0123321224', 'bloodtype':'O', 'drugs':'Weed'},
+                    {'name':'Jalal Ajis', 'sex':'Male', 'address':'PG.23 PPR Permai, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'11/03/2022', 
+                    'status':'In progress', 'birth':'02/09/1978', 'phone':'0199324284', 'bloodtype':'A','drugs':'Weed'},
+                    {'name':'Karim Suparno', 'sex':'Male', 'address':'Blok A-9-4 Apartment Kesuma, Cheras, 43200, Selangor', 'datein':'02/04/2022', 
+                    'status':'Recover', 'birth':'10/05/1998', 'phone':'0176544453', 'bloodtype':'AB', 'drugs':'Weed'},
+                    {'name':'Amin Ali', 'sex':'Male', 'address':'13-12-33c, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'19/07/2022', 
+                    'status':'In progress', 'birth':'02/01/1999', 'phone':'0189994284', 'bloodtype':'A', 'drugs':'Weed'}
+                ]
+                
+
+                buildTable(myArray)
+
+                function buildTable(data){
+                     var table = document.getElementById('myTable')
+
+                        for (var i = 0; i < data.length; i++){
+                            var row = `<tr onclick="myFunction()">
+                                            <td>${data[i].name}</td>
+                                            <td>${data[i].sex}</td>
+                                            <td>${data[i].address}</td>
+                                            <td>${data[i].datein}</td>
+                                            <td>${data[i].status}</td>
+                                            <td>${data[i].birth}</td>
+                                            <td>${data[i].phone}</td>
+                                            <td>${data[i].bloodtype}</td>
+                                            <td>${data[i].drugs}</td>
+                                            <td><a href="/update-patient"><button type="button" class="btn btn-primary">update</button></a> <a href="#"><button type="button" class="btn btn-danger">delete</button></a></td>
+                                       </tr>`
+
+                            table.innerHTML += row
+
+                        }
+
+                }
+
+            </script>
+            <script>
+            //     function myFunction(x) {
+			//      alert("Row index is: " + x);
+		    // }
+            </script>
+
+
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+                integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz"
+                crossorigin="anonymous"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+                integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+                crossorigin="anonymous"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
+                integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
+                crossorigin="anonymous"></script>
+            
+                <!-- <script src="script.js"></script> -->
+    </body>
+
+    </html>

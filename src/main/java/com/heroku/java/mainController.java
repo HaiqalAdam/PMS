@@ -29,17 +29,10 @@ public class mainController {
     @GetMapping("/")
     public String adminlogin(HttpSession session) {
         if (session.getAttribute("usr") != null) {
-            return "redirect:/adminmainmenu";
+            return "admin/adminmainmenu";
         } else {
             return "admin/adminlogin";
         }
-    }
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        System.out.println("succesfully logout");
-        return "redirect:/";
     }
 
     @PostMapping("/adminlogin")
@@ -74,20 +67,75 @@ public class mainController {
 
     }
 
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        System.out.println("succesfully logout");
+        return "redirect:/";
+    }
+
     @GetMapping("/adminmainmenu")
     public String showDashboard(HttpSession session) {
-        // Check if user is logged in
-        if (session.getAttribute("usr") != null) {
-            if (session.getAttribute("role").equals("admin")) {
-                return "admin/adminmainmenu";
-            } else {
-                return "therapist/adminmainmenu";
-            }
-        } else {
-            System.out.println("Session expired or invalid...");
-            return "redirect:/";
-        }
+        // // Check if user is logged in
+        // if (session.getAttribute("usr") != null) {
+        // if (session.getAttribute("role").equals("admin")) {
+        // return "admin/adminmainmenu";
+        // } else {
+        // return "therapist/adminmainmenu";
+        // }
+        // } else {
+        // System.out.println("Session expired or invalid...");
+        // return "redirect:/";
+        // }
+        return "admin/adminmainmenu";
+    }
 
+    @GetMapping("/patient")
+    public String patient() {
+        // model.addAttribute("user", model);
+        return "admin/patient";
+    }
+
+    @GetMapping("/therapist")
+    public String therapist() {
+        // model.addAttribute("user", model);
+        return "admin/therapist";
+    }
+
+    @GetMapping("/register-therapist")
+    public String registerT() {
+        // model.addAttribute("user", model);
+        return "admin/register-therapist";
+    }
+
+    @GetMapping("/update-therapist")
+    public String updateT() {
+        // model.addAttribute("user", model);
+        return "admin/update-therapist";
+    }
+
+    @GetMapping("/admission")
+    public String admission() {
+        // model.addAttribute("user", model);
+        return "admin/admission";
+    }
+
+    @GetMapping("/register-patient")
+    public String registerP() {
+        // model.addAttribute("user", model);
+        return "admin/register-patient";
+    }
+
+    @GetMapping("/update-patient")
+    public String updateP() {
+        // model.addAttribute("user", model);
+        return "admin/update-patient";
+    }
+
+    @GetMapping("/add-account")
+    public String account() {
+        // model.addAttribute("user", model);
+        return "admin/add-account";
     }
 
     @GetMapping("/database")
