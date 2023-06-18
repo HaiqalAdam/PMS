@@ -3,6 +3,7 @@ package com.heroku.java;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,10 +27,19 @@ public class mainController {
     }
 
     @GetMapping("/")
-    public String adminlogin() {
-        // model.addAttribute("user", model);
+    public String adminlogin(HttpSession session) {
+        if (session.getAttribute("usr") != null) {
+            return "redirect:/adminmainmenu";
+        } else {
+            return "admin/adminlogin";
+        }
+    }
 
-        return "admin/adminlogin";
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        System.out.println("succesfully logout");
+        return "redirect:/";
     }
 
     @PostMapping("/adminlogin")
@@ -64,13 +74,6 @@ public class mainController {
 
     }
 
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        System.out.println("succesfully logout");
-        return "/";
-    }
-
     @GetMapping("/adminmainmenu")
     public String showDashboard(HttpSession session) {
         // Check if user is logged in
@@ -86,20 +89,6 @@ public class mainController {
         }
 
     }
-
-    // @GetMapping("/adminmainmenu")
-    // public String greetingForm(Model model, @RequestParam("usr") String usr,
-    // @RequestParam("pwd") String pwd) {
-    // User user = userRepository.findByUsername(usr);
-    // return "admin/adminmainmenu";
-    // }
-
-    // @PostMapping("/adminmainmenu")
-    // public String greetingSubmit(@ModelAttribute user staff, Model model) {
-    // model.addAttribute("staff", staff);
-    // System.out.println("Staff data-------- : " + staff);
-    // return "admin/adminmainmenu";
-    // }
 
     @GetMapping("/database")
     String database(Map<String, Object> model) {
