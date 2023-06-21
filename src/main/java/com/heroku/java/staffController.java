@@ -12,6 +12,8 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -25,31 +27,75 @@ public class staffController {
         this.dataSource = dataSource;
     }
 
- @GetMapping("/staffmainmenu")
+    @GetMapping("/staffmainmenu")
     public String staffmainmenu() {
         // model.addAttribute("user", model);
         return "staff/staffmainmenu";
     }
 
-@GetMapping("/staff-admission")
+    @GetMapping("/staff-admission")
     public String staffadmission() {
         // model.addAttribute("user", model);
         return "staff/staff-admission";
     }
 
-@GetMapping("/staff-patient")
+    @GetMapping("/staff-patient")
     public String staffpatient() {
         // model.addAttribute("user", model);
         return "staff/staff-patient";
     }
 
-@GetMapping("/staff-register-patient")
+    @GetMapping("/staff-register-patient")
     public String staff_register_patient() {
         // model.addAttribute("user", model);
         return "staff/staff-register-patient";
     }
 
-@GetMapping("/staff-update-patient")
+    @PostMapping("/staff-register-patient")
+    public String registerPatient(HttpSession session, @ModelAttribute("patient") patient reg_patient) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?,?)";
+            final var statement = connection.prepareStatement(sql);
+
+            String patientname = reg_patient.getPName();
+            String patientsex = reg_patient.getPSex();
+            String patientaddress = reg_patient.getPAddress();
+            Date patientdate = reg_patient.getPDate();
+            String patientstatus = reg_patient.getPStatus();
+            Date patientdob = reg_patient.getPDOB();
+            String patientphoneno = reg_patient.getPPhoneNo();
+            String patientbloodtype = reg_patient.getPBloodType();
+
+            statement.setString(1, patientname);
+            statement.setString(2, patientsex);
+            statement.setString(3, patientaddress);
+            statement.setDate(4, patientdate);
+            statement.setString(5, patientstatus);
+            statement.setDate(6, patientdob);
+            statement.setString(7, patientphoneno);
+            statement.setString(8, patientbloodtype);
+
+            connection.close();
+
+            return "redirect:/staff-register-patient";
+
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "staff/staffmainmenu";
+
+    }
+
+    @GetMapping("/staff-update-patient")
     public String staff_update_patient() {
         // model.addAttribute("user", model);
         return "staff/staff-update-patient";
