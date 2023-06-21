@@ -13,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -36,7 +37,8 @@ public class mainController {
     }
 
     @PostMapping("/adminlogin")
-    public String dashboard(HttpSession session, @ModelAttribute("staff") users staff, Model model) {
+    public String dashboard(HttpSession session, @ModelAttribute("staff") users staff, users admin, users therapist,
+            Model model) {
         try (Connection connection = dataSource.getConnection()) {
             final var statement = connection.createStatement();
             final var resultSet = statement
@@ -54,7 +56,19 @@ public class mainController {
                     session.setAttribute("role", role);
                     returnPage = "redirect:/adminmainmenu";
                     break;
-                } else {
+                } else if (username.equals(admin.getUsr()) && password.equals(admin.getPwd())) {
+                    session.setAttribute("usr", admin.getUsr());
+                    session.setAttribute("role", role);
+                    returnPage = "redirect:/adminmainmenu";
+                    break;
+                } else if (username.equals(therapist.getUsr()) && password.equals(therapist.getPwd())) {
+                    session.setAttribute("usr", therapist.getUsr());
+                    session.setAttribute("role", role);
+                    returnPage = "redirect:/dashboard-therapist";
+                    break;
+                }
+
+                else {
                     returnPage = "admin/adminlogin";
                 }
             }
@@ -63,6 +77,49 @@ public class mainController {
         } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
             return "admin/adminlogin";
+        }
+
+    }
+
+    /**
+     * @param session
+     * @param staff
+     * @param model
+     * @return
+     */
+    @PostMapping("/add-account")
+    public String Addaccount(HttpSession session, @ModelAttribute("add-account") users staff, Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "INSERT INTO staff(name, password, role) VALUES (?,?,?)";
+            final var statement = connection.prepareStatement(sql);
+
+            statement.setString(1, staff.getUsr());
+            statement.setString(2, staff.getPwd());
+            statement.setString(3, staff.getRole());
+            statement.executeUpdate();
+
+            // debug
+            // System.out.println("name" + staff.getUsr());
+            // System.out.println("password" + staff.getPwd());
+            // System.out.println("role" + staff.getRole());
+            connection.close();
+
+            return "redirect:/view-account";
+
+        }
+
+        catch (SQLException sqe) {
+            System.out.println("Error Code = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+
+            return "redirect:/";
+        } catch (Exception e) {
+            System.out.println("E message : " + e.getMessage());
+            return "redirect:/";
         }
 
     }
@@ -136,6 +193,12 @@ public class mainController {
     public String account() {
         // model.addAttribute("user", model);
         return "admin/add-account";
+    }
+
+    @GetMapping("/view-account")
+    public String viewaccount() {
+        // model.addAttribute("user", model);
+        return "admin/view-account";
     }
 
     @GetMapping("/database")
