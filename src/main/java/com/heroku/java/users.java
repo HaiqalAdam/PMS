@@ -2,9 +2,9 @@ package com.heroku.java;
 
 public class users {
 
-    public String usr;
-    public String pwd;
-    public String role;
+    private String usr;
+    private String pwd;
+    private String role;
 
     public String getUsr() {
         return this.usr;
@@ -29,5 +29,7 @@ public class users {
     public void setRole(String role) {
         this.role = role;
     }
+
+    
 
 }

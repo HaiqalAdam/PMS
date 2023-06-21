@@ -3,6 +3,7 @@ package com.heroku.java;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -35,7 +37,8 @@ public class mainController {
     }
 
     @PostMapping("/adminlogin")
-    public String dashboard(HttpSession session, @ModelAttribute("staff") users staff, Model model) {
+    public String dashboard(HttpSession session, @ModelAttribute("staff") users staff, users admin, users therapist,
+            Model model) {
         try (Connection connection = dataSource.getConnection()) {
             final var statement = connection.createStatement();
             final var resultSet = statement
@@ -53,7 +56,19 @@ public class mainController {
                     session.setAttribute("role", role);
                     returnPage = "redirect:/adminmainmenu";
                     break;
-                } else {
+                } else if (username.equals(admin.getUsr()) && password.equals(admin.getPwd())) {
+                    session.setAttribute("usr", admin.getUsr());
+                    session.setAttribute("role", role);
+                    returnPage = "redirect:/adminmainmenu";
+                    break;
+                } else if (username.equals(therapist.getUsr()) && password.equals(therapist.getPwd())) {
+                    session.setAttribute("usr", therapist.getUsr());
+                    session.setAttribute("role", role);
+                    returnPage = "redirect:/dashboard-therapist";
+                    break;
+                }
+
+                else {
                     returnPage = "admin/adminlogin";
                 }
             }
@@ -62,6 +77,58 @@ public class mainController {
         } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
             return "admin/adminlogin";
+        }
+
+    }
+
+<<<<<<< HEAD
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        System.out.println("succesfully logout");
+        return "redirect:/";
+    }
+=======
+    /**
+     * @param session
+     * @param staff
+     * @param model
+     * @return
+     */
+    @PostMapping("/add-account")
+    public String Addaccount(HttpSession session, @ModelAttribute("add-account") users staff) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "INSERT INTO staff(name, password, role) VALUES (?,?,?)";
+            final var statement = connection.prepareStatement(sql);
+>>>>>>> d04255265dccbdd5ff018288f14cb8d71f8a2f88
+
+            statement.setString(1, staff.getUsr());
+            statement.setString(2, staff.getPwd());
+            statement.setString(3, staff.getRole());
+            statement.executeUpdate();
+
+            // debug
+            // System.out.println("name" + staff.getUsr());
+            // System.out.println("password" + staff.getPwd());
+            // System.out.println("role" + staff.getRole());
+            connection.close();
+
+            return "redirect:/view-account";
+
+        }
+
+        catch (SQLException sqe) {
+            System.out.println("Error Code = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+
+            return "redirect:/";
+        } catch (Exception e) {
+            System.out.println("E message : " + e.getMessage());
+            return "redirect:/";
         }
 
     }
@@ -75,33 +142,73 @@ public class mainController {
 
     @GetMapping("/adminmainmenu")
     public String showDashboard(HttpSession session) {
-        // Check if user is logged in
-        if (session.getAttribute("usr") != null) {
-            if (session.getAttribute("role").equals("admin")) {
-                return "admin/adminmainmenu";
-            } else {
-                return "therapist/adminmainmenu";
-            }
-        } else {
-            System.out.println("Session expired or invalid...");
-            return "redirect:/";
-        }
-
+        // // Check if user is logged in
+        // if (session.getAttribute("usr") != null) {
+        // if (session.getAttribute("role").equals("admin")) {
+        // return "admin/adminmainmenu";
+        // } else {
+        // return "therapist/adminmainmenu";
+        // }
+        // } else {
+        // System.out.println("Session expired or invalid...");
+        // return "redirect:/";
+        // }
+        return "admin/adminmainmenu";
     }
 
-    // @GetMapping("/adminmainmenu")
-    // public String greetingForm(Model model, @RequestParam("usr") String usr,
-    // @RequestParam("pwd") String pwd) {
-    // User user = userRepository.findByUsername(usr);
-    // return "admin/adminmainmenu";
-    // }
+    @GetMapping("/patient")
+    public String patient() {
+        // model.addAttribute("user", model);
+        return "admin/patient";
+    }
 
-    // @PostMapping("/adminmainmenu")
-    // public String greetingSubmit(@ModelAttribute user staff, Model model) {
-    // model.addAttribute("staff", staff);
-    // System.out.println("Staff data-------- : " + staff);
-    // return "admin/adminmainmenu";
-    // }
+    @GetMapping("/therapist")
+    public String therapist() {
+        // model.addAttribute("user", model);
+        return "admin/therapist";
+    }
+
+    @GetMapping("/register-therapist")
+    public String registerT() {
+        // model.addAttribute("user", model);
+        return "admin/register-therapist";
+    }
+
+    @GetMapping("/update-therapist")
+    public String updateT() {
+        // model.addAttribute("user", model);
+        return "admin/update-therapist";
+    }
+
+    @GetMapping("/admission")
+    public String admission() {
+        // model.addAttribute("user", model);
+        return "admin/admission";
+    }
+
+    @GetMapping("/register-patient")
+    public String registerP() {
+        // model.addAttribute("user", model);
+        return "admin/register-patient";
+    }
+
+    @GetMapping("/update-patient")
+    public String updateP() {
+        // model.addAttribute("user", model);
+        return "admin/update-patient";
+    }
+
+    @GetMapping("/add-account")
+    public String account() {
+        // model.addAttribute("user", model);
+        return "admin/add-account";
+    }
+
+    @GetMapping("/view-account")
+    public String viewaccount() {
+        // model.addAttribute("user", model);
+        return "admin/view-account";
+    }
 
     @GetMapping("/database")
     String database(Map<String, Object> model) {

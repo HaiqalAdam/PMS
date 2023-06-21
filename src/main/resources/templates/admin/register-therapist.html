@@ -10,7 +10,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <link rel="icon" th:href="@{/icon/logoPMS.png}">
-    <title>Registration Patient</title>
+    <title>Registration Therapist</title>
 
 </head>
 <body>
@@ -63,12 +63,12 @@
       <hr class="hr-line">
           
           <li><a th:href="@{/therapist}"
-              class="nav-link text-black d-flex justify-content-start"
+              class="nav-link active text-black d-flex justify-content-start"
               aria-current="page"><span class="material-symbols-outlined"
                   style="margin-right: 20px;"> psychology </span> Therapist </a></li>
 
           <li class="nav-item"><a th:href="@{/patient}"
-              class="nav-link active text-black d-flex justify-content-start"><span
+              class="nav-link text-black d-flex justify-content-start"><span
               class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
           
           <li class="nav-item"><a href="#"
@@ -79,7 +79,7 @@
       </ul>
       <hr style="margin-bottom: 0px !important;">
   </div>
-  <!-- End Side Bar-->
+  <!-- End Side Bar -->
   <!-- Page Content -->
  
     <div class="container-fluid">
@@ -90,52 +90,66 @@
         <div class="col-6">
           <div class="card" style="border: solid 1px black;">
             <div class="card-body custom-form" style="background-color: #ffffff;">
-        <form>
-          <div class="form-row mt-4">
-            <div class="form-group col-md-12">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Name">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="name">Date In</label>
-              <input type="date" class="form-control" id="datein" placeholder="Date">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="status">Status</label>
-              <input type="text" class="form-control" id="status" placeholder="Status">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="sex">Sex</label>
-              <input type="text" class="form-control" id="sex" placeholder="Sex">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="dob">Date of Birth</label>
-              <input type="date" class="form-control" id="dob" placeholder="Date of Birth">
-            </div>
-          </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="phone">Phone No.</label>
-              <input type="text" class="form-control" id="phone" placeholder="Phone No.">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="drugType">Drug Type</label>
-              <input type="text" class="form-control" id="drugType" placeholder="Drug Type">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" placeholder="Address">
-          </div>
-          <div class="form-group text-center">
-            <button type="reset" class="btn btn-secondary">Reset</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
+              <form>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Name">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="date">Date</label>
+                    <input type="date" class="form-control" id="date" placeholder="Date">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="state">State</label>
+                    <input type="text" class="form-control" id="state" placeholder="State">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="status">Status</label>
+                    <input type="text" class="form-control" id="status" placeholder="Status">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="sex">Sex</label>
+                    <input type="text" class="form-control" id="sex" placeholder="Sex">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="dob">Date of Birth</label>
+                    <input type="text" class="form-control" id="dob" placeholder="Date of Birth">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="email">Email</label>
+                    <input type="text" class="form-control" id="email" placeholder="Email">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="phone">Phone No.</label>
+                    <input type="text" class="form-control" id="phone" placeholder="Phone No.">
+                  </div>
+                </div>
+                <div class="form-row">
+                  <div class="form-group col-md-6">
+                    <label for="qualification">Qualification</label>
+                    <input type="text" class="form-control" id="qualification" placeholder="Qualification">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="specialty">Specialty</label>
+                    <input type="text" class="form-control" id="specialty" placeholder="Specialty">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" id="address" placeholder="Address">
+                </div>
+                <div class="form-group text-center">
+                  <button type="reset" class="btn btn-secondary">Reset</button>
+                  <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+              </form>
       </div>
     </div>
   </div>
