@@ -75,7 +75,7 @@ public class staffController {
             statement.setDate(6, patientdob);
             statement.setString(7, patientphoneno);
             statement.setString(8, patientbloodtype);
-
+            statement.executeUpdate();
             connection.close();
 
             return "redirect:/staff-register-patient";

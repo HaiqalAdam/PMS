@@ -88,7 +88,7 @@ public class mainController {
      * @return
      */
     @PostMapping("/add-account")
-    public String Addaccount(HttpSession session, @ModelAttribute("add-account") users staff, Model model) {
+    public String Addaccount(HttpSession session, @ModelAttribute("add-account") users staff) {
         try {
             Connection connection = dataSource.getConnection();
             String sql = "INSERT INTO staff(name, password, role) VALUES (?,?,?)";
