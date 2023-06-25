@@ -183,6 +183,52 @@ public class mainController {
         return "admin/register-patient";
     }
 
+    @PostMapping("/register-patient")
+    public String adminregisterPatient(HttpSession session, @ModelAttribute("admin-patient") patient patient) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?)";
+            final var statement = connection.prepareStatement(sql);
+
+            statement.setString(1, patient.getPName());
+            statement.setString(2, patient.getPSex());
+            statement.setString(3, patient.getPAddress());
+            statement.setDate(4, patient.getPDate());
+            statement.setString(5, patient.getPStatus());
+            statement.setDate(6, patient.getPDOB());
+            statement.setString(7, patient.getPPhoneNo());
+            statement.setString(8, patient.getPBloodType());
+            statement.executeUpdate();
+
+            //debug
+            // System.out.println("name" + reg_patient.getPName());
+            // System.out.println("Sex" + reg_patient.getPSex());
+            // System.out.println("Address" + reg_patient.getPAddress());
+            // System.out.println("Date" + reg_patient.getPDate());
+            // System.out.println("Date" + reg_patient.getPDate());
+            // System.out.println("Status" + reg_patient.getPStatus());
+            // System.out.println("DOB" + reg_patient.getPDOB());
+            // System.out.println("Blood Type" + reg_patient.getPBloodType());
+           
+            connection.close();
+
+            return "redirect:/register-patient";
+
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "admin/adminmainmenu";
+
+    }
+
     @GetMapping("/update-patient")
     public String updateP() {
         // model.addAttribute("user", model);
