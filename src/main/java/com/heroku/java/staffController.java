@@ -50,50 +50,61 @@ public class staffController {
         // model.addAttribute("user", model);
         return "staff/staff-register-patient";
     }
+    // @PostMapping("/staff-register-patient")
+    // public String stafRegPatient(Model model, patient patient) {
+    // boolean success = registerPatient(null, patient);
 
-    @PostMapping("/staff-register-patient")
-    public String registerPatient(HttpSession session, @ModelAttribute("patient") patient reg_patient) {
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?,?)";
-            final var statement = connection.prepareStatement(sql);
+    // if (success) {
+    // model.addAttribute("success", true);
+    // } else {
+    // model.addAttribute("error", true);
+    // }
+    // return "staff/staff-register-patient";
+    // }
 
-            String patientname = reg_patient.getPName();
-            String patientsex = reg_patient.getPSex();
-            String patientaddress = reg_patient.getPAddress();
-            Date patientdate = reg_patient.getPDate();
-            String patientstatus = reg_patient.getPStatus();
-            Date patientdob = reg_patient.getPDOB();
-            String patientphoneno = reg_patient.getPPhoneNo();
-            String patientbloodtype = reg_patient.getPBloodType();
+    // private boolean registerPatient(HttpSession session,
+    // @ModelAttribute("patient") patient reg_patient) {
+    // try {
+    // Connection connection = dataSource.getConnection();
+    // String sql = "INSERT INTO patient(patientname, patientsex, patientaddress,
+    // patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype)
+    // VALUES(?,?,?,?,?,?,?,?,?)";
+    // final var statement = connection.prepareStatement(sql);
 
-            statement.setString(1, patientname);
-            statement.setString(2, patientsex);
-            statement.setString(3, patientaddress);
-            statement.setDate(4, patientdate);
-            statement.setString(5, patientstatus);
-            statement.setDate(6, patientdob);
-            statement.setString(7, patientphoneno);
-            statement.setString(8, patientbloodtype);
-            statement.executeUpdate();
-            connection.close();
+    // String patientname = reg_patient.getPName();
+    // String patientsex = reg_patient.getPSex();
+    // String patientaddress = reg_patient.getPAddress();
+    // Date patientdate = reg_patient.getPDate();
+    // String patientstatus = reg_patient.getPStatus();
+    // Date patientdob = reg_patient.getPDOB();
+    // String patientphoneno = reg_patient.getPPhoneNo();
+    // String patientbloodtype = reg_patient.getPBloodType();
 
-            return "redirect:/staff-register-patient";
+    // statement.setString(1, patientname);
+    // statement.setString(2, patientsex);
+    // statement.setString(3, patientaddress);
+    // statement.setDate(4, patientdate);
+    // statement.setString(5, patientstatus);
+    // statement.setDate(6, patientdob);
+    // statement.setString(7, patientphoneno);
+    // statement.setString(8, patientbloodtype);
+    // statement.executeUpdate();
+    // connection.close();
+    // return true;
+    // } catch (SQLException sqe) {
+    // System.out.println("error = " + sqe.getErrorCode());
+    // System.out.println("SQL state = " + sqe.getSQLState());
+    // System.out.println("Message = " + sqe.getMessage());
+    // System.out.println("printTrace /n");
+    // sqe.printStackTrace();
+    // } catch (Exception e) {
+    // System.out.println("error = " + e.getMessage());
+    // } catch (Throwable t) {
+    // System.out.println("message : " + t.getMessage());
+    // }
+    // return false;
 
-        } catch (SQLException sqe) {
-            System.out.println("error = " + sqe.getErrorCode());
-            System.out.println("SQL state = " + sqe.getSQLState());
-            System.out.println("Message = " + sqe.getMessage());
-            System.out.println("printTrace /n");
-            sqe.printStackTrace();
-        } catch (Exception e) {
-            System.out.println("error = " + e.getMessage());
-        } catch (Throwable t) {
-            System.out.println("message : " + t.getMessage());
-        }
-        return "staff/staffmainmenu";
-
-    }
+    // }
 
     @GetMapping("/staff-update-patient")
     public String staff_update_patient() {

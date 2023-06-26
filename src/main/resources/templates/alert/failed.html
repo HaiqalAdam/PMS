@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Failed</title>
+</head>
+<body>
+    <div class="alert alert-danger" th:if="${failedMessage}">
+        <p th:text="${failedMessage}"></p>
+    </div>
+</body>
+</html>

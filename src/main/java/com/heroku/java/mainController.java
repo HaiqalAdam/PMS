@@ -87,6 +87,7 @@ public class mainController {
      * @param model
      * @return
      */
+
     @PostMapping("/add-account")
     public String Addaccount(HttpSession session, @ModelAttribute("add-account") users staff) {
         try {
@@ -98,11 +99,6 @@ public class mainController {
             statement.setString(2, staff.getPwd());
             statement.setString(3, staff.getRole());
             statement.executeUpdate();
-
-            // debug
-            // System.out.println("name" + staff.getUsr());
-            // System.out.println("password" + staff.getPwd());
-            // System.out.println("role" + staff.getRole());
             connection.close();
 
             return "redirect:/view-account";
