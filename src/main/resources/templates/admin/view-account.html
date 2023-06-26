@@ -80,7 +80,149 @@
 </div>
 <!-- End Side Bar-->
   <!--content-->
+<div class="offset-2" style="margin-top: 5%;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <h2 class="text-center">Dashboard</h2>
+      </div>
+    </div>
+  </div>
+  
 
+    <!-- Staff Accounts -->
+    <div class="card col-8 mx-auto">
+        <div class="card-header">
+            <h3>Staff Accounts</h3>
+        </div>
+        <div class="card-body scroll-container">
+            <div class="row">
+                <!-- Staff Account Cards -->
+                <div class="row">
+                    <!-- Staff Account Cards -->
+                    <!-- Assuming 'staffData' is an array of staff objects -->
+                    <!-- Replace 'staffData' with your actual array variable -->
+                    <!-- You can modify the loop based on the structure of your 'staffData' array -->
+                    <!-- For example, if each element of the 'staffData' array is an object with properties like 'name' and 'position' -->
+                    <!-- You can access those properties using 'staffData[i].name' and 'staffData[i].position' -->
+                    <!-- Adjust the loop and property names accordingly -->
+                  
+                    <!-- Loop through the 'staffData' array -->
+                    <!-- Replace 'staffData' with your actual array variable -->
+                    <!-- Adjust the loop index accordingly -->
+                    <!-- For example, if your array starts from index 0, change 'i=1' to 'i=0' -->
+                  
+                    <script>
+                      var staffData = [
+                        { name: "Staff 1" },
+                        { name: "Staff 2" },
+                        { name: "Staff 3" },
+                      ];
+                      
+                      // Loop through the 'staffData' array
+                      for (var i = 0; i < staffData.length; i++) {
+                        document.write(`
+                          <div class="col-md-4">
+                            <div class="card mb-3">
+                              <div class="card-body d-flex justify-content-between">
+                                <h5 class="card-title mb-0">${staffData[i].name}</h5>
+                                <div class="dropdown">
+                                  <button class="btn btn-dark btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
+                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <p class="card-text mt-1">
+                                  <strong>Name:</strong> ${staffData[i].name}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        `);
+                      }
+                    </script>
+                  </div>
+                  
+
+            </div>
+        </div>
+    </div>
+    <br>
+
+    <!-- Therapist Accounts -->
+    <div class="card col-8 mx-auto">
+        <div class="card-header">
+            <h3>Therapist Accounts</h3>
+        </div>
+        <div class="card-body scroll-container">
+            <div class="row">
+                <!-- Therapist Account Cards -->
+                <div class="row">
+                    <!-- Therapist Account Cards -->
+                    <!-- Assuming 'data' is an array of therapist objects -->
+                    <!-- Replace 'data' with your actual array variable -->
+                    <!-- You can modify the loop based on the structure of your 'data' array -->
+                    <!-- For example, if each element of the 'data' array is an object with properties like 'name' and 'specialty' -->
+                    <!-- You can access those properties using 'data[i].name' and 'data[i].specialty' -->
+                    <!-- Adjust the loop and property names accordingly -->
+                  
+                    <!-- Loop through the 'data' array -->
+                    <!-- Replace 'data' with your actual array variable -->
+                    <!-- Adjust the loop index accordingly -->
+                    <!-- For example, if your array starts from index 0, change 'i=1' to 'i=0' -->
+                  
+                    <!-- You can add more therapists to your 'data' array to see multiple cards -->
+                  
+                    <script>
+                      var data = [
+                        { name: "Therapist 1" },
+                        { name: "Therapist 2" },
+                        { name: "Therapist 3" },
+                      ];
+                      
+                      // Loop through the 'data' array
+                      for (var i = 0; i < data.length; i++) {
+                        document.write(`
+                          <div class="col-md-4">
+                            <div class="card mb-3">
+                              <div class="card-body d-flex justify-content-between">
+                                <h5 class="card-title mb-0">${data[i].name}</h5>
+                                <div class="dropdown">
+                                  <button class="btn btn-dark btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                  </button>
+                                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
+                                    <a class="dropdown-item" href="#">View</a>
+                                    <a class="dropdown-item" href="#">Edit</a>
+                                    <a class="dropdown-item" href="#">Delete</a>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <p class="card-text mt-1">
+                                  <strong>Name:</strong> ${data[i].name}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        `);
+                      }
+                    </script>
+                  </div>               
+                
+            </div>
+        </div>
+    </div>
+    <footer class="d-flex justify-content-center">
+        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+      </footer>
+</div>
 
 
 </body>
@@ -96,6 +238,8 @@
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
                 integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
                 crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
             
                 <!-- <script src="script.js"></script> -->
 </html>
