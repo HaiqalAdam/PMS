@@ -1,4 +1,4 @@
-package com.heroku.java;
+package com.heroku.java.model;
 
 import java.sql.Date;
 

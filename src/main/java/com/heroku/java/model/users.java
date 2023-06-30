@@ -1,10 +1,18 @@
-package com.heroku.java;
+package com.heroku.java.model;
 
 public class users {
 
+    private Integer id;
     private String usr;
     private String pwd;
     private String role;
+
+    public users(Integer id, String usr, String pwd, String role) {
+    this.id = id ;
+    this.usr = usr;
+    this.pwd = pwd;
+    this.role = role;
+  }
 
     public String getUsr() {
         return this.usr;
@@ -28,6 +36,14 @@ public class users {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     

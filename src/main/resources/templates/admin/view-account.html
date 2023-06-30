@@ -50,10 +50,6 @@
           class="nav-link text-black d-flex justify-content-start"
           aria-current="page"><span class="material-symbols-outlined"
           style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
-      <li class="nav-item"><a href="#"
-          class="nav-link text-black d-flex justify-content-start">
-          <span class="material-symbols-outlined"
-          style="margin-right: 20px;"> calendar_month </span>Schedule</a></li>
       <li class="nav-item"><a th:href="@{/admission}"
           class="nav-link text-black d-flex justify-content-start">
               <span class="material-symbols-outlined"
@@ -70,10 +66,10 @@
           class="nav-link text-black d-flex justify-content-start"><span
           class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
       
-      <li class="nav-item"><a href="#"
-          class="nav-link text-black d-flex justify-content-start">
-              <span class="material-symbols-outlined"
-              style="margin-right: 20px;"> article </span>Record
+      <li class="nav-item"><a th:href="@{/view-account}"
+            class="nav-link text-black active d-flex justify-content-start">
+                <span class="material-symbols-outlined"
+                style="margin-right: 20px;"> person_apron </span> Staff
       </a></li>
   </ul>
   <hr style="margin-bottom: 0px !important;">
@@ -84,146 +80,105 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-12 mx-auto">
-        <h2 class="text-center">Dashboard</h2>
+        <h2 class="text-center">Account</h2>
       </div>
     </div>
   </div>
   
 
     <!-- Staff Accounts -->
-    <div class="card col-8 mx-auto">
-        <div class="card-header">
-            <h3>Staff Accounts</h3>
-        </div>
-        <div class="card-body scroll-container">
-            <div class="row">
-                <!-- Staff Account Cards -->
-                <div class="row">
-                    <!-- Staff Account Cards -->
-                    <!-- Assuming 'staffData' is an array of staff objects -->
-                    <!-- Replace 'staffData' with your actual array variable -->
-                    <!-- You can modify the loop based on the structure of your 'staffData' array -->
-                    <!-- For example, if each element of the 'staffData' array is an object with properties like 'name' and 'position' -->
-                    <!-- You can access those properties using 'staffData[i].name' and 'staffData[i].position' -->
-                    <!-- Adjust the loop and property names accordingly -->
-                  
-                    <!-- Loop through the 'staffData' array -->
-                    <!-- Replace 'staffData' with your actual array variable -->
-                    <!-- Adjust the loop index accordingly -->
-                    <!-- For example, if your array starts from index 0, change 'i=1' to 'i=0' -->
-                  
-                    <script>
-                      var staffData = [
-                        { name: "Staff 1" },
-                        { name: "Staff 2" },
-                        { name: "Staff 3" },
-                      ];
-                      
-                      // Loop through the 'staffData' array
-                      for (var i = 0; i < staffData.length; i++) {
-                        document.write(`
-                          <div class="col-md-4">
-                            <div class="card mb-3">
-                              <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title mb-0">${staffData[i].name}</h5>
-                                <div class="dropdown">
-                                  <button class="btn btn-dark btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                  </button>
-                                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
-                                    <a class="dropdown-item" href="#">View</a>
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Delete</a>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="card-body">
-                                <p class="card-text mt-1">
-                                  <strong>Name:</strong> ${staffData[i].name}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        `);
-                      }
-                    </script>
-                  </div>
-                  
 
+    <div name="staffTable" class="d-flex flex-wrap justify-content-evenly align-items-center">
+      <!-- Iterate over the employee list and display each employee in a card -->
+      <div class="offset-2 justify-content-evenly align-items-center col-9">
+          <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Role</th> 
+                    <th scope="col">Action</th> 
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Use Thymeleaf loop to iterate over the employees -->
+                <tr th:each="user: ${users}">
+                    <td th:text="${user.id}"></td> 
+                    <td th:text="${user.usr}"></td> 
+                    <td th:text="${user.pwd}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                      <div class="dropdown">
+                        <button class="btn btn-dark btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
+                          <a class="dropdown-item" th:href="@{/update-account(id=${user.id})}">Edit</a>
+                          <a class="dropdown-item" th:href="@{/delete-account(id=${user.id})}">Delete</a>
+                          <!-- <a class="dropdown-item" th:data-id="${user.id}" data-toggle="modal" data-target="#deleteModal">Delete</a> -->
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>  
+        <!-- Modal -->
+        <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this item?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="deleteButton" class="btn btn-danger">Delete</a>
+              </div>
             </div>
-        </div>
-    </div>
-    <br>
+          </div>
+        </div> -->
 
-    <!-- Therapist Accounts -->
-    <div class="card col-8 mx-auto">
-        <div class="card-header">
-            <h3>Therapist Accounts</h3>
-        </div>
-        <div class="card-body scroll-container">
-            <div class="row">
-                <!-- Therapist Account Cards -->
-                <div class="row">
-                    <!-- Therapist Account Cards -->
-                    <!-- Assuming 'data' is an array of therapist objects -->
-                    <!-- Replace 'data' with your actual array variable -->
-                    <!-- You can modify the loop based on the structure of your 'data' array -->
-                    <!-- For example, if each element of the 'data' array is an object with properties like 'name' and 'specialty' -->
-                    <!-- You can access those properties using 'data[i].name' and 'data[i].specialty' -->
-                    <!-- Adjust the loop and property names accordingly -->
-                  
-                    <!-- Loop through the 'data' array -->
-                    <!-- Replace 'data' with your actual array variable -->
-                    <!-- Adjust the loop index accordingly -->
-                    <!-- For example, if your array starts from index 0, change 'i=1' to 'i=0' -->
-                  
-                    <!-- You can add more therapists to your 'data' array to see multiple cards -->
-                  
-                    <script>
-                      var data = [
-                        { name: "Therapist 1" },
-                        { name: "Therapist 2" },
-                        { name: "Therapist 3" },
-                      ];
-                      
-                      // Loop through the 'data' array
-                      for (var i = 0; i < data.length; i++) {
-                        document.write(`
-                          <div class="col-md-4">
-                            <div class="card mb-3">
-                              <div class="card-body d-flex justify-content-between">
-                                <h5 class="card-title mb-0">${data[i].name}</h5>
-                                <div class="dropdown">
-                                  <button class="btn btn-dark btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                  </button>
-                                  <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
-                                    <a class="dropdown-item" href="#">View</a>
-                                    <a class="dropdown-item" href="#">Edit</a>
-                                    <a class="dropdown-item" href="#">Delete</a>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="card-body">
-                                <p class="card-text mt-1">
-                                  <strong>Name:</strong> ${data[i].name}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        `);
-                      }
-                    </script>
-                  </div>               
-                
-            </div>
-        </div>
+        <a th:href="@{/add-account}"><button class="btn btn-outline-success me-2" type="button">Register Account</button></a>
+      </div> 
     </div>
+
     <footer class="d-flex justify-content-center">
         <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
       </footer>
 </div>
+<!-- modal js -->
+<!-- <script>
+  $(document).ready(function() {
+    $('#deleteModal').on('show.bs.modal', function(event) {
+      var deleteId = $(event.relatedTarget).data('id');
+      var deleteUrl = '/delete-account?id=' + deleteId;
+      $('#deleteButton').attr('href', deleteUrl);
+    });
 
+    $('#deleteButton').click(function(event) {
+      event.preventDefault();
+      var deleteUrl = $(this).attr('href');
+
+      // Send a GET request to the deleteUrl
+      $.get(deleteUrl, function() {
+        // Refresh the page after successful deletion
+        location.reload();
+      }).fail(function() {
+        // Handle any errors
+        alert('An error occurred while deleting the account.');
+      });
+
+      $('#deleteModal').modal('hide');
+    });
+  });
+</script> -->
 
 </body>
             <script
