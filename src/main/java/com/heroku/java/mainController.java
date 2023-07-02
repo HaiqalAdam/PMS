@@ -8,7 +8,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
+// import com.github.sweetalert2.Swal;
+import com.drug;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
@@ -54,6 +55,7 @@ public class mainController {
                 if (username.equals(staff.getUsr()) && password.equals(staff.getPwd())) {
                     session.setAttribute("usr", staff.getUsr());
                     session.setAttribute("role", role);
+
                     returnPage = "redirect:/adminmainmenu";
                     break;
                 } else if (username.equals(admin.getUsr()) && password.equals(admin.getPwd())) {
@@ -177,6 +179,47 @@ public class mainController {
     public String registerP() {
         // model.addAttribute("user", model);
         return "admin/register-patient";
+    }
+
+    @PostMapping("/register-patient")
+    public String adminregisterPatient(HttpSession session, @ModelAttribute("admin-patient") patient patient,
+            drug drugs) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?)";
+            final var statement = connection.prepareStatement(sql);
+            String sql2 = "INSERT INTO drug (drugtype) VALUES(?)";
+            final var statement2 = connection.prepareStatement(sql2);
+            statement.setString(1, patient.getPName());
+            statement.setString(2, patient.getPSex());
+            statement.setString(3, patient.getPAddress());
+            statement.setDate(4, patient.getPDate());
+            statement.setString(5, patient.getPStatus());
+            statement.setDate(6, patient.getPDOB());
+            statement.setString(7, patient.getPPhoneNo());
+            statement.setString(8, patient.getPBloodType());
+            statement.executeUpdate();
+
+            statement2.setString(1, drugs.getDrugtype());
+            statement2.executeUpdate();
+
+            connection.close();
+
+            return "redirect:/register-patient";
+
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "admin/adminmainmenu";
+
     }
 
     @GetMapping("/update-patient")

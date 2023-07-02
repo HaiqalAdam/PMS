@@ -41,6 +41,11 @@
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
         </dependency>
+        <!-- <dependency>
+            <groupId>com.github.sweetalert2</groupId>
+            <artifactId>sweetalert2</artifactId>
+            <version>11.7.12</version>
+        </dependency> -->
     </dependencies>
 
     <build>

@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" th:href="@{/icon/logoPMS.png}">
-        <title>Patient</title>
+        <title>Registration Patient</title>
 
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -73,54 +73,123 @@
     <!-- End Side Bar-->
     <!-- Content -->
     <div class="container-fluid">
-        <div class="text-center offset-2 justify-content-center" style="margin-top: 5%;">
-          <h2>Registration Form</h2>
-        </div>
-        <div class="row offset-2 justify-content-center">
-          <div class="col-6">
-            <div class="card" style="border: solid 1px black;">
-              <div class="card-body custom-form" style="background-color: #ffffff;">
-          <form th:action="@{/staff-register-patient}" method="post" th:object="@{/registerPatient}" modelAttribute="patient">
+      <div class="text-center offset-2 justify-content-center" style="margin-top: 5%;">
+        <h2>Registration Form</h2>
+      </div>
+      <div class="row offset-2 justify-content-center">
+        <div class="col-6">
+          <div class="card" style="border: solid 1px black;">
+            <div class="card-body custom-form" style="background-color: #ffffff;">
+          <form th:action="@{/staff-register-patient}" method="post" modelAttribute="patient">
+            
             <div class="form-row mt-4">
               <div class="form-group col-md-12">
                 <label for="name">Name</label>
-                <input type="text" class="form-control" id="name" name="p-Name" th:value="${pName}" placeholder="Name">
+                <input type="text"
+                class="form-control" 
+                id="name" 
+                name="pName" 
+                th:value="${pName}" 
+                placeholder="Name">
               </div>
             </div>
+
+            <div class="form-group">
+              <label for="ic">Patient IC</label>
+              <input type="text" 
+              class="form-control" 
+              id="ic" 
+              name="pIc" 
+              th:value="${}" 
+              placeholder="Patient IC">
+            </div>
+  
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="name">Date In</label>
-                <input type="date" class="form-control" id="datein" name="p-Date" th:value="${pDate}" placeholder="Date">
+                <input type="date" 
+                class="form-control" 
+                id="datein" 
+                name="pDate" 
+                th:value="${pDate}" 
+                placeholder="Date">
               </div>
+  
               <div class="form-group col-md-6">
                 <label for="status">Status</label>
-                <input type="text" class="form-control" id="status" name="p-Status" th:value="${pStatus}" placeholder="Status">
+                <input type="text" 
+                class="form-control" 
+                id="status" 
+                name="pStatus" 
+                th:value="${pStatus}" 
+                placeholder="Status">
               </div>
             </div>
+  
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="sex">Sex</label>
-                <input type="text" class="form-control" id="sex" name="p-Sex" th:value="${pSex}" placeholder="Sex">
+                <input type="text" 
+                class="form-control" 
+                id="sex" 
+                name="pSex" 
+                th:value="${pSex}" 
+                placeholder="Sex">
               </div>
+  
               <div class="form-group col-md-6">
                 <label for="dob">Date of Birth</label>
-                <input type="date" class="form-control" id="dob" name="p-DOB" th:value="${pDOB}" placeholder="Date of Birth">
+                <input type="date" 
+                class="form-control" 
+                id="dob" 
+                name="pDOB" 
+                th:value="${pDOB}" 
+                placeholder="Date of Birth">
               </div>
             </div>
+  
             <div class="form-row">
               <div class="form-group col-md-6">
                 <label for="phone">Phone No.</label>
-                <input type="text" class="form-control" id="phone" name="p-PhoneNo" th:value="${pPhoneNo}" placeholder="Phone No.">
+                <input type="text" 
+                class="form-control" 
+                id="phone" 
+                name="pPhoneNo" 
+                th:value="${pPhoneNo}" 
+                placeholder="Phone No.">
               </div>
+  
               <div class="form-group col-md-6">
                 <label for="drugType">Drug Type</label>
-                <input type="text" class="form-control" id="drugType" name="p-DrugType" th:value="${pDrugType}" placeholder="Drug Type">
+                <input type="text" 
+                class="form-control" 
+                id="drugType" 
+                name="pDrugType" 
+                th:value="${pDrugType}" 
+                placeholder="Drug Type">
               </div>
             </div>
+  
+            <div class="form-group">
+              <label for="bloodType">Blood Type</label>
+              <input type="text" 
+              class="form-control" 
+              id="bloodType" 
+              name="pBloodType" 
+              th:value="${BloodType}" 
+              placeholder="Blood Type">
+            </div>
+  
             <div class="form-group">
               <label for="address">Address</label>
-              <input type="text" class="form-control" id="address" name="p-Address" th:value="${pAddress}" placeholder="Address">
+              <input type="text" 
+              class="form-control" 
+              id="address" 
+              name="pAddress" 
+              th:value="${pAddress}" 
+              placeholder="Address">
             </div>
+
             <div class="form-group text-center">
               <button type="reset" class="btn btn-secondary">Reset</button>
               <button type="submit" class="btn btn-primary">Submit</button>
