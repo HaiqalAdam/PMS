@@ -1,4 +1,4 @@
-package com;
+package com.heroku.java.model;
 
 public class drug {
     private String drugType;

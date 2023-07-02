@@ -8,8 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-// import com.github.sweetalert2.Swal;
-import com.drug;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.heroku.java.model.drug;
+import com.heroku.java.model.patient;
+import com.heroku.java.model.users;
+
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
@@ -122,6 +126,129 @@ public class mainController {
 
     }
 
+    // Read Acoount
+    @GetMapping("/view-account")
+    public String showAccounts(HttpSession session, users usrs, Model model) {
+
+        // if (session.getAttribute("name") != null) {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+
+            final var resultSet = statement.executeQuery("SELECT id, name, password, role FROM staff ORDER BY id;");
+
+            // int row = 0;
+            ArrayList<users> users = new ArrayList<>();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String usr = resultSet.getString("name");
+                String pwd = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                users user = new users(id, usr, pwd, role);
+                users.add(user);
+            }
+            model.addAttribute("users", users);
+            // connection.close();
+            return "admin/view-account";
+
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "index";
+        }
+    }
+
+    // @GetMapping("/update-account")
+    // public String updateaccount() {
+    // // model.addAttribute("user", model);
+    // return "admin/update-account";
+    // }
+    @GetMapping("/update-account")
+    public String showUpdateAccountForm(@ModelAttribute("users") users users, @RequestParam("id") int userid,
+            Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT * FROM staff WHERE id = ?";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, userid);
+
+            final var resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String usr = resultSet.getString("name");
+                String pwd = resultSet.getString("password");
+                String role = resultSet.getString("role");
+                users user = new users(id, usr, pwd, role);
+                model.addAttribute("users", user);
+            }
+            return "admin/update-account";
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "index";
+        }
+
+    }
+
+    // Update Account
+    @PostMapping("/update-account")
+    public String updateAccountString(HttpSession session, @ModelAttribute("users") users user, Model model,
+            @RequestParam("id") int usrid) {
+        int id = user.getId();
+        String usr = user.getUsr();
+        String pwd = user.getPwd();
+        String role = user.getRole();
+        try (
+                Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE staff SET id=?, name=? , password=?, role=? WHERE id=?";
+            final var statement = connection.prepareStatement(sql);
+            // String fullname = customer.getFullname();
+            // String address = customer.getAddress();
+            // String phonenum = customer.getPhonenum();
+            // String icnumber = customer.getIcnumber();
+            // Date licensecard = customer.getLicensecard();
+            // String password = customer.getPassword();
+
+            statement.setInt(1, id);
+            statement.setString(2, usr);
+            statement.setString(3, pwd);
+            statement.setString(4, role);
+            statement.setInt(5, usrid);
+
+            statement.executeUpdate();
+
+            return "redirect:/view-account";
+
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            System.out.println("error");
+            return "redirect:/adminmainmenu";
+        }
+    }
+
+    // delete Account
+    @GetMapping("/delete-account")
+    public String DeleteAccount(@ModelAttribute("users") users users, @RequestParam("id") int userid, Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "DELETE FROM staff WHERE id=?";
+            ;
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, userid);
+
+            // execute delete
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                // Deletion successful
+                return "redirect:/view-account";
+            } else {
+                // No rows affected, account not found
+                return "account-not-found";
+            }
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "index";
+        }
+
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
@@ -132,17 +259,17 @@ public class mainController {
     @GetMapping("/adminmainmenu")
     public String showDashboard(HttpSession session) {
         // // Check if user is logged in
-        // if (session.getAttribute("usr") != null) {
-        // if (session.getAttribute("role").equals("admin")) {
+        if (session.getAttribute("usr") != null) {
+            if (session.getAttribute("role").equals("admin")) {
+                return "admin/adminmainmenu";
+            } else {
+                return "therapist/adminmainmenu";
+            }
+        } else {
+            System.out.println("Session expired or invalid...");
+            return "redirect:/";
+        }
         // return "admin/adminmainmenu";
-        // } else {
-        // return "therapist/adminmainmenu";
-        // }
-        // } else {
-        // System.out.println("Session expired or invalid...");
-        // return "redirect:/";
-        // }
-        return "admin/adminmainmenu";
     }
 
     @GetMapping("/patient")
@@ -222,22 +349,10 @@ public class mainController {
 
     }
 
-    @GetMapping("/update-patient")
-    public String updateP() {
-        // model.addAttribute("user", model);
-        return "admin/update-patient";
-    }
-
     @GetMapping("/add-account")
-    public String account() {
+    public String addeaccount() {
         // model.addAttribute("user", model);
         return "admin/add-account";
-    }
-
-    @GetMapping("/view-account")
-    public String viewaccount() {
-        // model.addAttribute("user", model);
-        return "admin/view-account";
     }
 
     @GetMapping("/database")

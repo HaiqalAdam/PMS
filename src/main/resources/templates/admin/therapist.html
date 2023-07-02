@@ -102,7 +102,7 @@
                     class="form-check-label" for="flexSwitchCheckDefault">all therapist</label>
             </div>
         </div>
-        <table class="table table-primary-emphasis align-middle" style="border: solid 2px black; text-align: center;">
+        <table class="table table-success align-middle" style="border: solid 2px black; text-align: center;">
             <tr class="bg-info">
                 <th data-column="name" data-order="desc">Name</th>
                 <th data-column="id" data-order="desc">ID</th>
@@ -118,7 +118,9 @@
     <div class="col-12 text-center">
         <a th:href="@{/register-therapist}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
     </div>
-
+    <footer class="d-flex justify-content-center">
+        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+      </footer>
     </div>
     <!-- End Content-->
             <!--Table-->
