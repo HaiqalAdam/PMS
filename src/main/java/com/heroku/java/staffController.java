@@ -36,12 +36,6 @@ public class staffController {
         return "staff/staffmainmenu";
     }
 
-    @GetMapping("/staff-admission")
-    public String staffadmission() {
-        // model.addAttribute("user", model);
-        return "staff/staff-admission";
-    }
-
     @GetMapping("/staff-patient")
     public String staffpatient() {
         // model.addAttribute("user", model);
@@ -55,29 +49,28 @@ public class staffController {
     }
 
     @PostMapping("/staff-register-patient")
-    public String registerPatient(HttpSession session, @ModelAttribute("patient") patient reg_patient, drug drugs) {
+    public String registerPatient(HttpSession session, @ModelAttribute("patient") patient patient, drug drugs) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype, patientic) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype, patientic) VALUES(?,?,?,?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
-            statement.setString(1, reg_patient.getPName());
-            statement.setString(2, reg_patient.getPSex());
-            statement.setString(3, reg_patient.getPAddress());
-            statement.setDate(4, reg_patient.getPDate());
-            statement.setString(5, reg_patient.getPStatus());
-            statement.setDate(6, reg_patient.getPDOB());
-            statement.setString(7, reg_patient.getPPhoneNo());
-            statement.setString(8, reg_patient.getPBloodType());
-            statement.setString(9, reg_patient.getPIc());
-
-            String sql2 = "INSERT INTO drug(drugtype) VALUES(?)";
+            String sql2 = "INSERT INTO drug (drugtype) VALUES(?)";
             final var statement2 = connection.prepareStatement(sql2);
-            statement2.setString(1, drugs.getDrugtype());
-
+            statement.setString(1, patient.getPName());
+            statement.setString(2, patient.getPSex());
+            statement.setString(3, patient.getPAddress());
+            statement.setDate(4, patient.getPDate());
+            statement.setString(5, patient.getPStatus());
+            statement.setDate(6, patient.getPDOB());
+            statement.setString(7, patient.getPPhoneNo());
+            statement.setString(8, patient.getPBloodType());
+            statement.setString(9, patient.getPIc());
             statement.executeUpdate();
 
-            connection.close();
+            statement2.setString(1, drugs.getDrugtype());
+            statement2.executeUpdate();
 
+            connection.close();
             return "redirect:/staff-register-patient";
 
         } catch (SQLException sqe) {

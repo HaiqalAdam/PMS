@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,6 +32,11 @@ public class mainController {
     public mainController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    // @Bean
+    // public BCryptPasswordEncoder passwordEncoder() {
+    // return new BCryptPasswordEncoder();
+    // }
 
     @GetMapping("/")
     public String adminlogin(HttpSession session) {
@@ -296,12 +302,6 @@ public class mainController {
         return "admin/update-therapist";
     }
 
-    @GetMapping("/admission")
-    public String admission() {
-        // model.addAttribute("user", model);
-        return "admin/admission";
-    }
-
     @GetMapping("/register-patient")
     public String registerP() {
         // model.addAttribute("user", model);
@@ -313,7 +313,7 @@ public class mainController {
             drug drugs) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype, patientic) VALUES(?,?,?,?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
             String sql2 = "INSERT INTO drug (drugtype) VALUES(?)";
             final var statement2 = connection.prepareStatement(sql2);
@@ -325,6 +325,7 @@ public class mainController {
             statement.setDate(6, patient.getPDOB());
             statement.setString(7, patient.getPPhoneNo());
             statement.setString(8, patient.getPBloodType());
+            statement.setString(9, patient.getPIc());
             statement.executeUpdate();
 
             statement2.setString(1, drugs.getDrugtype());
