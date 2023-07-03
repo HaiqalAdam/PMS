@@ -1,4 +1,4 @@
-package com.heroku.java;
+package com.heroku.java.model;
 
 import java.sql.Date;
 
@@ -12,6 +12,7 @@ public class patient {
     private Date pDOB;
     private String pPhoneNo;
     private String pBloodType;
+    private String pIc;
 
     public String getPName() {
         return this.pName;
@@ -75,6 +76,14 @@ public class patient {
 
     public void setPBloodType(String pBloodType) {
         this.pBloodType = pBloodType;
+    }
+
+    public String getPIc() {
+        return this.pIc;
+    }
+
+    public void setPIc(String pIc) {
+        this.pIc = pIc;
     }
 
 }

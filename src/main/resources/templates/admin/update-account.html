@@ -88,12 +88,24 @@
       </div>
       <div class="col-md-6">
         <div class="card-body">
-            <form method="post" th:action="@{/add-account}" modelAttribute="add-account">
-                <h3>Create Account</h3><br>
+            <form method="post" th:object="${users}" th:action="@{/update-account}" modelAttribute="users">
+                <h3>Update Account</h3><br>
+                <div class="col mb-3">
+                    <label for="userid" class="col-sm-2 col-form-label">User Id</label>
+                    <div class="col-sm-10">
+                        <input type="text"
+                        th:value = "${users.id}"
+                         class="form-control"
+                         name="id"
+                         placeholder="id"
+                         id="id" readonly>
+                    </div>
+                    </div>
                 <div class="col mb-3">
                 <label for="name" class="col-sm-2 col-form-label">Username</label>
                 <div class="col-sm-10">
                     <input type="text"
+                    th:value = "${users.usr}"
                      class="form-control"
                      name="usr"
                      placeholder="username"
@@ -103,18 +115,20 @@
                 <div class="col mb-3">
                 <label for="inputPassword3" class="col-sm-2 col-form-label">Password</label>
                 <div class="col-sm-10">
-                    <input type="password" 
+                    <input type="text" 
                     class="form-control" 
                     name="pwd"
-                    placeholder="password" 
+                    placeholder="password"
+                    th:value = "${users.pwd}" 
                     id="inputPassword3">
                 </div>
                 </div>
                 <div class="col-4 mb-3">
                     <label for="inputRole" name="role" class="form-label">Role</label>
                     <select id="role" name="role" class="form-select">
-                    <option value="staff">Staff</option>
-                    <option value="therapist">Therapist</option>
+                    <option value="staff" th:selected="${users.role=='staff'}">Staff</option>
+                    <option value="Admin" th:selected="${users.role=='admin'}">Admin</option>
+                    <option value="therapist" th:selected="${users.role=='therapist'}">Therapist</option>
                     </select>
                 </div>
                 <div class="row mb-3">
@@ -127,7 +141,7 @@
                     </div>
                 </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Sign Up</button>
+                <button type="submit" class="btn btn-primary">Update</button>
             </form>
         </div>
       </div>

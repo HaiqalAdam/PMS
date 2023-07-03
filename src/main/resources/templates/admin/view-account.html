@@ -50,10 +50,6 @@
           class="nav-link text-black d-flex justify-content-start"
           aria-current="page"><span class="material-symbols-outlined"
           style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
-      <li class="nav-item"><a href="#"
-          class="nav-link text-black d-flex justify-content-start">
-          <span class="material-symbols-outlined"
-          style="margin-right: 20px;"> calendar_month </span>Schedule</a></li>
       <li class="nav-item"><a th:href="@{/admission}"
           class="nav-link text-black d-flex justify-content-start">
               <span class="material-symbols-outlined"
@@ -70,18 +66,119 @@
           class="nav-link text-black d-flex justify-content-start"><span
           class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
       
-      <li class="nav-item"><a href="#"
-          class="nav-link text-black d-flex justify-content-start">
-              <span class="material-symbols-outlined"
-              style="margin-right: 20px;"> article </span>Record
+      <li class="nav-item"><a th:href="@{/view-account}"
+            class="nav-link text-black active d-flex justify-content-start">
+                <span class="material-symbols-outlined"
+                style="margin-right: 20px;"> person_apron </span> Staff
       </a></li>
   </ul>
   <hr style="margin-bottom: 0px !important;">
 </div>
 <!-- End Side Bar-->
   <!--content-->
+<div class="offset-2" style="margin-top: 5%;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <h2 class="text-center">Account</h2>
+      </div>
+    </div>
+  </div>
+  
 
+    <!-- Staff Accounts -->
 
+    <div name="staffTable" class="d-flex flex-wrap justify-content-evenly align-items-center">
+      <!-- Iterate over the employee list and display each employee in a card -->
+      <div class="offset-2 justify-content-evenly align-items-center col-9">
+          <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">Role</th> 
+                    <th scope="col">Action</th> 
+                   
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Use Thymeleaf loop to iterate over the employees -->
+                <tr th:each="user: ${users}">
+                    <td th:text="${user.id}"></td> 
+                    <td th:text="${user.usr}"></td> 
+                    <td th:text="${user.pwd}"></td>
+                    <td th:text="${user.role}"></td>
+                    <td>
+                      <div class="dropdown">
+                        <button class="btn btn-dark btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
+                          <a class="dropdown-item" th:href="@{/update-account(id=${user.id})}">Edit</a>
+                          <a class="dropdown-item" th:href="@{/delete-account(id=${user.id})}">Delete</a>
+                          <!-- <a class="dropdown-item" th:data-id="${user.id}" data-toggle="modal" data-target="#deleteModal">Delete</a> -->
+                        </div>
+                      </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>  
+        <!-- Modal -->
+        <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="deleteModalLabel">Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                Are you sure you want to delete this item?
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <a id="deleteButton" class="btn btn-danger">Delete</a>
+              </div>
+            </div>
+          </div>
+        </div> -->
+
+        <a th:href="@{/add-account}"><button class="btn btn-outline-success me-2" type="button">Register Account</button></a>
+      </div> 
+    </div>
+
+    <footer class="d-flex justify-content-center">
+        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+      </footer>
+</div>
+<!-- modal js -->
+<!-- <script>
+  $(document).ready(function() {
+    $('#deleteModal').on('show.bs.modal', function(event) {
+      var deleteId = $(event.relatedTarget).data('id');
+      var deleteUrl = '/delete-account?id=' + deleteId;
+      $('#deleteButton').attr('href', deleteUrl);
+    });
+
+    $('#deleteButton').click(function(event) {
+      event.preventDefault();
+      var deleteUrl = $(this).attr('href');
+
+      // Send a GET request to the deleteUrl
+      $.get(deleteUrl, function() {
+        // Refresh the page after successful deletion
+        location.reload();
+      }).fail(function() {
+        // Handle any errors
+        alert('An error occurred while deleting the account.');
+      });
+
+      $('#deleteModal').modal('hide');
+    });
+  });
+</script> -->
 
 </body>
             <script
@@ -96,6 +193,8 @@
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
                 integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
                 crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"></script>
             
                 <!-- <script src="script.js"></script> -->
 </html>
