@@ -93,14 +93,6 @@ public class mainController {
 
     }
 
-<<<<<<< HEAD
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-        System.out.println("succesfully logout");
-        return "redirect:/";
-    }
-=======
     /**
      * @param session
      * @param staff
@@ -114,7 +106,6 @@ public class mainController {
             Connection connection = dataSource.getConnection();
             String sql = "INSERT INTO staff(name, password, role) VALUES (?,?,?)";
             final var statement = connection.prepareStatement(sql);
->>>>>>> d04255265dccbdd5ff018288f14cb8d71f8a2f88
 
             statement.setString(1, staff.getUsr());
             statement.setString(2, staff.getPwd());
