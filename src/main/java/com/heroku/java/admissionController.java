@@ -14,6 +14,8 @@ import com.heroku.java.model.patient;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
+
+import java.beans.Statement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.SQLException;
@@ -44,8 +46,10 @@ public class admissionController {
     public String admissionAdmin(HttpSession session, @ModelAttribute("adminAdmission") patient patient) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT patientname FROM patient JOIN admission ON patient.patientid = admission.patientid WHERE patientic =?";
-            final var statement = connection.prepareStatement(sql);
+            final var statement = connection.prepareStatement(
+                    "SELECT patientname FROM patient JOIN admission ON (patient.patientid = admission.patientid) WHERE patientic =?");
+            // statement.setInt(1, patientid);
+            final var resultSet = statement.executeQuery();
 
             statement.setString(1, patient.getPName());
             statement.setString(2, patient.getPIc());
