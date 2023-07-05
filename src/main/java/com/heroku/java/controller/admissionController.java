@@ -43,19 +43,20 @@ public class admissionController {
     }
 
     @PostMapping("/admission")
-    public String admissionAdmin(HttpSession session, @ModelAttribute("adminAdmission") patient ptns) {
+    public String admissionAdmin(HttpSession session, @ModelAttribute("adminAdmission") patient ptns, Model model) {
         try {
             Connection connection = dataSource.getConnection();
             final var statement = connection.prepareStatement(
                     "SELECT patientname FROM patient WHERE patientic = ?");
+            statement.setString(1, ptns.getPIc());
             final var resultSet = statement.executeQuery();
 
-            ArrayList<patient> patient = new ArrayList<>();
+            ArrayList<patient> patientList = new ArrayList<>();
             while (resultSet.next()) {
                 String pName = resultSet.getString("patientname");
-                String pIc = resultSet.getString("patientic");
-                statement.executeUpdate();
+                patientList.add(new patient(null, pName, ptns.getPIc(), null, null, null, null, null, null, null));
             }
+            model.addAttribute("patientList", patientList);
             return "redirect:/admin/admission";
 
         } catch (SQLException sqe) {
