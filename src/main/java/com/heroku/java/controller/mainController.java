@@ -235,7 +235,7 @@ public class mainController {
 
     //UPDATE PATIENT
     @GetMapping("/update-patient")
-    public String showUpdateAccountForm(@ModelAttribute("patient") patient patient, @RequestParam("id") int ptnid, Model model) {
+    public String showUpdatePatient(@ModelAttribute("patient") patient patient, @RequestParam("id") int ptnid, Model model) {
          try {
         Connection connection = dataSource.getConnection();
         String sql = "SELECT * FROM patient WHERE patientid = ?";
@@ -266,7 +266,7 @@ public class mainController {
     }
 
     @PostMapping("/update-patient") 
-    public String updateAccountString(HttpSession session, @ModelAttribute("admin-update-patient") patient patients, @RequestParam("id") int ptnsid, Model model) { 
+    public String updatePatient(HttpSession session, @ModelAttribute("patient") patient patients , Model model, @RequestParam("pId") int ptnsid) { 
         int pId = patients.getPId();
         String pName = patients.getPName();
         String pIc = patients.getPIc();
@@ -279,14 +279,8 @@ public class mainController {
         String pBloodType = patients.getPBloodType();
             try (
             Connection connection = dataSource.getConnection()) { 
-            String sql = "UPDATE patient SET patientid = ?, patientname = ?, patientic = ?, patientsex = ?, patientaddress = ?, patientdate = ?, patientstatus = ?, patientdob = ?, patientphoneno = ?, patientbloodtype = ? FROM patient WHERE patientid=?";
+            String sql = "UPDATE patient SET patientid = ?, patientname = ?, patientic = ?, patientsex = ?, patientaddress = ?, patientdate = ?, patientstatus = ?, patientdob = ?, patientphoneno = ?, patientbloodtype = ? WHERE patientid=?";
             final var statement = connection.prepareStatement(sql);
-            // String fullname = customer.getFullname();
-            // String address = customer.getAddress();
-            // String phonenum = customer.getPhonenum();
-            // String icnumber = customer.getIcnumber();
-            // Date licensecard = customer.getLicensecard();
-            // String password = customer.getPassword();
 
             statement.setInt(1, pId);
             statement.setString(2, pName);
@@ -309,6 +303,31 @@ public class mainController {
             System.out.println("error");
             return "redirect:/adminmainmenu"; 
         } 
+    }
+
+    //Delete Patient
+    @GetMapping("/delete-patient")
+    public String DeletePatient(@ModelAttribute("patient") patient patient, @RequestParam("pId") int ptnid, Model model) {
+         try {
+        Connection connection = dataSource.getConnection();
+        String sql = "DELETE FROM patient WHERE patientid=?;";
+        final var statement = connection.prepareStatement(sql);
+        statement.setInt(1, ptnid);
+
+       //execute delete
+       int rowsAffected = statement.executeUpdate();
+        if (rowsAffected > 0) {
+            // Deletion successful
+            return "redirect:/patient";
+        } else {
+            // No rows affected, account not found
+            return "account-not-found";
+        }
+        }catch (Throwable t) {
+        System.out.println("message : " + t.getMessage());
+        return "index";
+      }
+    
     }
 
 

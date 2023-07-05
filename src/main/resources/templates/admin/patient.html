@@ -32,13 +32,15 @@
             </a>
             </div>
         </div>
-
+        
           <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
-            <button class="dropbtn"><span class="material-symbols-outlined"
-                style="margin-top: 10px;" > settings </span></button>
-            <div class="dropdown-content">
-                <a class="dropdown-item" th:href="@{/add-account}">Add Account</a>
-                <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
+            <button class="btn dropdown-toggle" type="button" id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="material-symbols-outlined"
+                style="margin-top: 10px;" > settings </span>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="settingsDropdown">
+              <!-- Dropdown menu items -->
+              <a class="dropdown-item" th:href="@{/logout}">LogOut</a>
             </div>
           </div>
           
@@ -85,6 +87,14 @@
     <hr style="margin-bottom: 0px !important;">
   </div>
   <!-- End Side Bar-->
+  <style>
+     .custom-table {
+        background-color: #e3ebe4;
+    }
+    .custom-table tbody tr:hover {
+        background-color: #a5d6a7;
+    }
+</style>
     <!-- Content -->
     <div class="offset-2" style="margin-top: 5%;">
         <div class="container-fluid ">
@@ -104,10 +114,10 @@
           </div>
         </div>
 
-        <div name="patientTable" class="d-flex flex-column justify-content-center align-items-center">
+        <div name="patientTable" class="d-flex flex-column justify-content-center align-items-center rounded">
             <div class="d-flex justify-content-center col-10">
-                <table class="table table-striped text-center">
-                  <thead>
+              <table class="table table-bordered text-center border-success custom-table">
+                  <thead style="background-color: #a5d6a7;">
                       <tr>
                           <th scope="col">Id</th>
                           <th scope="col">Name</th>
@@ -144,16 +154,17 @@
                               </button>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
                                 <a class="dropdown-item" th:href="@{/update-patient(id=${patients.pId})}">Edit</a>
-                                <a class="dropdown-item" href="">Delete</a>
-                                <!-- <a class="dropdown-item" th:data-id="${patients.pIid}" data-toggle="modal" data-target="#deleteModal">Delete</a> -->
+                                <!-- <a class="dropdown-item" href="">Delete</a> -->
+                                <a class="dropdown-item" th:data-id="${patients.pId}" data-toggle="modal" data-target="#deleteModal">Delete</a>
                               </div>
                             </div>
                           </td>
                       </tr>
                   </tbody>
                 </table>
+
                 <!-- Modal -->
-                <!-- <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -171,7 +182,7 @@
                         </div>
                     </div>
                     </div>
-                </div> -->
+                </div>
 
             </div>
         </div>
@@ -185,31 +196,31 @@
     </div>
 
     <!-- modal js -->
-<!-- <script>
+<script>
     $(document).ready(function() {
-      $('#deleteModal').on('show.bs.modal', function(event) {
-        var deleteId = $(event.relatedTarget).data('id');
-        var deleteUrl = '/delete-account?id=' + deleteId;
-        $('#deleteButton').attr('href', deleteUrl);
-      });
-  
-      $('#deleteButton').click(function(event) {
-        event.preventDefault();
-        var deleteUrl = $(this).attr('href');
-  
-        // Send a GET request to the deleteUrl
-        $.get(deleteUrl, function() {
-          // Refresh the page after successful deletion
-          location.reload();
-        }).fail(function() {
-          // Handle any errors
-          alert('An error occurred while deleting the account.');
-        });
-  
-        $('#deleteModal').modal('hide');
-      });
+  $('#deleteModal').on('show.bs.modal', function(event) {
+    var deleteId = $(event.relatedTarget).data('id');
+    var deleteUrl = '/delete-patient?pId=' + deleteId;
+    $('#deleteButton').attr('href', deleteUrl);
+  });
+
+  $('#deleteButton').click(function(event) {
+    event.preventDefault();
+    var deleteUrl = $(this).attr('href');
+
+    // Send a GET request to the deleteUrl
+    $.get(deleteUrl, function() {
+      // Refresh the page after successful deletion
+      location.reload();
+    }).fail(function() {
+      // Handle any errors
+      alert('An error occurred while deleting the account.');
     });
-  </script> -->
+
+    $('#deleteModal').modal('hide');
+  });
+});
+  </script>
   
     <!-- End Content-->
 

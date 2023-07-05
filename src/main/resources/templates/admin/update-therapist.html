@@ -14,33 +14,35 @@
 
 </head>
 <body>
-   <!-- Start Nav Bar -->
-   <nav class="navbar fixed-top" style="border-bottom: 1px solid #cecece !important;">
-    <div class=" d-flex flex-row">
-        <a class="hamburger navbar-brand" href="#"> <img
-            th:src="@{/icon/hamburger.png}" alt="Logo" width="25"
-            height="30"></a>
-        <div class="container d-flex flex-row justify-content-start">
-        <a class="navbar-brand" href="#"> <img
-            th:src="@{/icon/logoPMS.png}" alt="Logo" width="35"
-            height="35" class="d-inline-block align-text-top"> PMSystems
-        </a>
-        </div>
-    </div>
-
-      <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
-        <button class="dropbtn"><span class="material-symbols-outlined"
-            style="margin-top: 10px;" > settings </span></button>
-        <div class="dropdown-content">
-            <a class="dropdown-item" th:href="@{/add-account}">Add Account</a>
-            <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
-        </div>
-      </div>
-      
-    </div>            
-</nav>
-
-<!-- End Nav Bar-->
+           <!-- Start Nav Bar -->
+           <nav class="navbar fixed-top" style="border-bottom: 1px solid #cecece !important;">
+            <div class=" d-flex flex-row">
+                <a class="hamburger navbar-brand" href="#"> <img
+                    th:src="@{/icon/hamburger.png}" alt="Logo" width="25"
+                    height="30"></a>
+                <div class="container d-flex flex-row justify-content-start">
+                <a class="navbar-brand" href="#"> <img
+                    th:src="@{/icon/logoPMS.png}" alt="Logo" width="35"
+                    height="35" class="d-inline-block align-text-top"> PMSystems
+                </a>
+                </div>
+            </div>
+            
+              <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
+                <button class="btn dropdown-toggle" type="button" id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="material-symbols-outlined"
+                    style="margin-top: 10px;" > settings </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="settingsDropdown">
+                  <!-- Dropdown menu items -->
+                  <a class="dropdown-item" th:href="@{/logout}">LogOut</a>
+                </div>
+              </div>
+              
+            </div>            
+        </nav>
+    
+        <!-- End Nav Bar-->
 
  <!-- Start Side Bar-->
 <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 92%;">

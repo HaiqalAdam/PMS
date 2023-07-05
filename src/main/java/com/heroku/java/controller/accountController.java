@@ -138,13 +138,7 @@ public class accountController {
             Connection connection = dataSource.getConnection()) { 
             String sql = "UPDATE staff SET id=?, name=? , password=?, role=? WHERE id=?";
             final var statement = connection.prepareStatement(sql);
-            // String fullname = customer.getFullname();
-            // String address = customer.getAddress();
-            // String phonenum = customer.getPhonenum();
-            // String icnumber = customer.getIcnumber();
-            // Date licensecard = customer.getLicensecard();
-            // String password = customer.getPassword();
-
+      
             statement.setInt(1, id);
             statement.setString(2, usr);
             statement.setString(3, pwd);
@@ -167,7 +161,7 @@ public class accountController {
     public String DeleteAccount(@ModelAttribute("users") users users, @RequestParam("id") int userid, Model model) {
          try {
         Connection connection = dataSource.getConnection();
-        String sql = "DELETE FROM staff WHERE id=?";;
+        String sql = "DELETE FROM staff WHERE id=?;";
         final var statement = connection.prepareStatement(sql);
         statement.setInt(1, userid);
 
