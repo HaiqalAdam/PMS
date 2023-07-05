@@ -1,4 +1,4 @@
-package com.heroku.java;
+package com.heroku.java.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -43,18 +43,19 @@ public class admissionController {
     }
 
     @PostMapping("/admission")
-    public String admissionAdmin(HttpSession session, @ModelAttribute("adminAdmission") patient patient) {
+    public String admissionAdmin(HttpSession session, @ModelAttribute("adminAdmission") patient ptns) {
         try {
             Connection connection = dataSource.getConnection();
             final var statement = connection.prepareStatement(
-                    "SELECT patientname FROM patient JOIN admission ON (patient.patientid = admission.patientid) WHERE patientic =?");
-            // statement.setInt(1, patientid);
+                    "SELECT patientname FROM patient WHERE patientic = ?");
             final var resultSet = statement.executeQuery();
 
-            statement.setString(1, patient.getPName());
-            statement.setString(2, patient.getPIc());
-            statement.executeUpdate();
-
+            ArrayList<patient> patient = new ArrayList<>();
+            while (resultSet.next()) {
+                String pName = resultSet.getString("patientname");
+                String pIc = resultSet.getString("patientic");
+                statement.executeUpdate();
+            }
             return "redirect:/admin/admission";
 
         } catch (SQLException sqe) {

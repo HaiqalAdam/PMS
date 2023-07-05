@@ -143,12 +143,6 @@ public class mainController {
         return "admin/update-therapist";
     }
 
-    @GetMapping("/admission")
-    public String admission() {
-        // model.addAttribute("user", model);
-        return "admin/admission";
-    }
-
     // CREATE PATIENT
     @GetMapping("/register-patient")
     public String registerP() {
