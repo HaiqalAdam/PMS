@@ -1,4 +1,4 @@
-package com.heroku.java;
+package com.heroku.java.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -57,17 +57,18 @@ public class staffController {
     public String registerPatient(HttpSession session, @ModelAttribute("patient") patient reg_patient) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO patient(patientname, patientic, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
 
             statement.setString(1, reg_patient.getPName());
-            statement.setString(2, reg_patient.getPSex());
-            statement.setString(3, reg_patient.getPAddress());
-            statement.setDate(4, reg_patient.getPDate());
-            statement.setString(5, reg_patient.getPStatus());
-            statement.setDate(6, reg_patient.getPDOB());
-            statement.setString(7, reg_patient.getPPhoneNo());
-            statement.setString(8, reg_patient.getPBloodType());
+            statement.setString(2, reg_patient.getPIc());
+            statement.setString(3, reg_patient.getPSex());
+            statement.setString(4, reg_patient.getPAddress());
+            statement.setDate(5, reg_patient.getPDate());
+            statement.setString(6, reg_patient.getPStatus());
+            statement.setDate(7, reg_patient.getPDOB());
+            statement.setString(8, reg_patient.getPPhoneNo());
+            statement.setString(9, reg_patient.getPBloodType());
             statement.executeUpdate();
 
             //debug
