@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.heroku.java.model.drug;
 import com.heroku.java.model.patient;
 
 import jakarta.servlet.http.HttpSession;
@@ -35,12 +36,6 @@ public class staffController {
         return "staff/staffmainmenu";
     }
 
-    @GetMapping("/staff-admission")
-    public String staffadmission() {
-        // model.addAttribute("user", model);
-        return "staff/staff-admission";
-    }
-
     @GetMapping("/staff-patient")
     public String staffpatient() {
         // model.addAttribute("user", model);
@@ -54,35 +49,28 @@ public class staffController {
     }
 
     @PostMapping("/staff-register-patient")
-    public String registerPatient(HttpSession session, @ModelAttribute("patient") patient reg_patient) {
+    public String registerPatient(HttpSession session, @ModelAttribute("patient") patient patient, drug drugs) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "INSERT INTO patient(patientname, patientic, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO patient(patientname, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype, patientic) VALUES(?,?,?,?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
-
-            statement.setString(1, reg_patient.getPName());
-            statement.setString(2, reg_patient.getPIc());
-            statement.setString(3, reg_patient.getPSex());
-            statement.setString(4, reg_patient.getPAddress());
-            statement.setDate(5, reg_patient.getPDate());
-            statement.setString(6, reg_patient.getPStatus());
-            statement.setDate(7, reg_patient.getPDOB());
-            statement.setString(8, reg_patient.getPPhoneNo());
-            statement.setString(9, reg_patient.getPBloodType());
+            String sql2 = "INSERT INTO drug (drugtype) VALUES(?)";
+            final var statement2 = connection.prepareStatement(sql2);
+            statement.setString(1, patient.getPName());
+            statement.setString(2, patient.getPSex());
+            statement.setString(3, patient.getPAddress());
+            statement.setDate(4, patient.getPDate());
+            statement.setString(5, patient.getPStatus());
+            statement.setDate(6, patient.getPDOB());
+            statement.setString(7, patient.getPPhoneNo());
+            statement.setString(8, patient.getPBloodType());
+            statement.setString(9, patient.getPIc());
             statement.executeUpdate();
 
-            //debug
-            // System.out.println("name" + reg_patient.getPName());
-            // System.out.println("Sex" + reg_patient.getPSex());
-            // System.out.println("Address" + reg_patient.getPAddress());
-            // System.out.println("Date" + reg_patient.getPDate());
-            // System.out.println("Date" + reg_patient.getPDate());
-            // System.out.println("Status" + reg_patient.getPStatus());
-            // System.out.println("DOB" + reg_patient.getPDOB());
-            // System.out.println("Blood Type" + reg_patient.getPBloodType());
-           
-            connection.close();
+            statement2.setString(1, drugs.getDrugtype());
+            statement2.executeUpdate();
 
+            connection.close();
             return "redirect:/staff-register-patient";
 
         } catch (SQLException sqe) {
@@ -97,7 +85,6 @@ public class staffController {
             System.out.println("message : " + t.getMessage());
         }
         return "staff/staffmainmenu";
-
     }
 
     @GetMapping("/staff-update-patient")

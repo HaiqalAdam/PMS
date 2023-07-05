@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heroku.java.model.drug;
 import com.heroku.java.model.patient;
 import com.heroku.java.model.users;
 
@@ -32,6 +34,11 @@ public class mainController {
     public mainController(DataSource dataSource) {
         this.dataSource = dataSource;
     }
+
+    // @Bean
+    // public BCryptPasswordEncoder passwordEncoder() {
+    // return new BCryptPasswordEncoder();
+    // }
 
     @GetMapping("/")
     public String adminlogin(HttpSession session) {
@@ -60,6 +67,7 @@ public class mainController {
                 if (username.equals(staff.getUsr()) && password.equals(staff.getPwd())) {
                     session.setAttribute("usr", staff.getUsr());
                     session.setAttribute("role", role);
+
                     returnPage = "redirect:/adminmainmenu";
                     break;
                 } else if (username.equals(admin.getUsr()) && password.equals(admin.getPwd())) {
@@ -105,14 +113,14 @@ public class mainController {
     public String showDashboard(HttpSession session) {
         // // Check if user is logged in
         // if (session.getAttribute("usr") != null) {
-        //      if (session.getAttribute("role").equals("admin")) {
-        //         return "admin/adminmainmenu";
-        //     } else {
-        //      return "therapist/adminmainmenu";
-        //     }
+        // if (session.getAttribute("role").equals("admin")) {
+        // return "admin/adminmainmenu";
         // } else {
-        //      System.out.println("Session expired or invalid...");
-        //     return "redirect:/";
+        // return "therapist/adminmainmenu";
+        // }
+        // } else {
+        // System.out.println("Session expired or invalid...");
+        // return "redirect:/";
         // }
         return "admin/adminmainmenu";
     }
@@ -135,12 +143,6 @@ public class mainController {
         return "admin/update-therapist";
     }
 
-    @GetMapping("/admission")
-    public String admission() {
-        // model.addAttribute("user", model);
-        return "admin/admission";
-    }
-
     // CREATE PATIENT
     @GetMapping("/register-patient")
     public String registerP() {
@@ -149,12 +151,14 @@ public class mainController {
     }
 
     @PostMapping("/register-patient")
-    public String adminregisterPatient(HttpSession session, @ModelAttribute("admin-patient") patient patient) {
+    public String adminregisterPatient(HttpSession session, @ModelAttribute("admin-patient") patient patient,
+            drug drugs) {
         try {
             Connection connection = dataSource.getConnection();
             String sql = "INSERT INTO patient(patientname, patientic, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?,?)";
             final var statement = connection.prepareStatement(sql);
-
+            String sql2 = "INSERT INTO drug (drugtype) VALUES(?)";
+            final var statement2 = connection.prepareStatement(sql2);
             statement.setString(1, patient.getPName());
             statement.setString(2, patient.getPIc());
             statement.setString(3, patient.getPSex());
@@ -166,16 +170,9 @@ public class mainController {
             statement.setString(9, patient.getPBloodType());
             statement.executeUpdate();
 
-            //debug
-            // System.out.println("name" + reg_patient.getPName());
-            // System.out.println("Sex" + reg_patient.getPSex());
-            // System.out.println("Address" + reg_patient.getPAddress());
-            // System.out.println("Date" + reg_patient.getPDate());
-            // System.out.println("Date" + reg_patient.getPDate());
-            // System.out.println("Status" + reg_patient.getPStatus());
-            // System.out.println("DOB" + reg_patient.getPDOB());
-            // System.out.println("Blood Type" + reg_patient.getPBloodType());
-           
+            statement2.setString(1, drugs.getDrugtype());
+            statement2.executeUpdate();
+
             connection.close();
 
             return "redirect:/register-patient";
@@ -195,45 +192,47 @@ public class mainController {
 
     }
 
-    //READ PATIENT
+    // READ PATIENT
     @GetMapping("/patient")
     public String showPatient(HttpSession session, patient ptns, Model model) {
-    
-    // if (session.getAttribute("name") != null) {
-      try (Connection connection = dataSource.getConnection()) {
-        final var statement = connection.createStatement();
 
-        final var resultSet = statement.executeQuery("SELECT patientid, patientname, patientic, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype FROM patient ORDER BY patientid;");
+        // if (session.getAttribute("name") != null) {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
 
-        // int row = 0;
-        ArrayList<patient> patient = new ArrayList<>();
-        while (resultSet.next()) {
-          int pId = resultSet.getInt("patientid");
-          String pName = resultSet.getString("patientname");
-          String pIc = resultSet.getString("patientic");
-          String pSex = resultSet.getString("patientsex");
-          String pAddress = resultSet.getString("patientaddress");
-          Date pDate = resultSet.getDate("patientdate");
-          String pStatus = resultSet.getString("patientstatus");
-          Date pDOB = resultSet.getDate("patientdob");
-          String pPhoneNo = resultSet.getString("patientphoneno");
-          String pBloodType = resultSet.getString("patientbloodtype");
+            final var resultSet = statement.executeQuery(
+                    "SELECT patientid, patientname, patientic, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype FROM patient ORDER BY patientid;");
 
-          patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo, pBloodType);
-          patient.add(patients);
-          
+            // int row = 0;
+            ArrayList<patient> patient = new ArrayList<>();
+            while (resultSet.next()) {
+                int pId = resultSet.getInt("patientid");
+                String pName = resultSet.getString("patientname");
+                String pIc = resultSet.getString("patientic");
+                String pSex = resultSet.getString("patientsex");
+                String pAddress = resultSet.getString("patientaddress");
+                Date pDate = resultSet.getDate("patientdate");
+                String pStatus = resultSet.getString("patientstatus");
+                Date pDOB = resultSet.getDate("patientdob");
+                String pPhoneNo = resultSet.getString("patientphoneno");
+                String pBloodType = resultSet.getString("patientbloodtype");
+
+                patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo,
+                        pBloodType);
+                patient.add(patients);
+
+            }
+            model.addAttribute("patient", patient);
+            // connection.close();
+            return "admin/patient";
+
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "index";
         }
-        model.addAttribute("patient", patient);
-        // connection.close();
-        return "admin/patient";
-
-      } catch (Throwable t) {
-        System.out.println("message : " + t.getMessage());
-        return "index";
-      }
     }
 
-    //UPDATE PATIENT
+    // UPDATE PATIENT
     @GetMapping("/update-patient")
     public String showUpdatePatient(@ModelAttribute("patient") patient patient, @RequestParam("id") int ptnid, Model model) {
          try {
@@ -242,30 +241,31 @@ public class mainController {
         final var statement = connection.prepareStatement(sql);
         statement.setInt(1, ptnid);
 
-        final var resultSet = statement.executeQuery();
-        while (resultSet.next()) {
-          int pId = resultSet.getInt("patientid");
-          String pName = resultSet.getString("patientname");
-          String pIc = resultSet.getString("patientic");
-          String pSex = resultSet.getString("patientsex");
-          String pAddress = resultSet.getString("patientaddress");
-          Date pDate = resultSet.getDate("patientdate");
-          String pStatus = resultSet.getString("patientstatus");
-          Date pDOB = resultSet.getDate("patientdob");
-          String pPhoneNo = resultSet.getString("patientphoneno");
-          String pBloodType = resultSet.getString("patientbloodtype");
+            final var resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                int pId = resultSet.getInt("patientid");
+                String pName = resultSet.getString("patientname");
+                String pIc = resultSet.getString("patientic");
+                String pSex = resultSet.getString("patientsex");
+                String pAddress = resultSet.getString("patientaddress");
+                Date pDate = resultSet.getDate("patientdate");
+                String pStatus = resultSet.getString("patientstatus");
+                Date pDOB = resultSet.getDate("patientdob");
+                String pPhoneNo = resultSet.getString("patientphoneno");
+                String pBloodType = resultSet.getString("patientbloodtype");
 
-          patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo, pBloodType);
-          model.addAttribute("patient", patients);
+                patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo,
+                        pBloodType);
+                model.addAttribute("patient", patients);
+            }
+            return "admin/update-patient";
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "index";
         }
-          return "admin/update-patient";
-        }catch (Throwable t) {
-        System.out.println("message : " + t.getMessage());
-        return "index";
-      }   
     }
 
-    @PostMapping("/update-patient") 
+     @PostMapping("/update-patient") 
     public String updatePatient(HttpSession session, @ModelAttribute("patient") patient patients , Model model, @RequestParam("pId") int ptnsid) { 
         int pId = patients.getPId();
         String pName = patients.getPName();
@@ -305,6 +305,7 @@ public class mainController {
         } 
     }
 
+
     //Delete Patient
     @GetMapping("/delete-patient")
     public String DeletePatient(@ModelAttribute("patient") patient patient, @RequestParam("pId") int ptnid, Model model) {
@@ -325,7 +326,7 @@ public class mainController {
         }
         }catch (Throwable t) {
         System.out.println("message : " + t.getMessage());
-        return "index";
+        return "redirect:/adminmainmenu";
       }
     
     }
@@ -352,7 +353,6 @@ public class mainController {
             return "error";
         }
     }
-
 
     public static void main(String[] args) {
         SpringApplication.run(mainController.class, args);

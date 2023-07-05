@@ -18,7 +18,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     </head>
 
-    <body>
+    <body style="height: 100%; width: 100%;">
         <!-- Start Nav Bar -->
       <nav class="navbar fixed-top" style="border-bottom: 1px solid #cecece !important;">
         <div class=" d-flex flex-row">
@@ -32,9 +32,9 @@
             </a>
             </div>
         </div>
-        
+
           <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
-            <button class="btn dropdown-toggle" type="button" id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button class="btn btn-sm" type="button" id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="material-symbols-outlined"
                 style="margin-top: 10px;" > settings </span>
             </button>
@@ -50,7 +50,7 @@
     <!-- End Nav Bar-->
 
 <!-- Start Side Bar-->
-<div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 92%;">
+<div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed">
     <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
         <h5 style="margin-top: 20px;">Menu</h5>
         <li><a th:href="@{/adminmainmenu}"
@@ -92,7 +92,7 @@
         background-color: #e3ebe4;
     }
     .custom-table tbody tr:hover {
-        background-color: #a5d6a7;
+        background-color: #d4e4d4;
     }
 </style>
     <!-- Content -->

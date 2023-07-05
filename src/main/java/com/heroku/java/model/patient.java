@@ -29,7 +29,6 @@ public class patient {
         this.pBloodType = pBloodType;
     }
 
-
     public Integer getPId() {
         return pId;
     }
@@ -46,7 +45,7 @@ public class patient {
         this.pName = pName;
     }
 
-      public String getPIc() {
+    public String getPIc() {
         return pIc;
     }
 
