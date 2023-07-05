@@ -42,44 +42,44 @@
 
 <!-- End Nav Bar-->
 
-    <!-- Start Side Bar-->
-    <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 94%;">
-      <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
-          <h5 style="margin-top: 20px;">Menu</h5>
-          <li><a th:href="@{/adminmainmenu}"
-              class="nav-link text-black d-flex justify-content-start"
-              aria-current="page"><span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
-          <li class="nav-item"><a href="#"
-              class="nav-link text-black d-flex justify-content-start">
-                  <span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> calendar_month </span>Schedule
-          </a></li>
-          <li class="nav-item"><a th:href="@{/admission}"
-              class="nav-link text-black d-flex justify-content-start">
-                  <span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> group_add </span>Admission
-          </a></li>
-      <hr class="hr-line">
-          
-          <li><a th:href="@{/therapist}"
-              class="nav-link text-black d-flex justify-content-start"
-              aria-current="page"><span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> psychology </span> Therapist </a></li>
+<!-- Start Side Bar-->
+<div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 92%;">
+  <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
+      <h5 style="margin-top: 20px;">Menu</h5>
+      <li><a th:href="@{/adminmainmenu}"
+          class="nav-link text-black d-flex justify-content-start"
+          aria-current="page"><span class="material-symbols-outlined"
+          style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
+      <li class="nav-item"><a th:href="@{/view-account}"
+            class="nav-link text-black d-flex justify-content-start">
+            <span class="material-symbols-outlined"
+            style="margin-right: 20px;"> person_apron </span> Account
+      </a></li>
+      <li class="nav-item"><a th:href="@{/admission}"
+          class="nav-link text-black d-flex justify-content-start">
+              <span class="material-symbols-outlined"
+              style="margin-right: 20px;"> group_add </span>Admission
+      </a></li>
+  <hr class="hr-line">
+      
+      <li><a th:href="@{/therapist}"
+          class="nav-link text-black d-flex justify-content-start"
+          aria-current="page"><span class="material-symbols-outlined"
+              style="margin-right: 20px;"> psychology </span> Therapist </a></li>
 
-          <li class="nav-item"><a th:href="@{/patient}"
-              class="nav-link active text-black d-flex justify-content-start"><span
-              class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
-          
+      <li class="nav-item"><a th:href="@{/patient}"
+          class="nav-link text-black active d-flex justify-content-start"><span
+          class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
+      
           <li class="nav-item"><a href="#"
-              class="nav-link text-black d-flex justify-content-start">
-                  <span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> article </span>Record
-          </a></li>
-      </ul>
-      <hr style="margin-bottom: 0px !important;">
-  </div>
-  <!-- End Side Bar-->
+            class="nav-link text-black d-flex justify-content-start">
+                <span class="material-symbols-outlined"
+                style="margin-right: 20px;"> article </span>Record
+        </a></li>
+  </ul>
+  <hr style="margin-bottom: 0px !important;">
+</div>
+<!-- End Side Bar-->
   <!-- Page Content -->
  
     <div class="container-fluid">
@@ -100,8 +100,12 @@
               id="name" 
               name="pName" 
               th:value="${pName}" 
+<<<<<<< HEAD
               placeholder="Name"
               required>
+=======
+              placeholder="Name" required>
+>>>>>>> c4f1a5cc943c4ea94898f101404948bbc7edf8d2
             </div>
           </div>
 
@@ -118,14 +122,21 @@
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="name">Date In</label>
-              <input type="date" 
+              <label for="ic">Ic Number</label>
+              <input type="text" 
               class="form-control" 
+<<<<<<< HEAD
               id="datein" 
               name="pDate" 
               th:value="${pDate}" 
               placeholder="Date"
               required>
+=======
+              id="ic" 
+              name="pIc" 
+              th:value="${pIc}" 
+              placeholder="Ic Number" required>
+>>>>>>> c4f1a5cc943c4ea94898f101404948bbc7edf8d2
             </div>
 
             <div class="form-group col-md-6">
@@ -135,8 +146,12 @@
               id="status" 
               name="pStatus" 
               th:value="${pStatus}" 
+<<<<<<< HEAD
               placeholder="Status"
               required>
+=======
+              placeholder="Status" required>
+>>>>>>> c4f1a5cc943c4ea94898f101404948bbc7edf8d2
             </div>
           </div>
 
@@ -148,8 +163,12 @@
               id="sex" 
               name="pSex" 
               th:value="${pSex}" 
+<<<<<<< HEAD
               placeholder="Sex"
               required>
+=======
+              placeholder="Sex" required>
+>>>>>>> c4f1a5cc943c4ea94898f101404948bbc7edf8d2
             </div>
 
             <div class="form-group col-md-6">
@@ -159,8 +178,12 @@
               id="dob" 
               name="pDOB" 
               th:value="${pDOB}" 
+<<<<<<< HEAD
               placeholder="Date of Birth"
               required>
+=======
+              placeholder="Date of Birth" required>
+>>>>>>> c4f1a5cc943c4ea94898f101404948bbc7edf8d2
             </div>
           </div>
 
@@ -172,31 +195,54 @@
               id="phone" 
               name="pPhoneNo" 
               th:value="${pPhoneNo}" 
+<<<<<<< HEAD
               placeholder="Phone No."
               required>
+=======
+              placeholder="Phone No." required>
+>>>>>>> c4f1a5cc943c4ea94898f101404948bbc7edf8d2
             </div>
 
             <div class="form-group col-md-6">
               <label for="drugType">Drug Type</label>
               <input type="text" 
               class="form-control" 
+<<<<<<< HEAD
               id="drugtype" 
               name="drugtype"
               th:value="${drugtype}" 
               placeholder="Drug Type"
               required
               >
+=======
+              id="drugType" 
+              name="pDrugType" 
+              th:value="${pDrugType}" 
+              placeholder="Drug Type" required>
+>>>>>>> c4f1a5cc943c4ea94898f101404948bbc7edf8d2
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="bloodType">Blood Type</label>
-            <input type="text" 
-            class="form-control" 
-            id="bloodType" 
-            name="pBloodType" 
-            th:value="${BloodType}" 
-            placeholder="Blood Type">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="name">Date In</label>
+              <input type="date" 
+              class="form-control" 
+              id="datein" 
+              name="pDate" 
+              th:value="${pDate}" 
+              placeholder="Date"required>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="bloodType">Blood Type</label>
+              <input type="text" 
+              class="form-control" 
+              id="bloodType" 
+              name="pBloodType" 
+              th:value="${BloodType}" 
+              placeholder="Blood Type" required>
+            </div>
           </div>
 
           <div class="form-group">
@@ -206,8 +252,12 @@
             id="address" 
             name="pAddress" 
             th:value="${pAddress}" 
+<<<<<<< HEAD
             placeholder="Address"
             required>
+=======
+            placeholder="Address" required>
+>>>>>>> c4f1a5cc943c4ea94898f101404948bbc7edf8d2
           </div>
 
           <div class="form-group text-center">
