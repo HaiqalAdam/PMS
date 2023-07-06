@@ -150,6 +150,7 @@ public class mainController {
         return "admin/register-patient";
     }
 
+
     @PostMapping("/register-patient")
     public String adminregisterPatient(HttpSession session, @ModelAttribute("admin-patient") patient patient,
             drug drugs) {
