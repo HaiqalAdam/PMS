@@ -78,115 +78,118 @@
         <div class="col-6">
           <div class="card" style="border: solid 1px black;">
             <div class="card-body custom-form" style="background-color: #ffffff;">
-          <form th:action="@{/staff-register-patient}" method="post" modelAttribute="patient">
-            
-            <div class="form-row mt-4">
-              <div class="form-group col-md-12">
-                <label for="name">Name</label>
-                <input type="text"
-                class="form-control" 
-                id="name" 
-                name="pName" 
-                th:value="${pName}" 
-                placeholder="Name">
-              </div>
-            </div>
 
-            <div class="form-group">
-              <label for="ic">Patient IC</label>
+        <form th:action="@{/register-patient}" method="post" modelAttribute="admin-patient">
+          <div class="form-row mt-4">
+            <div class="form-group col-md-12">
+              <label for="name">Name</label>
+              <input type="text" 
+              class="form-control" 
+              id="name" 
+              name="pName" 
+              th:value="${pName}" 
+              placeholder="Name" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            
+            <div class="form-group col-md-6">
+              <label for="ic">Ic Number</label>
               <input type="text" 
               class="form-control" 
               id="ic" 
               name="pIc" 
-              th:value="${}" 
-              placeholder="Patient IC">
+              th:value="${pIc}" 
+              placeholder="Ic Number" required>
             </div>
-  
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="name">Date In</label>
-                <input type="date" 
-                class="form-control" 
-                id="datein" 
-                name="pDate" 
-                th:value="${pDate}" 
-                placeholder="Date">
-              </div>
-  
-              <div class="form-group col-md-6">
-                <label for="status">Status</label>
-                <input type="text" 
-                class="form-control" 
-                id="status" 
-                name="pStatus" 
-                th:value="${pStatus}" 
-                placeholder="Status">
-              </div>
+
+            <div class="form-group col-md-6">
+              <label for="status">Status</label>
+              <input type="text" 
+              class="form-control" 
+              id="status" 
+              name="pStatus" 
+              th:value="${pStatus}" 
+              placeholder="Status" required>
             </div>
-  
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="sex">Sex</label>
-                <input type="text" 
-                class="form-control" 
-                id="sex" 
-                name="pSex" 
-                th:value="${pSex}" 
-                placeholder="Sex">
-              </div>
-  
-              <div class="form-group col-md-6">
-                <label for="dob">Date of Birth</label>
-                <input type="date" 
-                class="form-control" 
-                id="dob" 
-                name="pDOB" 
-                th:value="${pDOB}" 
-                placeholder="Date of Birth">
-              </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="sex">Sex</label>
+              <input type="text" 
+              class="form-control" 
+              id="sex" 
+              name="pSex" 
+              th:value="${pSex}" 
+              placeholder="Sex" required>
             </div>
-  
-            <div class="form-row">
-              <div class="form-group col-md-6">
-                <label for="phone">Phone No.</label>
-                <input type="text" 
-                class="form-control" 
-                id="phone" 
-                name="pPhoneNo" 
-                th:value="${pPhoneNo}" 
-                placeholder="Phone No.">
-              </div>
-  
-              <div class="form-group col-md-6">
-                <label for="drugType">Drug Type</label>
-                <input type="text" 
-                class="form-control" 
-                id="drugType" 
-                name="pDrugType" 
-                th:value="${pDrugType}" 
-                placeholder="Drug Type">
-              </div>
+
+            <div class="form-group col-md-6">
+              <label for="dob">Date of Birth</label>
+              <input type="date" 
+              class="form-control" 
+              id="dob" 
+              name="pDOB" 
+              th:value="${pDOB}" 
+              placeholder="Date of Birth" required>
             </div>
-  
-            <div class="form-group">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="phone">Phone No.</label>
+              <input type="text" 
+              class="form-control" 
+              id="phone" 
+              name="pPhoneNo" 
+              th:value="${pPhoneNo}" 
+              placeholder="Phone No." required>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="drugType">Drug Type</label>
+              <input type="text" 
+              class="form-control" 
+              id="drugType" 
+              name="pDrugType" 
+              th:value="${pDrugType}" 
+              placeholder="Drug Type" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="name">Date In</label>
+              <input type="date" 
+              class="form-control" 
+              id="datein" 
+              name="pDate" 
+              th:value="${pDate}" 
+              placeholder="Date"required>
+            </div>
+
+            <div class="form-group col-md-6">
               <label for="bloodType">Blood Type</label>
               <input type="text" 
               class="form-control" 
               id="bloodType" 
               name="pBloodType" 
               th:value="${BloodType}" 
-              placeholder="Blood Type">
+              placeholder="Blood Type" required>
             </div>
-  
-            <div class="form-group">
-              <label for="address">Address</label>
-              <input type="text" 
-              class="form-control" 
-              id="address" 
-              name="pAddress" 
-              th:value="${pAddress}" 
-              placeholder="Address">
-            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="address">Address</label>
+            <input type="text" 
+            class="form-control" 
+            id="address" 
+            name="pAddress" 
+            th:value="${pAddress}" 
+            placeholder="Address" required>
+          </div>
 
             <div class="form-group text-center">
               <button type="reset" class="btn btn-secondary">Reset</button>

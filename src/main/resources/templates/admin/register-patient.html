@@ -14,72 +14,74 @@
 
 </head>
 <body>
-   <!-- Start Nav Bar -->
-   <nav class="navbar fixed-top" style="border-bottom: 1px solid #cecece !important;">
-    <div class=" d-flex flex-row">
-        <a class="hamburger navbar-brand" href="#"> <img
-            th:src="@{/icon/hamburger.png}" alt="Logo" width="25"
-            height="30"></a>
-        <div class="container d-flex flex-row justify-content-start">
-        <a class="navbar-brand" href="#"> <img
-            th:src="@{/icon/logoPMS.png}" alt="Logo" width="35"
-            height="35" class="d-inline-block align-text-top"> PMSystems
-        </a>
-        </div>
-    </div>
+         <!-- Start Nav Bar -->
+         <nav class="navbar fixed-top" style="border-bottom: 1px solid #cecece !important;">
+          <div class=" d-flex flex-row">
+              <a class="hamburger navbar-brand" href="#"> <img
+                  th:src="@{/icon/hamburger.png}" alt="Logo" width="25"
+                  height="30"></a>
+              <div class="container d-flex flex-row justify-content-start">
+              <a class="navbar-brand" href="#"> <img
+                  th:src="@{/icon/logoPMS.png}" alt="Logo" width="35"
+                  height="35" class="d-inline-block align-text-top"> PMSystems
+              </a>
+              </div>
+          </div>
+          
+            <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
+              <button class="btn dropdown-toggle" type="button" id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="material-symbols-outlined"
+                  style="margin-top: 10px;" > settings </span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="settingsDropdown">
+                <!-- Dropdown menu items -->
+                <a class="dropdown-item" th:href="@{/logout}">LogOut</a>
+              </div>
+            </div>
+            
+          </div>            
+      </nav>
+  
+      <!-- End Nav Bar-->
 
-      <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
-        <button class="dropbtn"><span class="material-symbols-outlined"
-            style="margin-top: 10px;"> settings </span></button>
-        <div class="dropdown-content">
-            <a class="dropdown-item" th:href="@{/add-account}">Add Account</a>
-            <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
-        </div>
-      </div>
+<!-- Start Side Bar-->
+<div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 92%;">
+  <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
+      <h5 style="margin-top: 20px;">Menu</h5>
+      <li><a th:href="@{/adminmainmenu}"
+          class="nav-link text-black d-flex justify-content-start"
+          aria-current="page"><span class="material-symbols-outlined"
+          style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
+      <li class="nav-item"><a th:href="@{/view-account}"
+            class="nav-link text-black d-flex justify-content-start">
+            <span class="material-symbols-outlined"
+            style="margin-right: 20px;"> person_apron </span> Account
+      </a></li>
+      <li class="nav-item"><a th:href="@{/admission}"
+          class="nav-link text-black d-flex justify-content-start">
+              <span class="material-symbols-outlined"
+              style="margin-right: 20px;"> group_add </span>Admission
+      </a></li>
+  <hr class="hr-line">
       
-    </div>            
-</nav>
+      <li><a th:href="@{/therapist}"
+          class="nav-link text-black d-flex justify-content-start"
+          aria-current="page"><span class="material-symbols-outlined"
+              style="margin-right: 20px;"> psychology </span> Therapist </a></li>
 
-<!-- End Nav Bar-->
-
-    <!-- Start Side Bar-->
-    <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 94%;">
-      <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
-          <h5 style="margin-top: 20px;">Menu</h5>
-          <li><a th:href="@{/adminmainmenu}"
-              class="nav-link text-black d-flex justify-content-start"
-              aria-current="page"><span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
+      <li class="nav-item"><a th:href="@{/patient}"
+          class="nav-link text-black active d-flex justify-content-start"><span
+          class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
+      
           <li class="nav-item"><a href="#"
-              class="nav-link text-black d-flex justify-content-start">
-                  <span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> calendar_month </span>Schedule
-          </a></li>
-          <li class="nav-item"><a th:href="@{/admission}"
-              class="nav-link text-black d-flex justify-content-start">
-                  <span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> group_add </span>Admission
-          </a></li>
-      <hr class="hr-line">
-          
-          <li><a th:href="@{/therapist}"
-              class="nav-link text-black d-flex justify-content-start"
-              aria-current="page"><span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> psychology </span> Therapist </a></li>
-
-          <li class="nav-item"><a th:href="@{/patient}"
-              class="nav-link active text-black d-flex justify-content-start"><span
-              class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
-          
-          <li class="nav-item"><a href="#"
-              class="nav-link text-black d-flex justify-content-start">
-                  <span class="material-symbols-outlined"
-                  style="margin-right: 20px;"> article </span>Record
-          </a></li>
-      </ul>
-      <hr style="margin-bottom: 0px !important;">
-  </div>
-  <!-- End Side Bar-->
+            class="nav-link text-black d-flex justify-content-start">
+                <span class="material-symbols-outlined"
+                style="margin-right: 20px;"> article </span>Record
+        </a></li>
+  </ul>
+  <hr style="margin-bottom: 0px !important;">
+</div>
+<!-- End Side Bar-->
   <!-- Page Content -->
  
     <div class="container-fluid">
@@ -91,7 +93,7 @@
           <div class="card" style="border: solid 1px black;">
             <div class="card-body custom-form" style="background-color: #ffffff;">
 
-        <form th:action="@{/register-patient}" method="post" modelAttribute="admin-patient">
+        <form th:action="@{/register-patient}" method="post" modelAttribute="patient">
           <div class="form-row mt-4">
             <div class="form-group col-md-12">
               <label for="name">Name</label>
@@ -100,8 +102,7 @@
               id="name" 
               name="pName" 
               th:value="${pName}" 
-              placeholder="Name"
-              required>
+              placeholder="Name" required>
             </div>
           </div>
 
@@ -118,14 +119,13 @@
 
           <div class="form-row">
             <div class="form-group col-md-6">
-              <label for="name">Date In</label>
-              <input type="date" 
+              <label for="ic">Ic Number</label>
+              <input type="text" 
               class="form-control" 
-              id="datein" 
-              name="pDate" 
-              th:value="${pDate}" 
-              placeholder="Date"
-              required>
+              id="ic" 
+              name="pIc" 
+              th:value="${pIc}" 
+              placeholder="Ic Number" required>
             </div>
 
             <div class="form-group col-md-6">
@@ -135,8 +135,7 @@
               id="status" 
               name="pStatus" 
               th:value="${pStatus}" 
-              placeholder="Status"
-              required>
+              placeholder="Status" required>
             </div>
           </div>
 
@@ -148,8 +147,7 @@
               id="sex" 
               name="pSex" 
               th:value="${pSex}" 
-              placeholder="Sex"
-              required>
+              placeholder="Sex" required>
             </div>
 
             <div class="form-group col-md-6">
@@ -159,8 +157,7 @@
               id="dob" 
               name="pDOB" 
               th:value="${pDOB}" 
-              placeholder="Date of Birth"
-              required>
+              placeholder="Date of Birth" required>
             </div>
           </div>
 
@@ -172,31 +169,40 @@
               id="phone" 
               name="pPhoneNo" 
               th:value="${pPhoneNo}" 
-              placeholder="Phone No."
-              required>
+              placeholder="Phone No." required>
             </div>
 
             <div class="form-group col-md-6">
               <label for="drugType">Drug Type</label>
               <input type="text" 
               class="form-control" 
-              id="drugtype" 
-              name="drugtype"
-              th:value="${drugtype}" 
-              placeholder="Drug Type"
-              required
-              >
+              id="drugType" 
+              name="pDrugType" 
+              th:value="${pDrugType}" 
+              placeholder="Drug Type" required>
             </div>
           </div>
 
-          <div class="form-group">
-            <label for="bloodType">Blood Type</label>
-            <input type="text" 
-            class="form-control" 
-            id="bloodType" 
-            name="pBloodType" 
-            th:value="${BloodType}" 
-            placeholder="Blood Type">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="name">Date In</label>
+              <input type="date" 
+              class="form-control" 
+              id="datein" 
+              name="pDate" 
+              th:value="${pDate}" 
+              placeholder="Date"required>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="bloodType">Blood Type</label>
+              <input type="text" 
+              class="form-control" 
+              id="bloodType" 
+              name="pBloodType" 
+              th:value="${BloodType}" 
+              placeholder="Blood Type" required>
+            </div>
           </div>
 
           <div class="form-group">
@@ -206,8 +212,7 @@
             id="address" 
             name="pAddress" 
             th:value="${pAddress}" 
-            placeholder="Address"
-            required>
+            placeholder="Address" required>
           </div>
 
           <div class="form-group text-center">
