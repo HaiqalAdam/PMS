@@ -277,6 +277,10 @@ public class mainController {
         }
         // return "admin/adminmainmenu";
     }
+     @GetMapping("/assigntherapist")
+    public String assigntherapist() {
+        return "admin/assigntherapist";
+    }
 
     @GetMapping("/patient")
     public String patient() {
