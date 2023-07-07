@@ -19,6 +19,10 @@
 	position: relative;
 	display: inline-block;
   }
+
+  .dropdown:hover{
+	background-color: darkgray;
+  }
   
   .dropdown-content {
 	display: none;
@@ -36,9 +40,16 @@
 	display: block;
   }
   
-  .dropdown-content a:hover {background-color: #ddd;}
+  .dropdown-content a:hover {background-color: darkgray;}
   
   .dropdown:hover .dropdown-content {display: block;}
+
+  .dropdown-item:hover {background-color: darkgray;}
+
+  .dropdown-menu a:hover {background-color: darkgray;}
+
+  .hamburger:hover {background-color: darkgray;}
+
 
 /*sidebar*/
 #sidebar {
@@ -82,13 +93,37 @@ body {
     margin-top: 80px;
 }
 
+li:hover {
+	background-color: darkgray;
+}
+
 /* adminmainmenu */
 .therapist-card {
 	background-color: #1495CC !important;
-	color: #FFF ;
+	color: #000 ;
   }
 
   .patient-card {
 	background-color: #FFCBC0 !important;
 	color: #000 !important;
+  }
+
+  .therapist-card:hover {
+	background-color: #0c668d !important;
+	color: #FFF ;
+  }
+
+  .patient-card:hover {
+	background-color: #bc938b !important;
+	color: #ffffff !important;
+  }
+
+  /* therapist */
+  .card-body a{
+	text-decoration: none;
+	color:#000;
+  }
+  .card-body a:hover{
+	text-decoration: none;
+	color:#fff;
   }

@@ -94,7 +94,7 @@
             <input id="search-input" type="text" class="form-control"
                 placeholder="Enter Therapist ID" aria-label="Patient IC"
                 aria-describedby="button-addon2">
-            <button class="btn btn-outline-success me-2" type="button">Search</button>
+            <button class="btn btn-success me-2" type="button">Search</button>
         </div>
         <div class="alert alert-info" role="alert">Click on the row to
             update and delete the therapist details</div>
@@ -104,7 +104,7 @@
                     class="form-check-label" for="flexSwitchCheckDefault">all therapist</label>
             </div>
         </div>
-        <table class="table table-success align-middle" style="border: solid 2px black; text-align: center;">
+        <table class="table table-success align-middle table-hover tbl-border" style="border: solid 2px black; text-align: center;">
             <tr class="bg-info">
                 <th data-column="name" data-order="desc">Name</th>
                 <th data-column="id" data-order="desc">ID</th>
@@ -118,7 +118,7 @@
         </table>
     </div>
     <div class="col-12 text-center">
-        <a th:href="@{/register-therapist}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
+        <a th:href="@{/register-therapist}"><button class="btn btn-success me-2" type="button">Register</button></a>
     </div>
     <footer class="d-flex justify-content-center">
         <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
@@ -161,6 +161,15 @@
                 function myFunction(x) {
 			    alert("Row index is: " + x);
 		    }
+            </script>
+            <script>
+                function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
             </script>
 
 
