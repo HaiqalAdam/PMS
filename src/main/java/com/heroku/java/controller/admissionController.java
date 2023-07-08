@@ -37,9 +37,14 @@ public class admissionController {
         return "staff/staff-admission";
     }
 
-    @GetMapping("/admission")
-    public String admission() {
-        return "admin/admission";
+    @GetMapping("/admissionIn")
+    public String admissionIn() {
+        return "admin/admissionIn";
+    }
+
+        @GetMapping("/admissionOut")
+    public String admissionOut() {
+        return "admin/admissionOut";
     }
 
     @PostMapping("/admission")

@@ -91,16 +91,48 @@
   <div class="card mb-3 d-flex justify-content-center col-6 offset-4" style="max-width: 60rem; margin-top: 5%;">
     <div class="card-body">
         <h2 class="head text-center">Admission</h2>
+        <div class="col-12 d-flex justify-content-end">            
+            <a th:href="@{/register-patient}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
+        </div>
+        <div class="col-12 d-flex justify-content-end">
+            <a th:href="@{/admissionOut}"><button class="btn btn-outline-danger me-2" type="button">Out</button></a>
+        </div>
         <div class="input-group mb-3 mt-4" style="height: 40px;">
             <input type="text" class="form-control"
                 placeholder="Enter Patient Ic" aria-label="Patient IC"
                 aria-describedby="button-addon2">
             <button class="btn btn-outline-success me-2" type="button" name = "searchName" modelAttribute = "adminAdmission">Search</button>
         </div>
-        <img th:src="@{icon/admission.jpg}" class="card-img-top" alt="...">
-        <div class="col-12 text-center">
-            <a th:href="@{/register-patient}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
-        </div>
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Admission In</th>
+                    <th>Assign Therapist</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Patient 1</td>
+                    <td><button class="btn btn-success">In</button></td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="therapistDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Assign Therapist
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="therapistDropdown">
+                                <a class="dropdown-item" href="#">Therapist 1</a>
+                                <a class="dropdown-item" href="#">Therapist 2</a>
+                                <a class="dropdown-item" href="#">Therapist 3</a>
+                                <!-- Add more therapist options from the database -->
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <!-- Add more rows for other patients -->
+            </tbody>
+        </table>
+
     </div>
     <footer class="d-flex justify-content-center">
         <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
