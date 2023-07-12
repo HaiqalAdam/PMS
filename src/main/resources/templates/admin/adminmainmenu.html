@@ -94,33 +94,40 @@
           <div class="col-md-6 offset-md-1">
             <img th:src="@{icon/dashboard.jpg}" class="card-img-top" alt="...">
           </div>
-          <div class="col-md-4 offset-md-1">
+          <div class="col-md-4 offset-md-1 d-flex justify-content-center align-items-center">
             <div class="card-body">
-              <div class="justify-content-center" style="margin-top: 60px;">
+              <div class="justify-content-center">
                 <div class="row">
                   <div class="col-md-10">
-                    <div class="card text-center therapist-card">
-                      <div class="card-body">
-                        <a th:href="@{/therapist}"><h5 class="card-title">Total Therapists</h5></a>
-                        <h3 id="totalTherapist">0</h3>
+                    <a th:href="@{/therapist}" style="text-decoration: none;">
+                      <div class="card text-center therapist-card">
+                        <div class="card-body">
+                          <h5 class="card-title" style="color: #FBEAEB;">Total Therapists</h5>
+                          <h3 id="totalTherapist" style="color: #FBEAEB;">0</h3>
+                        </div>
                       </div>
-                    </div>
-                    <div class="card text-center mt-4 patient-card">
-                      <div class="card-body">
-                        <a th:href="@{/patient}"><h5 class="card-title">Total Patients</h5></a>
-                        <h3 id="totalPatient">0</h3>
+                    </a>
+                    
+                    <a th:href="@{/patient}" style="text-decoration: none;">
+                      <div class="card text-center mt-4 patient-card">
+                        <div class="card-body">
+                          <h5 class="card-title" style="color: #FCF6F5;">Total Patients</h5>
+                          <h3 id="totalPatient" style="color:#FCF6F5;">0</h3>
+                        </div>
                       </div>
-                    </div>
+                    </a>
+                                   
+                    
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <footer style="text-align: center;">
-          <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
-        </footer>
       </div>
+      <footer class="d-flex justify-content-center col-8 offset-3">
+        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+      </footer>
       
       <script>
         // JavaScript code to update the total therapist and total patient counts

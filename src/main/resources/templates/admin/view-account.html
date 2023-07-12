@@ -16,6 +16,8 @@
    <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    
 
 </head>
 <body>
@@ -96,11 +98,22 @@
       </div>
     </div>
   </div>
+
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-end col-8">
+      <!-- Add New Account Button -->
+      <div class="text-end">
+        <a th:href="@{/add-account}">
+          <button class="btn btn-success btn-sm me-2" type="button">+ New Account</button>
+        </a>
+      </div>
+    </div>
+  </div>
   
 
     <!-- Staff Accounts -->
 
-    <div name="staffTable" class="d-flex justify-content-center align-items-center">
+    <div name="staffTable" class="d-flex justify-content-center align-items-center mt-2">
       <div class="d-flex justify-content-center col-8">
           <table class="table table-striped text-center">
             <thead>
@@ -109,7 +122,7 @@
                     <th scope="col">Username</th>
                     <th scope="col">Password</th>
                     <th scope="col">Role</th> 
-                    <th scope="col">Action</th> 
+                    <th scope="col">Manage</th> 
                    
                 </tr>
             </thead>
@@ -122,14 +135,15 @@
                     <td th:text="${user.role}"></td>
                     <td>
                       <div class="dropdown">
-                        <button class="btn btn-dark btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <button class="btn btn-submit btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           <i class="fas fa-ellipsis-v"></i>
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm custom-dropdown-menu" aria-labelledby="dropdownMenuButton${i}">
                           <a class="dropdown-item" th:href="@{/update-account(id=${user.id})}">Edit</a>
                           <!-- <a class="dropdown-item" th:href="@{/delete-account(id=${user.id})}">Delete</a> -->
-                          <a class="dropdown-item" th:data-id="${user.id}" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                          <a class="dropdown-item" th:data-id="${user.id}" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">Delete</a>
                         </div>
+                      </div>                                                                                                                                     
                       </div>
                     </td>
                 </tr>
@@ -157,10 +171,6 @@
         </div>
 
       </div> 
-    </div>
-
-    <div class="d-flex justify-content-center">
-      <a th:href="@{/add-account}"><button class="btn btn-outline-success me-2" type="button">Add New Account</button></a>
     </div>
 
     <footer class="d-flex justify-content-center">
