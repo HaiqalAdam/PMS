@@ -2,7 +2,7 @@
 
 /*navbar*/
 .navbar {
-    background-color : #ffffff;
+    background-color : #000000;
 }
 
 .navbar-brand {
@@ -84,11 +84,11 @@ body {
 
 /* adminmainmenu */
 .therapist-card {
-	background-color: #1495CC !important;
+	background-color: #2F3C7E !important;
 	color: #FFF ;
   }
 
   .patient-card {
-	background-color: #FFCBC0 !important;
+	background-color: #990011 !important;
 	color: #000 !important;
   }
