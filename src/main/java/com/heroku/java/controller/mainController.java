@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
@@ -45,54 +47,44 @@ public class mainController {
         if (session.getAttribute("usr") != null) {
             return "admin/adminmainmenu";
         } else {
-            return "admin/adminlogin";
+            return "login";
         }
     }
 
-    @PostMapping("/adminlogin")
-    public String dashboard(HttpSession session, @ModelAttribute("staff") users staff, users admin, users therapist,
-            Model model) {
+    @PostMapping("/login")
+    public String dashboard(HttpSession session, @ModelAttribute("staff") users staff, Model model) {
         try (Connection connection = dataSource.getConnection()) {
-            final var statement = connection.createStatement();
-            final var resultSet = statement
-                    .executeQuery("SELECT name, password, role FROM staff");
+            String sql = "SELECT * FROM employee WHERE name = ? AND password = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, staff.getUsr());
+            statement.setString(2, staff.getPwd());
+            ResultSet resultSet = statement.executeQuery();
 
-            String returnPage = "";
+            String returnPage = "/login";
 
-            while (resultSet.next()) {
-                String username = resultSet.getString("name");
-                String password = resultSet.getString("password");
+            if (resultSet.next()) {
                 String role = resultSet.getString("role");
+                int id = resultSet.getInt("id");
 
-                if (username.equals(staff.getUsr()) && password.equals(staff.getPwd())) {
-                    session.setAttribute("usr", staff.getUsr());
-                    session.setAttribute("role", role);
-
+                session.setAttribute("usr", staff.getUsr());
+                session.setAttribute("role", role);
+                session.setAttribute("id", id);
+                System.out.println("user id is" + id);
+                if (role.equals("admin")) {
                     returnPage = "redirect:/adminmainmenu";
-                    break;
-                } else if (username.equals(admin.getUsr()) && password.equals(admin.getPwd())) {
-                    session.setAttribute("usr", admin.getUsr());
-                    session.setAttribute("role", role);
-                    returnPage = "redirect:/adminmainmenu";
-                    break;
-                } else if (username.equals(therapist.getUsr()) && password.equals(therapist.getPwd())) {
-                    session.setAttribute("usr", therapist.getUsr());
-                    session.setAttribute("role", role);
+                } else if (role.equals("therapist")) {
                     returnPage = "redirect:/dashboard-therapist";
-                    break;
-                }
-
-                else {
-                    returnPage = "admin/adminlogin";
+                } else if (role.equals("staff")) {
+                    returnPage = "redirect:/staffmainmenu";
                 }
             }
+
             return returnPage;
 
         } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
-            return "admin/adminlogin";
+            return "/login";
         }
-
     }
 
     /**
@@ -111,17 +103,6 @@ public class mainController {
 
     @GetMapping("/adminmainmenu")
     public String showDashboard(HttpSession session) {
-        // // Check if user is logged in
-        // if (session.getAttribute("usr") != null) {
-        // if (session.getAttribute("role").equals("admin")) {
-        // return "admin/adminmainmenu";
-        // } else {
-        // return "therapist/adminmainmenu";
-        // }
-        // } else {
-        // System.out.println("Session expired or invalid...");
-        // return "redirect:/";
-        // }
         return "admin/adminmainmenu";
     }
 
@@ -149,7 +130,6 @@ public class mainController {
         // model.addAttribute("user", model);
         return "admin/register-patient";
     }
-
 
     @PostMapping("/register-patient")
     public String adminregisterPatient(HttpSession session, @ModelAttribute("admin-patient") patient patient,
@@ -235,12 +215,13 @@ public class mainController {
 
     // UPDATE PATIENT
     @GetMapping("/update-patient")
-    public String showUpdatePatient(@ModelAttribute("patient") patient patient, @RequestParam("id") int ptnid, Model model) {
-         try {
-        Connection connection = dataSource.getConnection();
-        String sql = "SELECT * FROM patient WHERE patientid = ?";
-        final var statement = connection.prepareStatement(sql);
-        statement.setInt(1, ptnid);
+    public String showUpdatePatient(@ModelAttribute("patient") patient patient, @RequestParam("id") int ptnid,
+            Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT * FROM patient WHERE patientid = ?";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, ptnid);
 
             final var resultSet = statement.executeQuery();
             while (resultSet.next()) {
@@ -266,8 +247,9 @@ public class mainController {
         }
     }
 
-     @PostMapping("/update-patient") 
-    public String updatePatient(HttpSession session, @ModelAttribute("patient") patient patients , Model model, @RequestParam("pId") int ptnsid) { 
+    @PostMapping("/update-patient")
+    public String updatePatient(HttpSession session, @ModelAttribute("patient") patient patients, Model model,
+            @RequestParam("pId") int ptnsid) {
         int pId = patients.getPId();
         String pName = patients.getPName();
         String pIc = patients.getPIc();
@@ -278,8 +260,8 @@ public class mainController {
         Date pDOB = patients.getPDOB();
         String pPhoneNo = patients.getPPhoneNo();
         String pBloodType = patients.getPBloodType();
-            try (
-            Connection connection = dataSource.getConnection()) { 
+        try (
+                Connection connection = dataSource.getConnection()) {
             String sql = "UPDATE patient SET patientid = ?, patientname = ?, patientic = ?, patientsex = ?, patientaddress = ?, patientdate = ?, patientstatus = ?, patientdob = ?, patientphoneno = ?, patientbloodtype = ? WHERE patientid=?";
             final var statement = connection.prepareStatement(sql);
 
@@ -293,45 +275,44 @@ public class mainController {
             statement.setDate(8, pDOB);
             statement.setString(9, pPhoneNo);
             statement.setString(10, pBloodType);
-            statement.setInt(11,ptnsid);
+            statement.setInt(11, ptnsid);
 
             statement.executeUpdate();
-                 
-            return "redirect:/patient";  
- 
-        } catch (Throwable t) { 
-            System.out.println("message : " + t.getMessage()); 
-            System.out.println("error");
-            return "redirect:/adminmainmenu"; 
-        } 
-    }
 
-
-    //Delete Patient
-    @GetMapping("/delete-patient")
-    public String DeletePatient(@ModelAttribute("patient") patient patient, @RequestParam("pId") int ptnid, Model model) {
-         try {
-        Connection connection = dataSource.getConnection();
-        String sql = "DELETE FROM patient WHERE patientid=?;";
-        final var statement = connection.prepareStatement(sql);
-        statement.setInt(1, ptnid);
-
-       //execute delete
-       int rowsAffected = statement.executeUpdate();
-        if (rowsAffected > 0) {
-            // Deletion successful
             return "redirect:/patient";
-        } else {
-            // No rows affected, account not found
-            return "account-not-found";
+
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            System.out.println("error");
+            return "redirect:/adminmainmenu";
         }
-        }catch (Throwable t) {
-        System.out.println("message : " + t.getMessage());
-        return "redirect:/adminmainmenu";
-      }
-    
     }
 
+    // Delete Patient
+    @GetMapping("/delete-patient")
+    public String DeletePatient(@ModelAttribute("patient") patient patient, @RequestParam("pId") int ptnid,
+            Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "DELETE FROM patient WHERE patientid=?;";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, ptnid);
+
+            // execute delete
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                // Deletion successful
+                return "redirect:/patient";
+            } else {
+                // No rows affected, account not found
+                return "account-not-found";
+            }
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "redirect:/adminmainmenu";
+        }
+
+    }
 
     @GetMapping("/database")
     String database(Map<String, Object> model) {

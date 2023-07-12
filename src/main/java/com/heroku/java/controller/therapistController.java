@@ -25,19 +25,24 @@ public class therapistController {
         this.dataSource = dataSource;
     }
 
-@GetMapping("/therapist-progression")
+    @GetMapping("/dashboard-therapist")
+    public String dashboardTherapist() {
+        return "therapist/dashboard-therapist";
+    }
+
+    @GetMapping("/therapist-progression")
     public String therapist_progression() {
         // model.addAttribute("user", model);
         return "therapist/therapist-progression";
     }
 
-@GetMapping("/therapist-patient")
+    @GetMapping("/therapist-patient")
     public String therapist_patient() {
         // model.addAttribute("user", model);
         return "therapist/therapist-patient";
     }
-    
-@GetMapping("/therapist-update-patient")
+
+    @GetMapping("/therapist-update-patient")
     public String therapist_update_patient() {
         // model.addAttribute("user", model);
         return "therapist/therapist-update-patient";

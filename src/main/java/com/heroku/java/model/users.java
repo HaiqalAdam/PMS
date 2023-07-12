@@ -7,12 +7,16 @@ public class users {
     private String pwd;
     private String role;
 
+    public users() {
+
+    }
+
     public users(Integer id, String usr, String pwd, String role) {
-    this.id = id ;
-    this.usr = usr;
-    this.pwd = pwd;
-    this.role = role;
-  }
+        this.id = id;
+        this.usr = usr;
+        this.pwd = pwd;
+        this.role = role;
+    }
 
     public String getUsr() {
         return this.usr;
@@ -45,7 +49,5 @@ public class users {
     public void setId(Integer id) {
         this.id = id;
     }
-
-    
 
 }
