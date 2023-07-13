@@ -68,6 +68,11 @@
         </a></li>
     <hr class="hr-line">
         
+    <li><a th:href="@{/staff}"
+        class="nav-link text-black d-flex justify-content-start"
+        aria-current="page"><span class="material-symbols-outlined"
+            style="margin-right: 20px;"> supervisor_account </span> Staff </a></li>
+            
         <li><a th:href="@{/therapist}"
             class="nav-link text-black d-flex justify-content-start"
             aria-current="page"><span class="material-symbols-outlined"
@@ -88,19 +93,18 @@
   <!-- End Side Bar-->
   <!--content-->
 
-  <div class="card mb-3 d-flex justify-content-center col-6 offset-4" style="max-width: 60rem; margin-top: 5%;">
+  <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
+    <div style="width: 80%;">
     <div class="card-body">
-        <h2 class="head text-center">Admission</h2>
-        <div class="col-12 d-flex justify-content-end">            
-            <a th:href="@{/register-patient}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
-        </div>
+        <h3 style="text-align: left;">Admission</h3>
         <div class="input-group mb-3 mt-4" style="height: 40px;">
             <input type="text" class="form-control"
                 placeholder="Enter Patient Ic" aria-label="Patient IC"
                 aria-describedby="button-addon2">
-            <button class="btn btn-outline-success me-2" type="button" name = "searchName" modelAttribute = "adminAdmission">Search</button>
+            <button class="btn btn-dark me-2" type="button" name = "searchName" modelAttribute = "adminAdmission">Search</button>
         </div>
-        <table class="table mt-4">
+        <div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">Click Out to Discharge patient</div>        
+        <table class="table table-success text-center mt-4 col-md-12 mx-auto" style="border: solid 1px black; text-align: center;">
             <thead>
                 <tr>
                     <th>Patient Name</th>
@@ -110,20 +114,19 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>Patient 1</td>
-                    <td><button class="btn btn-danger">Out</button></td>
-                    <td>
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="therapistDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Assign Therapist
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="therapistDropdown">
-                                <a class="dropdown-item" href="#">Therapist 1</a>
-                                <a class="dropdown-item" href="#">Therapist 2</a>
-                                <a class="dropdown-item" href="#">Therapist 3</a>
-                                <!-- Add more therapist options from the database -->
-                            </div>
-                        </div>
+                    <td class="align-middle">Patient 1</td>
+                    <td class="align-middle"><button class="btn btn-danger btn-sm">Out</button></td>
+                    <td class="align-middle">
+                            <div class="dropdown-center">
+                                <button class="btn btn-danger dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Therapist
+                                  </button>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="#">Therapist 1</a></li>
+                                    <li><a class="dropdown-item" href="#">Therapist 2</a></li>
+                                    <li><a class="dropdown-item" href="#">Therapist 3</a></li>
+                                  </ul>
+                              </div>
                     </td>
                 </tr>
                 <!-- Add more rows for other patients -->
@@ -131,10 +134,11 @@
         </table>
 
     </div>
-    <footer class="d-flex justify-content-center">
-        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
-      </footer>
   </div>
+  </div>
+  <footer class="d-flex justify-content-center col-8 offset-3">
+    <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+  </footer>
 </body>
             <script
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
@@ -143,10 +147,6 @@
             <script
                 src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
                 integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
-                crossorigin="anonymous"></script>
-            <script
-                src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-                integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
                 crossorigin="anonymous"></script>
             
                 <!-- <script src="script.js"></script> -->
