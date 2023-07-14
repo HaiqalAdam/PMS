@@ -228,7 +228,7 @@ public class mainController {
             final var statement = connection.createStatement();
 
             final var resultSet = statement.executeQuery(
-                    "SELECT p.*, du.drugtype FROM patient p LEFT JOIN drug_usage du ON (p.patientid = du.patientid) ORDER BY p.patientid;");
+                    "SELECT * FROM patient ORDER BY patientid;");
 
             // int row = 0;
             ArrayList<patient> patient = new ArrayList<>();
