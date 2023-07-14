@@ -44,7 +44,7 @@ public class admissionController {
         return "admin/admissionOut";
     }
 
-    @GetMapping("/admission")
+    @GetMapping("/admissionIn")
     public String admission(Model model) {
         List<patient> patientList = new ArrayList<>();
         model.addAttribute("patientList", patientList);
@@ -62,7 +62,7 @@ public class admissionController {
     // }
     // }
 
-    @PostMapping("/admission")
+    @PostMapping("/admissionIn")
     public String admissionAdmin(HttpSession session, @ModelAttribute("adminAdmission") patient ptns, Model model) {
         try {
             Connection connection = dataSource.getConnection();

@@ -61,7 +61,7 @@
               <span class="material-symbols-outlined"
               style="margin-right: 20px;"> person_apron </span> Account
         </a></li>
-        <li class="nav-item"><a th:href="@{/admission}"
+        <li class="nav-item"><a th:href="@{/admissionIn}"
             class="nav-link text-black active d-flex justify-content-start">
                 <span class="material-symbols-outlined"
                 style="margin-right: 20px;"> group_add </span>Admission
@@ -91,12 +91,14 @@
   <div class="card mb-3 d-flex justify-content-center col-6 offset-4" style="max-width: 60rem; margin-top: 5%;">
     <div class="card-body">
         <h2 class="head text-center">Admission</h2>
-        <div class="input-group mb-3 mt-4" style="height: 40px;">
-            <input type="text" class="form-control"
-                placeholder="Enter Patient Ic" aria-label="Patient IC"
-                aria-describedby="button-addon2">
-            <button class="btn btn-dark me-2" type="button" name = "searchName" modelAttribute = "adminAdmission">Search</button>
-        </div>
+        <form method="post" th:action="@{/admissionIn}" th:object="${adminAdmission}">
+            <div class="input-group mb-3 mt-4" style="height: 40px;">
+                <input type="text" class="form-control" th:value="${pIc}"
+                    placeholder="Enter Patient IC" aria-label="Patient IC"
+                    aria-describedby="button-addon2">
+                <button class="btn btn-outline-success me-2" type="submit">Search</button>
+            </div>
+        </form>
         <div class="col-12 d-flex justify-content-end">
             <a th:href="@{/admissionOut}">
                 <button class="btn btn-danger btn-sm me-2" type="button">Out</button>
@@ -114,8 +116,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td class="align-middle">Patient 1</td>
+                <tr th:each="patient: ${patientList}">
+                    <td th:text = "${patient.pName}"></td>
                     <td class="align-middle"><button class="btn btn-success">In</button></td>
                     <td class="align-middle">
                         <div class="dropdown">

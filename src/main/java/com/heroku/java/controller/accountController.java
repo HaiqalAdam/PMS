@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -55,8 +56,29 @@ public class accountController {
         statement.setString(3, roles);
         statement.setInt(4, (int) session.getAttribute("id"));
         statement.executeUpdate();
-        connection.close();
-        return "redirect:/view-account";
+
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+        if (generatedKeys.next()) {
+          int parentId = generatedKeys.getInt(1);
+
+          if (roles.equals("therapist")) {
+            String therapistSql = "INSERT INTO therapist (id) VALUES (?)";
+            PreparedStatement therapistStatement = connection.prepareStatement(therapistSql);
+            therapistStatement.setInt(1, parentId);
+            therapistStatement.executeUpdate();
+          } else if (roles.equals("staff")) {
+            String staffSql = "INSERT INTO staff (id) VALUES (?)";
+            PreparedStatement staffStatement = connection.prepareStatement(staffSql);
+            staffStatement.setInt(1, parentId);
+            staffStatement.executeUpdate();
+          }
+
+          connection.close();
+          return "redirect:/view-account";
+        } else {
+          connection.close();
+          return "redirect:/";
+        }
       }
     } catch (SQLException sqe) {
       System.out.println("Error Code = " + sqe.getErrorCode());
