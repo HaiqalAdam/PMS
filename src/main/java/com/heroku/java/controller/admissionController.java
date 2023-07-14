@@ -48,7 +48,7 @@ public class admissionController {
     public String admission(Model model) {
         List<patient> patientList = new ArrayList<>();
         model.addAttribute("patientList", patientList);
-        return "admin/admission";
+        return "admin/admissionIn";
     }
 
     // @PostMapping("/admit")
