@@ -76,7 +76,7 @@ public class admissionController {
             model.addAttribute("adminAdmission", ptns); // Add the ptns object to the model
             model.addAttribute("patientList", patientList); // Add the patientList to the model
 
-            return "admin/admission";
+            return "admin/admissionIn";
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -88,7 +88,7 @@ public class admissionController {
         } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
         }
-        return "admin/admission";
+        return "admin/admissionIn";
     }
 
     // @PostMapping("/admit")

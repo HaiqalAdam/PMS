@@ -122,19 +122,25 @@
               </div>  
 
         <div name="patientTable" class="d-flex flex-column justify-content-center align-items-center rounded">
+<<<<<<< HEAD
+            <div class="d-flex justify-content-center col-10">
+              <table class="custom-table table table-bordered text-center border-success">
+=======
               <table class="table table-success text-center mt-4 col-md-12 mx-auto" style="border: solid 1px black; text-align: center;">
+>>>>>>> 1a3dee71ed5f5b6b2c0e1098d9e5a755e9bad4d1
                   <thead style="background-color: #a5d6a7;">
                       <tr>
-                          <th scope="col">Id</th>
+                          <th scope="col">ID</th>
                           <th scope="col">Name</th>
-                          <th scope="col">Ic Number</th>
-                          <th scope="col">Sex</th> 
+                          <th scope="col">IC Number</th>
+                          <th scope="col">Gender</th> 
                           <th scope="col">Address</th> 
                           <th scope="col">Date In</th>
                           <th scope="col">Status</th>
-                          <th scope="col">Date of Birth</th>
-                          <th scope="col">Phone No.</th>
-                          <th scope="col">Blood Type</th>
+                          <th scope="col">Date Birth</th>
+                          <th scope="col">Phone</th>
+                          <th scope="col">Blood</th>
+                          <th scope="col">Drugs</th>
                           <th scope="col">Action</th>
                          
                       </tr>
@@ -152,6 +158,21 @@
                           <td th:text="${patients.pDOB}"></td> 
                           <td th:text="${patients.pPhoneNo}"></td>
                           <td th:text="${patients.pBloodType}"></td>
+                          <!-- <td th:text="${patients.pDrugType}"></td> -->
+                           <td>
+                      <ul>
+                        <li
+                          th:each="drugs : ${drug_usage}"
+                          th:if="${drugs.pId == patients.pId}">
+                          <span th:if="${drugs.dId == 1}">Cocaine</span>
+                          <span th:if="${drugs.dId == 2}">Heroin</span>
+                          <span th:if="${drugs.dId == 3}">Weed</span>
+                          <span th:if="${drugs.dId == 4}">Ecstasy</span>
+                          <span th:if="${drugs.dId == 5}">Methamphetamine</span>
+                          <span th:if="${drugs.dId == 6}">Hallucinogens</span>
+                        </li>
+                      </ul>
+                    </td>
                           
                           
                           <td>

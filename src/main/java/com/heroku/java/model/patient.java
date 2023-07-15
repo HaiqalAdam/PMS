@@ -15,6 +15,10 @@ public class patient {
     private String pPhoneNo;
     private String pBloodType;
 
+    
+    public patient() {
+    }
+
     public patient(Integer pId, String pName, String pIc, String pSex, String pAddress, Date pDate, String pStatus,
             Date pDOB, String pPhoneNo, String pBloodType) {
         this.pId = pId;
