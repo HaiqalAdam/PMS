@@ -105,10 +105,24 @@
                 <div class="d-flex justify-content-end">
                   <!-- Add New Account Button -->
                   <div class="text-end">
-                    <a th:href="@{/add-account}">
-                      <button class="btn btn-success btn-sm me-2" type="button">+ New Account</button>
-                    </a>
+                    <select id="accountType" class="btn btn-success btn-sm me-2" onchange="redirectToRegistration()">
+                      <option value="" disabled selected>+ New Account</option>
+                      <option value="staff" th:value="staff" th:text="Staff"></option>
+                      <option value="therapist" th:value="therapist" th:text="Therapist"></option>
+                    </select>
                   </div>
+                  
+                  <script>
+                    function redirectToRegistration() {
+                      var selectedOption = document.getElementById("accountType").value;
+                      if (selectedOption === "staff") {
+                        window.location.href = '/register-staff';
+                      } else if (selectedOption === "therapist") {
+                        window.location.href = '/register-therapist';
+                      }
+                    }
+                  </script>
+                  
                 </div>
               </div><br>
               <table class="table table-success align-middle" style="border: solid 2px black; text-align: center;">
@@ -199,6 +213,7 @@
     });
   });
 </script>
+                
 
 </body>
             <script

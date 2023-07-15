@@ -99,6 +99,17 @@
           <form th:action="@{/therapist}" method="post" modelAttribute="patient">
           <div class="card-body">
             <div class="container">
+              <div class="row">
+                <div class="col ">
+                  <label for="username">Username</label>
+                  <input type="text" class="form-control" id="username" name="tusername" th:value="${tuserName}" placeholder="Username" required>
+                </div>
+                <div class="col ">
+                  <label for="password">Password</label>
+                  <input type="password" class="form-control" id="password" name="tPassword" th:value="${tPassword}" placeholder="Password" required>
+                </div>
+              </div>
+              <hr class="hr-line">
                 <div class="row">
                     <div class="col ">
                         <label for="name">Name</label>
