@@ -127,8 +127,8 @@
                       <tr>
                           <th scope="col">Id</th>
                           <th scope="col">Name</th>
-                          <th scope="col">Phone No.</th>
-                          <th scope="col">Gender</th> 
+                          <th scope="col">Gender</th>
+                          <th scope="col">Phone No</th> 
                           <th scope="col">Relation Status</th>
                           <th scope="col">Date of Birth</th>
                           <th scope="col">Date In</th>
@@ -139,25 +139,24 @@
                   </thead>
                   <tbody>
                       <!-- Use Thymeleaf loop to iterate over the employees -->
-                      <tr th:each="therapist: ${therapists}">
-                          <td th:text="${therapists.id}"></td> 
-                          <td th:text="${therapists.tName}"></td> 
-                          <td th:text="${therapists.tRelationStatus}"></td> 
-                          <td th:text="${therapists.tSex}"></td> 
-                          <td th:text="${therapists.tDOB}"></td> 
-                          <td th:text="${therapists.tDate}"></td> 
-                          <td th:text="${therapists.tPhoneNo}"></td> 
-                          <td th:text="${therapists.tSpecialist}"></td> 
-                          
+                      <tr th:each="therapist: ${therapist}">
+                          <td th:text="${therapist.id}"></td>
+                          <td th:text="${therapist.tName}"></td>
+                          <td th:text = "${therapist.tSex}"></td>
+                          <td th:text = "${therapist.tPhoneNo}"></td>
+                          <td th:text = "${therapist.tRelationStatus}"></td>
+                          <td th:text = "${therapist.tDOB}"></td>
+                          <td th:text = "${therapist.tDate}"></td>
+                          <td th:text = "${therapist.tSpecialist}"></td> 
                           <td>
                             <div class="dropdown">
                               <button class="btn btn-dark btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
-                                <!-- <a class="dropdown-item" th:href="@{/update-patient(id=${patients.pId})}">Edit</a> -->
-                                <!-- <a class="dropdown-item" href="">Delete</a> -->
-                                <a class="dropdown-item" th:data-id="${therapists.id}" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                <a class="dropdown-item" th:href="@{/update-therapist(id=${therapist.id})}">Edit</a>
+                                <!-- <a class="dropdown-item" th:href="@{/delete-therapist(id=${therapist.id})}">Delete</a> -->
+                                <a class="dropdown-item" th:href="@{/delete-therapist(id=${therapist.id})}" data-toggle="modal" data-target="#deleteModal">Delete</a>
                               </div>
                             </div>
                           </td>
@@ -187,9 +186,6 @@
                 </div>
 
             </div>
-        </div>
-        <div class="col-12 text-center">
-            <a th:href="@{/register-therapist}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
         </div>
         <footer class="d-flex justify-content-center">
             <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>

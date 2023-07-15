@@ -94,59 +94,102 @@
       <div class="card-body">
         <div class="card text-black bg-white mb-3">
           <div class="card-header">
-            <h3 class="text-center">Registration Form</h3>
+            <h3 class="text-center">Update Therapist</h3>
           </div>
-          <form th:action="@{/therapist}" method="post" modelAttribute="patient">
+          <form th:action="@{/update-therapist}" th:object="@{therapist}" method="post" modelAttribute="therapist">
           <div class="card-body">
             <div class="container">
+              <div class="row">
+                <div class="col ">
+                  <label for="username">Username</label>
+                    <input type="text"
+                    class="form-control"
+                    id="usr"
+                    name="usr"
+                    th:value="${therapist.usr}" 
+                    placeholder="Username" 
+                    >
+                </div>
+                <div class="col ">
+                  <label for="password">Password</label>
+                  <input type="password" 
+                  class="form-control" 
+                  id="pwd" 
+                  name="pwd" 
+                  th:value="${therapist.pwd}" 
+                  placeholder="Password" 
+                  >
+                </div>
+              </div>
                 <div class="row">
                     <div class="col ">
                         <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name" name="sName" th:value="${tName}" placeholder="Name" required>
+                        <input type="text" 
+                        class="form-control" 
+                        id="name" name="tName" 
+                        th:value="${therapist.tName}" 
+                        placeholder="Name" 
+                        >
                       </div>
                   </div>
               <div class="row">
                 <div class="col">
                     <label for="phone">Phone No.</label>
-                    <input type="text" class="form-control" id="phone" name="sPhoneNo" th:value="${tPhoneNo}" placeholder="Phone No." required>
+                    <input type="text" 
+                    class="form-control" 
+                    id="phone" 
+                    name="tPhoneNo" 
+                    th:value="${therapist.tPhoneNo}" 
+                    placeholder="Phone No." 
+                    >
                   </div>  
                   <div class="col">
                     <label for="specialist">Specialist</label>
-                    <select class="form-control" id="specialist" name="tspecialist" required>
+                    <select class="form-control" id="specialist" name="tSpecialist">
                       <option value="" disabled selected>Specialist</option>
-                      <option value="Therapist" th:selected="${tTherapist == 'therapist'}">Therapist</option>
-                      <option value="Ustaz" th:selected="${tTherapist == 'ustaz'}">Ustaz</option>
+                      <option value="Therapist" th:selected="${therapist.tSpecialist == 'Psychologist'}">Therapist</option>
+                      <option value="Ustaz" th:selected="${therapist.tSpecialist == 'Ustaz'}">Ustaz</option>
                     </select>
                   </div>                  
               </div>
               <div class="row ">
                 <div class="col">
                     <label for="status">Relationship Status</label>
-                    <select class="form-control" id="status" name="tStatus" required>
+                    <select class="form-control" id="status" name="tRelationStatus">
                       <option value="" disabled selected>Select Relationship Status</option>
-                      <option value="single" th:selected="${tStatus == 'single'}">Single</option>
-                      <option value="married" th:selected="${tStatus == 'married'}">Married</option>
-                      <option value="divorced" th:selected="${tStatus == 'divorced'}">Divorced</option>
-                      <option value="widowed" th:selected="${tStatus == 'widowed'}">Widowed</option>
+                      <option value="single" th:selected="${therapist.tRelationStatus == 'single'}">Single</option>
+                      <option value="married" th:selected="${therapist.tRelationStatus == 'married'}">Married</option>
+                      <option value="divorced" th:selected="${therapist.tRelationStatus == 'divorced'}">Divorced</option>
+                      <option value="widowed" th:selected="${therapist.tRelationStatus == 'widowed'}">Widowed</option>
                     </select>
                   </div>                  
                 <div class="col">
                   <label for="sex">Gender</label>
-                  <select class="form-control" id="sex" name="tSex" required>
+                  <select class="form-control" id="sex" name="tSex">
                     <option value="" disabled selected>Select Gender</option>
-                    <option value="Male" th:selected="${tSex == 'Male'}">Male</option>
-                    <option value="Female" th:selected="${tSex == 'Female'}">Female</option>
+                    <option value="Male" th:selected="${therapist.tSex == 'Male'}">Male</option>
+                    <option value="Female" th:selected="${therapist.tSex == 'Female'}">Female</option>
                   </select>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
                   <label for="dateOfBirth">Date of Birth</label>
-                  <input type="date" class="form-control" id="dateOfBirth" name="tDateOfBirth" th:value="${tDateOfBirth}" required>
+                  <input type="date" 
+                  class="form-control" 
+                  id="dateOfBirth" 
+                  name="tDOB" 
+                  th:value="${therapist.tDOB}" 
+                  >
                 </div>
                 <div class="col">
                     <label for="dateIn">Date In</label>
-                    <input type="date" class="form-control" id="dateIn" name="tDateIn" th:value="${tDateIn}" required>
+                    <input type="date" 
+                    class="form-control" 
+                    id="dateIn" 
+                    name="tDate" 
+                    th:value="${therapist.tDate}" 
+                    >
                   </div>
               </div>
             </div><br>

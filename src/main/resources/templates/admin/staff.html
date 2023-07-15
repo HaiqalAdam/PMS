@@ -63,7 +63,7 @@
               <span class="material-symbols-outlined"
               style="margin-right: 20px;"> person_apron </span> Account
         </a></li>
-        <li class="nav-item"><a th:href="@{/admission}"
+        <li class="nav-item"><a th:href="@{/admissionIn}"
             class="nav-link text-black d-flex justify-content-start">
                 <span class="material-symbols-outlined"
                 style="margin-right: 20px;"> group_add </span>Admission
@@ -105,14 +105,14 @@
         <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
           <div style="width: 80%;">
           <div class="card-body">
-              <h3 style="text-align: left;">Patient</h3>
+              <h3 style="text-align: left;">Staff</h3>
               <div class="input-group mb-3 mt-4" style="height: 40px;">
                   <input type="text" class="form-control"
                       placeholder="Enter Patient Ic" aria-label="Patient IC"
                       aria-describedby="button-addon2">
                   <button class="btn btn-dark me-2" type="button">Search</button>
               </div>
-              <div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">Click the action button to update or delete patient details</div>
+              <div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">Click the action button to update or delete staff details</div>
 
               <div class="col-12 d-flex justify-content-end">
                 <a th:href="@{/register-staff}">
@@ -127,12 +127,12 @@
                       <tr>
                           <th scope="col">Id</th>
                           <th scope="col">Name</th>
-                          <th scope="col">Phone Number</th>
-                          <th scope="col">Position</th> 
+                          <th scope="col">Gender </th>
+                          <th scope="col">Phone No</th> 
                           <th scope="col">Relationship Status</th> 
-                          <th scope="col">Gender</th>
                           <th scope="col">Date of Birth</th>
                           <th scope="col">Date In</th>
+                          <th scope="col">Position</th>
                           <th scope="col">Action</th>
                           <!-- ACTIVEKAN BUTTON NI KALAU NAK ACTION -->
                           <!-- action button 
@@ -146,16 +146,24 @@
                   </thead>
                   <tbody>
                       <!-- Use Thymeleaf loop to iterate over the employees -->
-                      <tr
+                      <tr th:each="staff: ${staff}">
+                          <td th:text = "${staff.id}"></td>
+                          <td th:text = "${staff.sName}"></td>
+                          <td th:text = "${staff.sSex}"></td>
+                          <td th:text = "${staff.sPhoneNo}"></td>
+                          <td th:text = "${staff.sRelationStatus}"></td>
+                          <td th:text = "${staff.sDOB}"></td>
+                          <td th:text = "${staff.sDate}"></td>
+                          <td th:text = "${staff.sPosition}"></td>
                           <td>
                             <div class="dropdown">
                               <button class="btn btn-submit btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-ellipsis-v"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
-                                <a class="dropdown-item" th:href="@{/update-staff(id=${patients.pId})}">Edit</a>
-                                <!-- <a class="dropdown-item" th:href="@{/delete-account(id=${user.id})}">Delete</a> -->
-                                <a class="dropdown-item" th:data-id="${patients.pId}" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                <a class="dropdown-item" th:href="@{/update-staff(id=${staff.id})}">Edit</a>
+                                <!-- <a class="dropdown-item" th:href="@{/delete-account(id=${staffs.id})}">Delete</a> -->
+                                <a class="dropdown-item" th:data-id="${staff.id}" data-toggle="modal" data-target="#deleteModal">Delete</a>
                               </div>
                             </div>  
                           </td>
