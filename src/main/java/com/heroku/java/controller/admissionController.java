@@ -38,7 +38,8 @@ public class admissionController {
     public String staffAdmission() {
         return "staff/staff-admission";
     }
-        @GetMapping("/staff-admissionOut")
+
+    @GetMapping("/staff-admissionOut")
     public String staffAdmissioOutn() {
         return "staff/staff-admissionOut";
     }
@@ -49,25 +50,7 @@ public class admissionController {
     }
 
     @GetMapping("/admissionIn")
-    public String admission(Model model) {
-        List<patient> patientList = new ArrayList<>();
-        model.addAttribute("patientList", patientList);
-        return "admin/admissionIn";
-    }
-
-    // @PostMapping("/admit")
-    // public String admitPatient(@RequestParam("id")Integer pID){
-    // try {
-    // Connection connection = dataSource.getConnection();
-    // fi
-
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // }
-    // }
-
-    @PostMapping("/admissionIn")
-    public String admissionAdmin(HttpSession session, @ModelAttribute("adminAdmission") patient ptns, Model model) {
+    public String admission(HttpSession session, @ModelAttribute("adminAdmission") patient ptns, Model model) {
         try {
             Connection connection = dataSource.getConnection();
             final var statement = connection.prepareStatement(
@@ -105,6 +88,22 @@ public class admissionController {
         } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
         }
+        return "admin/admission";
+    }
+
+    // @PostMapping("/admit")
+    // public String admitPatient(@RequestParam("id")Integer pID){
+    // try {
+    // Connection connection = dataSource.getConnection();
+    // fi
+
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // }
+    // }
+
+    @PostMapping("/admissionIn")
+    public String admissionAdmin(HttpSession session, @ModelAttribute("adminAdmission") patient ptns, Model model) {
         return "admin/admission";
     }
 
