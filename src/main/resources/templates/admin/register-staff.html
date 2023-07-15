@@ -95,28 +95,36 @@
               <form>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="name">Name</label>
+                    <label for="name">Full Name</label>
                     <input type="text" class="form-control" id="name" placeholder="Name">
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="date">Date</label>
+                    <label for="date">Date Registered</label>
                     <input type="date" class="form-control" id="date" placeholder="Date">
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="state">State</label>
-                    <input type="text" class="form-control" id="state" placeholder="State">
+                    <label for="position">Position</label>
+                    <select name="position" id = "position">
+                        <option selected value="staff">Staff</option>
+                    </select>
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="status">Status</label>
-                    <input type="text" class="form-control" id="status" placeholder="Status">
+                    <label for="relationstatus">Relation Status</label>
+                    <select name="status" id = "status">
+                        <option value="married">Married</option>
+                        <option value="single">Single</option>
+                    </select>
                   </div>
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
                     <label for="sex">Sex</label>
-                    <input type="text" class="form-control" id="sex" placeholder="Sex">
+                    <select name="sex" id = "sex">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                    </select>
                   </div>
                   <div class="form-group col-md-6">
                     <label for="dob">Date of Birth</label>
@@ -125,27 +133,13 @@
                 </div>
                 <div class="form-row">
                   <div class="form-group col-md-6">
-                    <label for="email">Email</label>
-                    <input type="text" class="form-control" id="email" placeholder="Email">
+                    <label for="username">Username</label>
+                    <input type="text" class="form-control" id="username" placeholder="Username">
                   </div>
                   <div class="form-group col-md-6">
-                    <label for="phone">Phone No.</label>
-                    <input type="text" class="form-control" id="phone" placeholder="Phone No.">
+                    <label for="password">Password</label>
+                    <input type="text" class="form-control" id="password" placeholder="Password">
                   </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-group col-md-6">
-                    <label for="qualification">Qualification</label>
-                    <input type="text" class="form-control" id="qualification" placeholder="Qualification">
-                  </div>
-                  <div class="form-group col-md-6">
-                    <label for="specialty">Specialty</label>
-                    <input type="text" class="form-control" id="specialty" placeholder="Specialty">
-                  </div>
-                </div>
-                <div class="form-group">
-                  <label for="address">Address</label>
-                  <input type="text" class="form-control" id="address" placeholder="Address">
                 </div>
                 <div class="form-group text-center">
                   <button type="reset" class="btn btn-secondary">Reset</button>

@@ -31,6 +31,11 @@ public class accountController {
     this.dataSource = dataSource;
   }
 
+  @GetMapping("/register-staff")
+  public String regStaff() {
+    return "admin/register-staff";
+  }
+
   // CREATE ACCOUNT
   @GetMapping("/add-account")
   public String addeaccount() {

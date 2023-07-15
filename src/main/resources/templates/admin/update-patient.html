@@ -57,7 +57,7 @@
             <span class="material-symbols-outlined"
             style="margin-right: 20px;"> person_apron </span> Account
       </a></li>
-      <li class="nav-item"><a th:href="@{/admission}"
+      <li class="nav-item"><a th:href="@{/admissionIn}"
           class="nav-link text-black d-flex justify-content-start">
               <span class="material-symbols-outlined"
               style="margin-right: 20px;"> group_add </span>Admission
@@ -93,12 +93,15 @@
         <div class="card" style="border: solid 1px black;">
           <div class="card-body custom-form" style="background-color: #ffffff;">
 
-      <form th:action="@{/update-patient}" method="post" modelAttribute="patient">
+      <form th:action="@{/update-patient?pId=} + ${patient.pId}" 
+      th:object="${patients}" 
+      method="post" 
+      modelAttribute="patient">
 
         <div class="col mb-3">
-          <label for="id" class="col-sm-2 col-form-label">Id</label>
+          <label for="id" class="col-sm-2 col-form-label"></label>
           <div class="col-sm-10">
-              <input type="text"
+              <input type="hidden"
               th:value = "${patient.pId}"
                class="form-control"
                name="pId"
@@ -157,8 +160,8 @@
             <input type="date" 
             class="form-control" 
             id="dob" 
-            name="patient.pDOB" 
-            th:value="${pDOB}" 
+            name="pDOB" 
+            th:value="${patient.pDOB}" 
             placeholder="Date of Birth" required>
           </div>
         </div>
@@ -175,16 +178,17 @@
           </div>
 
           <div class="form-group col-md-6">
-            <label for="drugType">Drug Type</label>
+            <label for="address">Address</label>
             <input type="text" 
             class="form-control" 
-            id="drugType" 
-            name="pDrugType"
-            placeholder="Drug Type" required>
-          </div>
+            id="address" 
+            name="pAddress" 
+            th:value="${patient.pAddress}" 
+            placeholder="Address" required>
+        </div>
         </div>
 
-        <div class="form-row">
+        <div class="form-row ">
           <div class="form-group col-md-6">
             <label for="name">Date In</label>
             <input type="date" 
@@ -194,26 +198,109 @@
             th:value="${patient.pDate}" 
             placeholder="Date"required>
           </div>
-
           <div class="form-group col-md-6">
-            <label for="bloodType">Blood Type</label>
-            <input type="text" 
-            class="form-control" 
-            id="bloodType" 
-            name="pBloodType" 
-            th:value="${patient.pBloodType}" 
-            placeholder="Blood Type" required>
+              <label for="bloodType">Blood Type</label>
+              <input type="text" 
+              class="form-control" 
+              id="bloodType" 
+              name="pBloodType" 
+              th:value="${patient.pBloodType}" 
+              placeholder="Blood Type" required>
+            </div>
+            </div>
+        
+          <div class="form-group col-md-6">
+            <label for="drugType">Drug Type :</label>
+            <div class="justify-content-center">
+                  <div class="form-col">
+                    <div class="justify-content-center">
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="1"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(1)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Cocaine 
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="2"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(2)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Heroin 
+                        </label>
+                      </div>
+                  </div>
+                  <div class="form-col">
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="3"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(3)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Weed
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="4"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(4)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Ecstasy
+                        </label>
+                      </div>
+                  </div>
+                  <div class="form-col">
+                    <div class="form-check">
+                      <input
+                        name="pDrugType"
+                        value="5"
+                        class="form-check-input"
+                        type="checkbox"
+                        id="gridCheck1"
+                        th:checked="${drugUsage.contains(5)}"
+                      />
+                      <label class="form-check-label" for="gridCheck1">
+                        Methamphetamine
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        name="pDrugType"
+                        value="6"
+                        class="form-check-input"
+                        type="checkbox"
+                        id="gridCheck1"
+                        th:checked="${drugUsage.contains(6)}"
+                      />
+                      <label class="form-check-label" for="gridCheck1">
+                        Hallucinogens
+                      </label>
+                    </div>
+                
+                  </div>
+              </div>
           </div>
         </div>
-
-        <div class="form-group">
-          <label for="address">Address</label>
-          <input type="text" 
-          class="form-control" 
-          id="address" 
-          name="pAddress" 
-          th:value="${patient.pAddress}" 
-          placeholder="Address" required>
         </div>
 
         <div class="form-group text-center">

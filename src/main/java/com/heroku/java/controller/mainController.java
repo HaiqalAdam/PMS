@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.model.drug;
+import com.heroku.java.model.drug_usage;
 import com.heroku.java.model.patient;
+import com.heroku.java.model.patientdrug;
 import com.heroku.java.model.therapist;
 import com.heroku.java.model.users;
 
@@ -26,6 +28,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
@@ -168,10 +171,11 @@ public class mainController {
 
     @PostMapping("/register-patient")
     public String adminRegisterPatient(@ModelAttribute("patient") patient patient,
-            @RequestParam("pDrugType") String drugType) {
+            @RequestParam("pDrugType") List<String> drugType) {
+        System.out.println("type of drug : " + drugType);
         try {
             Connection connection = dataSource.getConnection();
-            String insertPatientSql = "INSERT INTO patient(patientname, patientic, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?,?)";
+            String insertPatientSql = "INSERT INTO patient(patientname, patientic, patientsex, patientaddress, patientdate, patientstatus, patientdob, patientphoneno, patientbloodtype) VALUES(?,?,?,?,?,?,?,?,?) RETURNING patientid";
             PreparedStatement insertPatientStatement = connection.prepareStatement(insertPatientSql);
             insertPatientStatement.setString(1, patient.getPName());
             insertPatientStatement.setString(2, patient.getPIc());
@@ -182,38 +186,30 @@ public class mainController {
             insertPatientStatement.setDate(7, patient.getPDOB());
             insertPatientStatement.setString(8, patient.getPPhoneNo());
             insertPatientStatement.setString(9, patient.getPBloodType());
-            insertPatientStatement.executeUpdate();
+            insertPatientStatement.execute();
 
-            ResultSet generatedKeys = insertPatientStatement.getGeneratedKeys();
-            int patientId = -1;
+            ResultSet generatedKeys = insertPatientStatement.getResultSet();
+            int patientId = 0;
             if (generatedKeys.next()) {
                 patientId = generatedKeys.getInt(1);
             }
 
-            String insertDrugSql = "INSERT INTO drug (drugtype) VALUES(?)";
-            PreparedStatement insertDrugStatement = connection.prepareStatement(insertDrugSql);
-            insertDrugStatement.setString(1, drugType);
-            insertDrugStatement.executeUpdate();
+            System.out.println("patient id " + patientId);
 
-            generatedKeys = insertDrugStatement.getGeneratedKeys();
-            int drugId = -1;
-            if (generatedKeys.next()) {
-                drugId = generatedKeys.getInt(1);
-
-                String insertBridgeSql = "INSERT INTO drug_usage (patientid, drugid) VALUES (?, ?)";
-                PreparedStatement insertBridgeStatement = connection.prepareStatement(insertBridgeSql);
+            for (String value : drugType) {
+                String updateBridgeSql = "INSERT INTO drug_usage (patientid, drugid) VALUES (?, ?)";
+                PreparedStatement insertBridgeStatement = connection.prepareStatement(updateBridgeSql);
                 insertBridgeStatement.setInt(1, patientId);
-                insertBridgeStatement.setInt(2, drugId);
+                insertBridgeStatement.setInt(2, Integer.parseInt(value));
                 insertBridgeStatement.executeUpdate();
+                System.out.println(value);
             }
-
             connection.close();
 
             return "redirect:/register-patient";
-        } catch (SQLException sqe) {
-            // Handle exceptions
-        } catch (Exception e) {
-            // Handle exceptions
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            System.out.println("error");
         }
 
         return "admin/adminmainmenu";
@@ -221,7 +217,7 @@ public class mainController {
 
     // READ PATIENT
     @GetMapping("/patient")
-    public String showPatient(HttpSession session, patient ptns, drug drg, Model model) {
+    public String showPatientDrug(HttpSession session, patient ptns, drug_usage drug_usage, Model model) {
 
         // if (session.getAttribute("name") != null) {
         try (Connection connection = dataSource.getConnection()) {
@@ -250,6 +246,25 @@ public class mainController {
 
             }
             model.addAttribute("patient", patient);
+
+            final var statement2 = connection.createStatement();
+
+            final var resultSet2 = statement2.executeQuery(
+                    "SELECT * FROM drug_usage ORDER BY drugid;");
+
+            // int row = 0;
+            ArrayList<drug_usage> Drug = new ArrayList<>();
+            while (resultSet2.next()) {
+                int dId = resultSet2.getInt("drugid");
+                int pId = resultSet2.getInt("patientid");
+
+                // System.out.println("drug ID :" + dId);
+                // System.out.println("patient ID :" + pId);
+
+                drug_usage drugs = new drug_usage(dId, pId);
+                Drug.add(drugs);
+            }
+            model.addAttribute("drug_usage", Drug);
             // connection.close();
             return "admin/patient";
 
@@ -257,19 +272,22 @@ public class mainController {
             System.out.println("message : " + t.getMessage());
             return "admin/adminmainmenu";
         }
+
     }
 
     // UPDATE PATIENT
     @GetMapping("/update-patient")
-    public String showUpdatePatient(@ModelAttribute("patient") patient patient, @RequestParam("id") int ptnid,
+    public String showUpdatePatient(@ModelAttribute("patient") drug_usage drug_usage, @RequestParam("id") int patientid,
             Model model) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM patient WHERE patientid = ?";
+            String sql = "SELECT * FROM patient WHERE patientid = ?;";
             final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, ptnid);
+            statement.setInt(1, patientid);
 
             final var resultSet = statement.executeQuery();
+            patient patients = new patient();
+
             while (resultSet.next()) {
                 int pId = resultSet.getInt("patientid");
                 String pName = resultSet.getString("patientname");
@@ -281,59 +299,95 @@ public class mainController {
                 Date pDOB = resultSet.getDate("patientdob");
                 String pPhoneNo = resultSet.getString("patientphoneno");
                 String pBloodType = resultSet.getString("patientbloodtype");
+                // String pdDrugType = resultSet.getString("drugtype");
 
-                patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo,
-                        pBloodType);
-                model.addAttribute("patient", patients);
+                System.out.println("patient ID :" + pId);
+                System.out.println("patient name :" + pName);
+
+                patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo, pBloodType);
             }
+            model.addAttribute("patient", patients);
+
+            Connection connection2 = dataSource.getConnection();
+            String sql2 = "SELECT drugid FROM drug_usage WHERE patientid = ?;";
+            final var statement2 = connection2.prepareStatement(sql2);
+            statement2.setInt(1, patientid);
+
+            List<Integer> drugs = new ArrayList<>();
+            try (ResultSet resultSet2 = statement2.executeQuery()) {
+                while (resultSet2.next()) {
+                    int dId = resultSet2.getInt("drugid");
+                    System.out.println("drug ID :" + dId);
+                    drugs.add(dId);
+                }
+            }
+            System.out.println(drugs.isEmpty());
+            model.addAttribute("drugUsage", drugs);
+
             return "admin/update-patient";
-        } catch (Throwable t) {
+        }   catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
-            return "index";
+            return "admin/adminmainmenu";
         }
     }
 
     @PostMapping("/update-patient")
-    public String updatePatient(HttpSession session, @ModelAttribute("patient") patient patients, Model model,
-            @RequestParam("pId") int ptnsid) {
-        int pId = patients.getPId();
-        String pName = patients.getPName();
-        String pIc = patients.getPIc();
-        String pSex = patients.getPSex();
-        String pAddress = patients.getPAddress();
-        Date pDate = patients.getPDate();
-        String pStatus = patients.getPStatus();
-        Date pDOB = patients.getPDOB();
-        String pPhoneNo = patients.getPPhoneNo();
-        String pBloodType = patients.getPBloodType();
-        try (
-                Connection connection = dataSource.getConnection()) {
-            String sql = "UPDATE patient SET patientid = ?, patientname = ?, patientic = ?, patientsex = ?, patientaddress = ?, patientdate = ?, patientstatus = ?, patientdob = ?, patientphoneno = ?, patientbloodtype = ? WHERE patientid=?";
-            final var statement = connection.prepareStatement(sql);
+    String updatePatient(Model model, @ModelAttribute("patient") patient patient,
+            @RequestParam(name = "pId") int patientId,
+            @RequestParam(name = "pDrugType", required = false) List<String> drugType) {
+            System.out.println("type of drug : " + drugType);
 
-            statement.setInt(1, pId);
-            statement.setString(2, pName);
-            statement.setString(3, pIc);
-            statement.setString(4, pSex);
-            statement.setString(5, pAddress);
-            statement.setDate(6, pDate);
-            statement.setString(7, pStatus);
-            statement.setDate(8, pDOB);
-            statement.setString(9, pPhoneNo);
-            statement.setString(10, pBloodType);
-            statement.setInt(11, ptnsid);
+            patient.setPId(patientId);
 
-            statement.executeUpdate();
+            boolean statusDelete = false;
+            boolean statusUpdate = false;
 
-            return "redirect:/patient";
+            try (Connection connection = dataSource.getConnection()) {
+                
+                // Update patient
+                String updatePatientQuery = "UPDATE patient SET patientname = ?, patientic = ?, patientsex = ?, patientaddress = ?, patientdate = ?, patientstatus = ?,patientdob = ?, patientphoneno = ?, patientbloodtype = ? WHERE patientid = ?";
+                try (PreparedStatement updatePatientStatement = connection.prepareStatement(updatePatientQuery)) {
+                    updatePatientStatement.setString(1, patient.getPName());
+                    updatePatientStatement.setString(2, patient.getPIc());
+                    updatePatientStatement.setString(3, patient.getPSex());
+                    updatePatientStatement.setString(4, patient.getPAddress());
+                    updatePatientStatement.setDate(5, patient.getPDate());
+                    updatePatientStatement.setString(6, patient.getPStatus());
+                    updatePatientStatement.setDate(7, patient.getPDOB());
+                    updatePatientStatement.setString(8, patient.getPPhoneNo());
+                    updatePatientStatement.setString(9, patient.getPBloodType());
+                    updatePatientStatement.setInt(10, patientId);
+                    int rowsAffected = updatePatientStatement.executeUpdate();
+                    statusUpdate = rowsAffected > 0;
+                }
 
-        } catch (Throwable t) {
+                // Delete all drugs by patientId
+                String deleteDrugQuery = "DELETE FROM drug_usage WHERE patientid = ?";
+                try (PreparedStatement deleteDrugStatement = connection.prepareStatement(deleteDrugQuery)) {
+                    deleteDrugStatement.setInt(1, patientId);
+                    int rowsAffected = deleteDrugStatement.executeUpdate();
+                    statusDelete = rowsAffected > 0;
+                }
+                // Insert new drugs
+                String insertDrugQuery = "INSERT INTO drug_usage (patientid, drugid) VALUES (?, ?)";
+                try (PreparedStatement insertDrugStatement = connection.prepareStatement(insertDrugQuery)) {
+                    for (String value : drugType) {
+                        insertDrugStatement.setInt(1, patientId);
+                        insertDrugStatement.setInt(2, Integer.parseInt(value));
+                        insertDrugStatement.executeUpdate();
+                    }
+                }
+                connection.close();
+              
+        }   catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
-            System.out.println("error");
-            return "redirect:/adminmainmenu";
+            return "admin/adminmainmenu";
         }
-    }
+        return "redirect:/patient";
+}
 
+
+    
     // Delete Patient
     @GetMapping("/delete-patient")
     public String DeletePatient(@ModelAttribute("patient") patient patient, @RequestParam("pId") int ptnid,
