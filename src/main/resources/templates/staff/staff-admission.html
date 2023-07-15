@@ -54,39 +54,77 @@
                 aria-current="page"><span class="material-symbols-outlined"
                     style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
   
+        <hr class="hr-line">
+  
+            <li class="nav-item"><a th:href="@{/staff-patient}"
+                class="nav-link text-black d-flex justify-content-start"><span
+                class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
+
             <li class="nav-item"><a th:href="@{/staff-admission}"
                 class="nav-link active text-black d-flex justify-content-start">
                     <span class="material-symbols-outlined"
                     style="margin-right: 20px;"> group_add </span>Admission
             </a></li>
   
-        <hr class="hr-line">
-  
-            <li class="nav-item"><a th:href="@{/staff-patient}"
-                class="nav-link text-black d-flex justify-content-start"><span
-                class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
-  
         </ul>
         <hr style="margin-bottom: 0px !important;">
     </div>
     <!-- End Side Bar-->
      <!--content-->
-
-  <div class="card mb-3 d-flex justify-content-center col-6 offset-4" style="max-width: 60rem; margin-top: 5%;">
-    <div class="card-body">
-        <h2 class="head text-center">Admission</h2>
-        <div class="input-group mb-3 mt-4" style="height: 40px;">
-            <input type="text" class="form-control"
-                placeholder="Enter Patient Ic" aria-label="Patient IC"
-                aria-describedby="button-addon2">
-            <button class="btn btn-outline-success me-2" type="button">Search</button>
+     <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
+        <div style="width: 80%;">
+        <div class="card-body">
+            <h3 style="text-align: left;">Admission</h3>
+            <div class="input-group mb-3 mt-4" style="height: 40px;">
+                <input type="text" class="form-control"
+                    placeholder="Enter Patient Ic" aria-label="Patient IC"
+                    aria-describedby="button-addon2">
+                <button class="btn btn-dark me-2" type="button" name = "searchName" modelAttribute = "adminAdmission">Search</button>
+            </div>
+            <div class="alert alert-info" role="alert">Click In to admit patient, Click Out to view admitted patient</div>
+            <div class="col-12 d-flex justify-content-end">
+                <a th:href="@{/staff-admissionOut}">
+                    <button class="btn btn-danger btn-sm me-2" type="button">Out</button>
+                  </a>
+                <a th:href="@{/staff-register-patient}">
+                  <button class="btn btn-success btn-sm me-2" type="button">Register</button>
+                </a>
+              </div>          
+            <table class="table table-success text-center mt-4 col-md-12 mx-auto" style="border: solid 1px black; text-align: center;">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Admission In</th>
+                        <th>Assign Therapist</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-middle">Patient 1</td>
+                        <td class="align-middle"><button class="btn btn-primary btn-sm">In</button></td>
+                        <td class="align-middle">
+                                <div class="dropdown-center">
+                                    <button class="btn btn-primary dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Therapist
+                                      </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Therapist 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Therapist 2</a></li>
+                                        <li><a class="dropdown-item" href="#">Therapist 3</a></li>
+                                      </ul>
+                                  </div>
+                        </td>
+                    </tr>
+                    <!-- Add more rows for other patients -->
+                </tbody>
+            </table>
+    
         </div>
-        <img th:src="@{icon/admission.jpg}" class="card-img-top" alt="...">
-        <div class="col-12 text-center">
-            <a th:href="@{/staff-register-patient}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
-        </div>
-    </div>
-  </div>
+      </div>
+      </div>
+      <footer class="d-flex justify-content-center col-8 offset-3">
+        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+      </footer>
     <!-- End Content-->
 
             <script

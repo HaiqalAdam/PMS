@@ -15,20 +15,8 @@ public class therapist extends users {
     public therapist() {
     }
 
-    public therapist(String tName, String tRelationStatus, Date tDate, String tSex, Date tDOB, String tPhoneNo,
-            String tSpecialist) {
-        this.tName = tName;
-        this.tRelationStatus = tRelationStatus;
-        this.tDate = tDate;
-        this.tSex = tSex;
-        this.tDOB = tDOB;
-        this.tPhoneNo = tPhoneNo;
-        this.tSpecialist = tSpecialist;
-    }
-
     public therapist(Integer id, String usr, String pwd, String role, String tName, String tRelationStatus, Date tDate,
-            String tSex, Date tDOB, String tPhoneNo,
-            String tSpecialist) {
+            String tSex, Date tDOB, String tPhoneNo, String tSpecialist) {
         super(id, usr, pwd, role);
         this.tName = tName;
         this.tRelationStatus = tRelationStatus;
