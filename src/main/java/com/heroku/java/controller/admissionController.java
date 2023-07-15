@@ -38,6 +38,10 @@ public class admissionController {
     public String staffAdmission() {
         return "staff/staff-admission";
     }
+        @GetMapping("/staff-admissionOut")
+    public String staffAdmissioOutn() {
+        return "staff/staff-admissionOut";
+    }
 
     @GetMapping("/admissionOut")
     public String admissionOut() {

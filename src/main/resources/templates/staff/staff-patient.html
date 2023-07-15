@@ -53,110 +53,152 @@
                 class="nav-link text-black d-flex justify-content-start"
                 aria-current="page"><span class="material-symbols-outlined"
                     style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
-  
-            <li class="nav-item"><a th:href="@{/staff-admission}"
-                class="nav-link text-black d-flex justify-content-start">
-                    <span class="material-symbols-outlined"
-                    style="margin-right: 20px;"> group_add </span>Admission
-            </a></li>
+
   
         <hr class="hr-line">
   
             <li class="nav-item"><a th:href="@{/staff-patient}"
                 class="nav-link active text-black d-flex justify-content-start"><span
                 class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
+
+                  
+            <li class="nav-item"><a th:href="@{/staff-admission}"
+                class="nav-link text-black d-flex justify-content-start">
+                    <span class="material-symbols-outlined"
+                    style="margin-right: 20px;"> group_add </span>Admission
+            </a></li>
   
         </ul>
         <hr style="margin-bottom: 0px !important;">
     </div>
     <!-- End Side Bar-->
     <!-- Content -->
-    <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-9">
-    <div style="width: 80%;">
-        <h3 style="text-align: left;">Patient</h3>
-        <div class="input-group mb-3 mt-4" style="height: 40px;">
-            <input id="search-input" type="text" class="form-control"
-                placeholder="Enter Patient Ic" aria-label="Patient IC"
-                aria-describedby="button-addon2">
-            <button class="btn btn-outline-success me-2" type="button">Search</button>
-        </div>
-        <div class="alert alert-info" role="alert">Click on the row to
-            update and delete the patient details</div>
-        <div class="d-flex flex-row m-2">
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" checked> <label
-                    class="form-check-label" for="flexSwitchCheckDefault">all patients</label>
+    <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
+        <div style="width: 80%;">
+        <div class="card-body">
+            <h3 style="text-align: left;">Patient</h3>
+            <div class="input-group mb-3 mt-4" style="height: 40px;">
+                <input type="text" class="form-control"
+                    placeholder="Enter Patient Ic" aria-label="Patient IC"
+                    aria-describedby="button-addon2">
+                <button class="btn btn-dark me-2" type="button">Search</button>
             </div>
-        </div>
-        <table class="table table-success align-middle" style="border: solid 2px black; text-align: center;">
-            <tr class="bg-info">
-                <th id="name" data-column="name" data-order="desc">Name</th>
-                <th id="sex" data-column="sex" data-order="desc">Sex</th>
-                <th id="address" data-column="address" data-order="desc">Address</th>
-                <th id="datein" data-column="datein" data-order="desc">Date In</th>
-                <th id="status" data-column="status" data-order="desc">Status</th>
-                <th id="birth" data-column="birth" data-order="desc">Birth</th>
-                <th id="phone" data-column="phone" data-order="desc">Phone No.</th>
-                <th id="bloodtype" data-column="bloodtype" data-order="desc">Blood Type</th>
-                <th id="drugs" data-column="drugs" data-order="desc">Drug</th>
-                <th id="action" data-column="action" data-order="desc">Action</th>
-            </tr>
+            <div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">
+                Click the action button to update or delete patient details.
+              </div>   
 
-            <tbody id="myTable">
+            <div class="col-12 d-flex justify-content-end">
+              <a th:href="@{/staff-register-patient}">
+                <button class="btn btn-success btn-sm" type="button">Register</button>
+              </a>
+              </a>
+            </div>  
 
-            </tbody>
-        </table>
-    </div>
-    <div class="col-12 text-center">
-        <a th:href="@{/staff-register-patient}"><button class="btn btn-outline-success me-2" type="button">Register</button></a>
-    </div>
-    </div>
+      <div name="patientTable" class="d-flex flex-column justify-content-center align-items-center rounded">
+            <table class="table table-success text-center mt-4 col-md-12 mx-auto" style="border: solid 1px black; text-align: center;">
+                <thead style="background-color: #a5d6a7;">
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Ic Number</th>
+                        <th scope="col">Sex</th> 
+                        <th scope="col">Address</th> 
+                        <th scope="col">Date In</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Date of Birth</th>
+                        <th scope="col">Phone No.</th>
+                        <th scope="col">Blood Type</th>
+                        <th scope="col">Action</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Use Thymeleaf loop to iterate over the employees -->
+                    <tr th:each="patients: ${patient}">
+                        <td th:text="${patients.pId}"></td> 
+                        <td th:text="${patients.pName}"></td> 
+                        <td th:text="${patients.pIc}"></td> 
+                        <td th:text="${patients.pSex}"></td> 
+                        <td th:text="${patients.pAddress}"></td> 
+                        <td th:text="${patients.pDate}"></td> 
+                        <td th:text="${patients.pStatus}"></td> 
+                        <td th:text="${patients.pDOB}"></td> 
+                        <td th:text="${patients.pPhoneNo}"></td> 
+                        <td th:text="${patients.pBloodType}"></td> 
+                        
+                        <td>
+                          <div class="dropdown">
+                            <button class="btn btn-submit btn-sm" type="button" id="dropdownMenuButton${i}" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
+                              <a class="dropdown-item" th:href="@{/update-patient(id=${patients.pId})}">Edit</a>
+                              <!-- <a class="dropdown-item" th:href="@{/delete-account(id=${user.id})}">Delete</a> -->
+                              <a class="dropdown-item" th:data-id="${patients.pId}" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                            </div>
+                          </div>  
+                        </td>
+                    </tr>
+                </tbody>
+              </table>
+
+              <!-- Modal -->
+              <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                  <div class="modal-content">
+                      <div class="modal-header">
+                      <h5 class="modal-title" id="deleteModalLabel">Confirmation</h5>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                      </button>
+                      </div>
+                      <div class="modal-body">
+                      Are you sure you want to delete this item?
+                      </div>
+                      <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                      <a id="deleteButton" class="btn btn-danger">Delete</a>
+                      </div>
+                  </div>
+                  </div>
+              </div>
+
+          </div>
+      </div>
+      <footer class="d-flex justify-content-center">
+          <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+      </footer>
+      </div>
+  </div>
+
+  <!-- modal js -->
+<script>
+  $(document).ready(function() {
+$('#deleteModal').on('show.bs.modal', function(event) {
+  var deleteId = $(event.relatedTarget).data('id');
+  var deleteUrl = '/delete-patient?pId=' + deleteId;
+  $('#deleteButton').attr('href', deleteUrl);
+});
+
+$('#deleteButton').click(function(event) {
+  event.preventDefault();
+  var deleteUrl = $(this).attr('href');
+
+  // Send a GET request to the deleteUrl
+  $.get(deleteUrl, function() {
+    // Refresh the page after successful deletion
+    location.reload();
+  }).fail(function() {
+    // Handle any errors
+    alert('An error occurred while deleting the account.');
+  });
+
+  $('#deleteModal').modal('hide');
+});
+});
+</script>
+
     <!-- End Content-->
-            <!--Table-->
-            <script>
-                var myArray =[
-                    {'name':'Haris Azman', 'sex':'Male', 'address':'No.4 Jalan 5s, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'12/08/2022', 
-                    'status':'In progress', 'birth':'28/03/1988', 'phone':'0123321224', 'bloodtype':'O', 'drugs':'Weed'},
-                    {'name':'Jalal Ajis', 'sex':'Male', 'address':'PG.23 PPR Permai, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'11/03/2022', 
-                    'status':'In progress', 'birth':'02/09/1978', 'phone':'0199324284', 'bloodtype':'A','drugs':'Weed'},
-                    {'name':'Karim Suparno', 'sex':'Male', 'address':'Blok A-9-4 Apartment Kesuma, Cheras, 43200, Selangor', 'datein':'02/04/2022', 
-                    'status':'Recover', 'birth':'10/05/1998', 'phone':'0176544453', 'bloodtype':'AB', 'drugs':'Weed'},
-                    {'name':'Amin Ali', 'sex':'Male', 'address':'13-12-33c, Bandar Tun Razak, 57000, Kuala Lumpur', 'datein':'19/07/2022', 
-                    'status':'In progress', 'birth':'02/01/1999', 'phone':'0189994284', 'bloodtype':'A', 'drugs':'Weed'},
-                ]
-                
-
-                buildTable(myArray)
-
-                function buildTable(data){
-                     var table = document.getElementById('myTable')
-
-                        for (var i = 0; i < data.length; i++){
-                            var row = `<tr onclick="myFunction()">
-                                            <td>${data[i].name}</td>
-                                            <td>${data[i].sex}</td>
-                                            <td>${data[i].address}</td>
-                                            <td>${data[i].datein}</td>
-                                            <td>${data[i].status}</td>
-                                            <td>${data[i].birth}</td>
-                                            <td>${data[i].phone}</td>
-                                            <td>${data[i].bloodtype}</td>
-                                            <td>${data[i].drugs}</td>
-                                            <td><a href="/staff-update-patient"><button type="button" class="btn btn-primary">update</button></a> <a href="#"><button type="button" class="btn btn-danger">delete</button></a></td>
-                                       </tr>`
-
-                            table.innerHTML += row
-
-                        }
-
-                }
-
-            </script>
-            <script>
-            //     function myFunction(x) {
-			//      alert("Row index is: " + x);
-		    // }
-            </script>
 
 
             <script

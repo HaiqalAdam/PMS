@@ -63,6 +63,11 @@
               style="margin-right: 20px;"> group_add </span>Admission
       </a></li>
   <hr class="hr-line">
+
+  <li><a th:href="@{/staff}"
+    class="nav-link text-black d-flex justify-content-start"
+    aria-current="page"><span class="material-symbols-outlined"
+        style="margin-right: 20px;"> supervisor_account </span> Staff </a></li>
       
       <li><a th:href="@{/therapist}"
           class="nav-link text-black d-flex justify-content-start"
@@ -83,140 +88,117 @@
 </div>
 <!-- End Side Bar-->
   <!-- Page Content -->
- 
-    <div class="container-fluid">
-      <div class="text-center offset-2 justify-content-center" style="margin-top: 5%;">
-        <h2>Registration Form</h2>
-      </div>
-      <div class="row offset-2 justify-content-center">
-        <div class="col-6">
-          <div class="card" style="border: solid 1px black;">
-            <div class="card-body custom-form" style="background-color: #ffffff;">
-
-        <form th:action="@{/register-patient}" method="post" modelAttribute="patient">
-          <div class="form-row mt-4">
-            <div class="form-group col-md-12">
-              <label for="name">Name</label>
-              <input type="text" 
-              class="form-control" 
-              id="name" 
-              name="pName" 
-              th:value="${pName}" 
-              placeholder="Name" required>
-            </div>
+  
+  <div class="dashboard-con d-flex flex-column justify-content-center align-items-center offset-2 col-10" style="padding-top: 10px;">
+    <div style="width: 80%;">
+      <div class="card-body">
+        <div class="card text-black bg-white mb-3">
+          <div class="card-header">
+            <h3 class="text-center">Registration Form</h3>
           </div>
-          
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="ic">Ic Number</label>
-              <input type="text" 
-              class="form-control" 
-              id="ic" 
-              name="pIc" 
-              th:value="${pIc}" 
-              placeholder="Ic Number" required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label for="status">Status</label>
-              <input type="text" 
-              class="form-control" 
-              id="status" 
-              name="pStatus" 
-              th:value="${pStatus}" 
-              placeholder="Status" required>
-            </div>
+          <form th:action="@{/patient}" method="post" modelAttribute="patient">
+          <div class="card-body">
+            <div class="container">
+              <div class="row">
+                <div class="col ">
+                  <label for="name">Name</label>
+                  <input type="text" class="form-control" id="name" name="pName" th:value="${pName}" placeholder="Name" required>
+                </div>
+                <div class="col">
+                  <label for="ic">Ic Number</label>
+                  <input type="text" class="form-control" id="ic" name="pIc" th:value="${pIc}" placeholder="Ic Number" required>
+                </div>
+              </div>
+              <div class="row ">
+                <div class="col">
+                  <label for="status">Relationship Status</label>
+                  <select class="form-control" id="status" name="sStatus" required>
+                    <option value="" disabled selected>Select Relationship Status</option>
+                    <option value="single" th:selected="${sStatus == 'single'}">Single</option>
+                    <option value="married" th:selected="${sStatus == 'married'}">Married</option>
+                    <option value="divorced" th:selected="${sStatus == 'divorced'}">Divorced</option>
+                    <option value="widowed" th:selected="${sStatus == 'widowed'}">Widowed</option>
+                  </select>
+                </div>    
+                <div class="col">
+                  <label for="sex">Gender</label>
+                  <select class="form-control" id="sex" name="pSex" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="Male" th:selected="${pSex == 'Male'}">Male</option>
+                    <option value="Female" th:selected="${pSex == 'Female'}">Female</option>
+                  </select>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="dateOfBirth">Date of Birth</label>
+                  <input type="date" class="form-control" id="dateOfBirth" name="pDateOfBirth" th:value="${pDateOfBirth}" required>
+                </div>
+                <div class="col">
+                  <label for="phone">Phone No.</label>
+                  <input type="text" class="form-control" id="phone" name="pPhoneNo" th:value="${pPhoneNo}" placeholder="Phone No." required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="drugType">Drug Type</label>
+                  <select class="form-control" id="drugType" name="pDrugType" required>
+                      <option value="" disabled selected>Select Drug Type</option>
+                      <option value="Central Nervous System (CNS) Depressants">Central Nervous System (CNS) Depressants</option>
+                      <option value="CNS Stimulants">CNS Stimulants</option>
+                      <option value="Hallucinogens">Hallucinogens</option>
+                      <option value="Dissociative Anesthetics">Dissociative Anesthetics</option>
+                      <option value="Narcotic Analgesics">Narcotic Analgesics</option>
+                      <option value="Inhalants">Inhalants</option>
+                      <option value="Cannabis">Cannabis</option>
+                  </select>
+              </div>
+              
+                <div class="col">
+                  <label for="dateIn">Date In</label>
+                  <input type="date" class="form-control" id="dateIn" name="pDateIn" th:value="${pDateIn}" required>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <label for="bloodType">Blood Type</label>
+                  <select class="form-control" id="bloodType" name="pBloodType" required>
+                    <option value="" disabled selected>Select Blood Type</option>
+                    <option value="A" th:selected="${pBloodType == 'A'}">A</option>
+                    <option value="B" th:selected="${pBloodType == 'B'}">B</option>
+                    <option value="AB" th:selected="${pBloodType == 'AB'}">AB</option>
+                    <option value="O" th:selected="${pBloodType == 'O'}">O</option>
+                  </select>
+                </div>
+                <div class="col">
+                  <label for="address">Address</label>
+                  <input type="text" class="form-control" id="address" name="pAddress" th:value="${pAddress}" placeholder="Address" required>
+                </div>
+              </div>
+            </div><br>
+            <div class="col-sm-10">
+              <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="gridCheck1" required>
+              <label class="form-check-label" for="gridCheck1">
+                  are the details above correct?
+              </label>
+              </div>
           </div>
-
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="sex">Sex</label>
-              <input type="text" 
-              class="form-control" 
-              id="sex" 
-              name="pSex" 
-              th:value="${pSex}" 
-              placeholder="Sex" required>
+  
+            <div class="form-group text-center">
+              <button type="reset" class="btn btn-danger btn-sm">Reset</button>
+              <button type="submit" class="btn btn-primary btn-sm">Submit</button>
             </div>
-
-            <div class="form-group col-md-6">
-              <label for="dob">Date of Birth</label>
-              <input type="date" 
-              class="form-control" 
-              id="dob" 
-              name="pDOB" 
-              th:value="${pDOB}" 
-              placeholder="Date of Birth" required>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="phone">Phone No.</label>
-              <input type="text" 
-              class="form-control" 
-              id="phone" 
-              name="pPhoneNo" 
-              th:value="${pPhoneNo}" 
-              placeholder="Phone No." required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label for="drugType">Drug Type</label>
-              <input type="text" 
-              class="form-control" 
-              id="drugType" 
-              name="pDrugType" 
-              th:value="${pDrugType}" 
-              placeholder="Drug Type" required>
-            </div>
-          </div>
-
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="name">Date In</label>
-              <input type="date" 
-              class="form-control" 
-              id="datein" 
-              name="pDate" 
-              th:value="${pDate}" 
-              placeholder="Date"required>
-            </div>
-
-            <div class="form-group col-md-6">
-              <label for="bloodType">Blood Type</label>
-              <input type="text" 
-              class="form-control" 
-              id="bloodType" 
-              name="pBloodType" 
-              th:value="${BloodType}" 
-              placeholder="Blood Type" required>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" 
-            class="form-control" 
-            id="address" 
-            name="pAddress" 
-            th:value="${pAddress}" 
-            placeholder="Address" required>
-          </div>
-
-          <div class="form-group text-center">
-            <button type="reset" class="btn btn-secondary">Reset</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
+        </div>
       </div>
     </div>
   </div>
-  <footer class="d-flex justify-content-center">
-    <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
-  </footer>
-</div>
-    </div>
+  
+    <footer class="d-flex justify-content-center col-8 offset-3">
+      <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+    </footer>
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

@@ -166,6 +166,22 @@ public class mainController {
         return "admin/register-patient";
     }
 
+        @GetMapping("/staff")
+    public String staffs() {
+        // model.addAttribute("user", model);
+        return "admin/staff";
+    }
+
+        @GetMapping("/register-staff")
+    public String registerS() {
+        // model.addAttribute("user", model);
+        return "admin/register-staff";
+    }
+        @GetMapping("/update-staff")
+    public String updateS() {
+        // model.addAttribute("user", model);
+        return "admin/update-staff";
+    }
     @PostMapping("/register-patient")
     public String adminRegisterPatient(@ModelAttribute("patient") patient patient,
             @RequestParam("pDrugType") String drugType) {

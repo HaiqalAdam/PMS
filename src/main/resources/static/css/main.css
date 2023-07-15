@@ -2,7 +2,11 @@
 
 /*navbar*/
 .navbar {
+<<<<<<< HEAD
 	background-color: white;
+=======
+    background-color : #ffffff;
+>>>>>>> 35d1536a8f7820c7fa520e9fa2c905964cf97b9a
 }
 
 .navbar-brand {
@@ -67,10 +71,6 @@
 	font-size: 600;
 }
 
-.card{
-	border-radius: 25px;
-  	background: #EAFAF1 ;
-}
 
 body {
 		background-image: url("https://cdn.wallpapersafari.com/22/23/8wlVC4.png");
