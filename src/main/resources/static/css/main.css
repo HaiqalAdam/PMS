@@ -93,3 +93,9 @@ body {
 	background-color: #990011 !important;
 	color: #000 !important;
   }
+
+  /* table */
+  .custom-table {
+	border-radius: 20px !important;
+  }
+ 
