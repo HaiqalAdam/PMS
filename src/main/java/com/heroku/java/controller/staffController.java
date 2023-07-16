@@ -31,8 +31,19 @@ public class staffController {
     }
 
     @GetMapping("/staffmainmenu")
-    public String staffmainmenu() {
-        // model.addAttribute("user", model);
+    public String staffmainmenu(Model model) {
+        try {
+            Connection connection2 = dataSource.getConnection();
+            final var statement2 = connection2.createStatement();
+            final var resultSet2 = statement2.executeQuery(
+                    "SELECT COUNT(*) AS count FROM patient;");
+            resultSet2.next();
+            int count2 = resultSet2.getInt("count");
+
+            model.addAttribute("patientCount", count2);
+        } catch (SQLException sqe) {
+            sqe.printStackTrace();
+        }
         return "staff/staffmainmenu";
     }
 

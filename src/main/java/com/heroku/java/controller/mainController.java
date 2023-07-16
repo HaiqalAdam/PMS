@@ -31,6 +31,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -94,38 +96,6 @@ public class mainController {
         }
     }
 
-    @GetMapping("/therapist/count")
-    @ResponseBody
-    public int getTherapistCount() {
-        try (Connection connection = dataSource.getConnection()) {
-            final var statement = connection.createStatement();
-            final var resultSet = statement.executeQuery(
-                    "SELECT COUNT(*) AS count FROM therapist;");
-            resultSet.next();
-            return resultSet.getInt("count");
-        } catch (SQLException sqe) {
-            sqe.printStackTrace();
-            // Handle the exception appropriately
-        }
-        return 0;
-    }
-
-    @GetMapping("/patient/count")
-    @ResponseBody
-    public int getPatientCount() {
-        try (Connection connection = dataSource.getConnection()) {
-            final var statement = connection.createStatement();
-            final var resultSet = statement.executeQuery(
-                    "SELECT COUNT(*) AS count FROM patient;");
-            resultSet.next();
-            return resultSet.getInt("count");
-        } catch (SQLException sqe) {
-            sqe.printStackTrace();
-            // Handle the exception appropriately
-        }
-        return 0;
-    }
-
     /**
      * @param session
      * @param staff
@@ -141,7 +111,28 @@ public class mainController {
     }
 
     @GetMapping("/adminmainmenu")
-    public String showDashboard(HttpSession session) {
+    public String showDashboard(Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            final var statement = connection.createStatement();
+            final var resultSet = statement.executeQuery(
+                    "SELECT COUNT(*) AS count FROM therapist;");
+            resultSet.next();
+            int count = resultSet.getInt("count");
+
+            model.addAttribute("therapistCount", count);
+
+            Connection connection2 = dataSource.getConnection();
+            final var statement2 = connection2.createStatement();
+            final var resultSet2 = statement2.executeQuery(
+                    "SELECT COUNT(*) AS count FROM patient;");
+            resultSet2.next();
+            int count2 = resultSet2.getInt("count");
+
+            model.addAttribute("patientCount", count2);
+        } catch (SQLException sqe) {
+            sqe.printStackTrace();
+        }
         return "admin/adminmainmenu";
     }
 
@@ -777,6 +768,63 @@ public class mainController {
             model.put("message", t.getMessage());
             return "error";
         }
+    }
+
+    @GetMapping("/record")
+    public String therapist_progression(HttpSession session, patient ptns, drug_usage drug_usage, Model model) {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+
+            final var resultSet = statement.executeQuery(
+                    "SELECT * FROM patient ORDER BY patientid;");
+
+            // int row = 0;
+            ArrayList<patient> patient = new ArrayList<>();
+            while (resultSet.next()) {
+                int pId = resultSet.getInt("patientid");
+                String pName = resultSet.getString("patientname");
+                String pIc = resultSet.getString("patientic");
+                String pSex = resultSet.getString("patientsex");
+                String pAddress = resultSet.getString("patientaddress");
+                Date pDate = resultSet.getDate("patientdate");
+                String pStatus = resultSet.getString("patientstatus");
+                Date pDOB = resultSet.getDate("patientdob");
+                String pPhoneNo = resultSet.getString("patientphoneno");
+                String pBloodType = resultSet.getString("patientbloodtype");
+
+                patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo,
+                        pBloodType);
+                patient.add(patients);
+
+            }
+            model.addAttribute("patient", patient);
+
+            final var statement2 = connection.createStatement();
+
+            final var resultSet2 = statement2.executeQuery(
+                    "SELECT * FROM drug_usage ORDER BY drugid;");
+
+            // int row = 0;
+            ArrayList<drug_usage> Drug = new ArrayList<>();
+            while (resultSet2.next()) {
+                int dId = resultSet2.getInt("drugid");
+                int pId = resultSet2.getInt("patientid");
+
+                // System.out.println("drug ID :" + dId);
+                // System.out.println("patient ID :" + pId);
+
+                drug_usage drugs = new drug_usage(dId, pId);
+                Drug.add(drugs);
+            }
+            model.addAttribute("drug_usage", Drug);
+            // connection.close();
+            return "admin/record";
+
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "admin/adminmainmenu";
+        }
+
     }
 
     public static void main(String[] args) {

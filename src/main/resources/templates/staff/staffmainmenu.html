@@ -71,8 +71,6 @@
 <!--content-->
 <div class="view">    
   <h3 class="d-flex justify-content-center offset-2" style="margin-top: 80px;">Dashboard Overview</h3>
-      <!-- <a th:href="@{/patient}" value="Patient" id="patientdashboard">Patient</a><br>
-      <a href="#" value="Therapist" id="therapistdashboard">Therapist</a> -->
       <div class="card mb-3 d-flex justify-content-center col-8 offset-3" style="max-width: 100rem;">
         <div class="row g-0">
           <div class="col-md-6 offset-md-1">
@@ -88,7 +86,7 @@
                       <div class="card text-center mt-4 patient-card">
                         <div class="card-body">
                           <h5 class="card-title" style="color: #FCF6F5;">Total Patients</h5>
-                          <h3 id="totalPatient" style="color:#FCF6F5;">0</h3>
+                          <h3 id="totalPatient" th:text="${patientCount}" style="color:#FCF6F5;"></h3>
                         </div>
                       </div>
                     </a>
@@ -106,18 +104,8 @@
       </footer>
       
       <script>
-        // JavaScript code to update the total therapist and total patient counts
-        document.addEventListener('DOMContentLoaded', function() {
-          // Simulating data retrieval from the backend
-          var totalPatientCount = 50; // Replace with your actual data
-    
-          // Update the total patient count
-          document.getElementById('totalPatient').textContent = totalPatientCount;
-        });
-                // JavaScript code to dynamically update the current year
-                var currentYear = new Date().getFullYear();
-            document.getElementById("currentYear").textContent = currentYear;
-    
+        var currentYear = new Date().getFullYear();
+        document.getElementById("currentYear").textContent = currentYear;
       </script>
 </div>
       <script

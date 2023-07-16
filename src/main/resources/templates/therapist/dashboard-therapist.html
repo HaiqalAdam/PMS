@@ -88,22 +88,11 @@
                         <a style="text-decoration: none;">
                           <div class="card text-center therapist-card">
                             <div class="card-body">
-                              <h5 class="card-title" style="color: #FBEAEB;">Admission In</h5>
-                              <h3 id="totalTherapist" style="color: #FBEAEB;">0</h3>
+                              <h5 class="card-title" style="color: #FBEAEB;">Patient</h5>
+                              <h3 id="totalTherapist" th:text="${patientCount}"style="color: #FBEAEB;"></h3>
                             </div>
                           </div>
                         </a>
-                        
-                        <a style="text-decoration: none;">
-                          <div class="card text-center mt-4 patient-card">
-                            <div class="card-body">
-                              <h5 class="card-title" style="color: #FCF6F5;">Admission Completed</h5>
-                              <h3 id="totalPatient" style="color:#FCF6F5;">0</h3>
-                            </div>
-                          </div>
-                        </a>
-                                       
-                        
                       </div>
                     </div>
                   </div>
@@ -116,22 +105,8 @@
           </footer>
           
           <script>
-            // JavaScript code to update the total therapist and total patient counts
-            document.addEventListener('DOMContentLoaded', function() {
-              // Simulating data retrieval from the backend
-              var totalTherapistCount = 10; // Replace with your actual data
-              var totalPatientCount = 50; // Replace with your actual data
-        
-              // Update the total therapist count
-              document.getElementById('totalTherapist').textContent = totalTherapistCount;
-        
-              // Update the total patient count
-              document.getElementById('totalPatient').textContent = totalPatientCount;
-            });
-                    // JavaScript code to dynamically update the current year
-                    var currentYear = new Date().getFullYear();
-                document.getElementById("currentYear").textContent = currentYear;
-        
+          var currentYear = new Date().getFullYear();
+          document.getElementById("currentYear").textContent = currentYear;
           </script>
     </div>
           <script
