@@ -10,7 +10,17 @@ public class users {
     public users() {
 
     }
+    public users(Integer id, String usr, String pwd) {
+        this.id = id;
+        this.usr = usr;
+        this.pwd = pwd;
+        
+    }
 
+    public users(Integer id) {
+        this.id = id;
+    }
+    
     public users(Integer id, String usr, String pwd, String role) {
         this.id = id;
         this.usr = usr;

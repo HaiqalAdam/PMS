@@ -88,7 +88,6 @@
 </div>
 <!-- End Side Bar-->
   <!-- Page Content -->
-  
   <div class="dashboard-con d-flex flex-column justify-content-center align-items-center offset-2 col-10" style="padding-top: 10px;">
     <div style="width: 80%;">
       <div class="card-body">
@@ -96,7 +95,7 @@
           <div class="card-header">
             <h3 class="text-center">Registration Form</h3>
           </div>
-          <form th:action="@{/patient}" method="post" modelAttribute="patient">
+          <form th:action="@{/register-patient}" method="post" modelAttribute="patient">
           <div class="card-body">
             <div class="container">
               <div class="row">
@@ -108,6 +107,7 @@
                   <label for="ic">Ic Number</label>
                   <input type="text" class="form-control" id="ic" name="pIc" th:value="${pIc}" placeholder="Ic Number" required>
                 </div>
+<<<<<<< HEAD
               </div>
               <div class="row ">
                 <div class="col">
@@ -189,6 +189,184 @@
               <button type="reset" class="btn btn-danger btn-sm">Reset</button>
               <button type="submit" class="btn btn-primary btn-sm">Submit</button>
             </div>
+=======
+              </div>           
+
+
+          <div class="form-row">
+            <div class="col">
+              <label for="sex">Gender</label>
+              <select class="form-control" id="sex" name="pSex" required>
+                <option value="" disabled selected>Select Gender</option>
+                <option value="Male" th:selected="${sSex == 'Male'}">Male</option>
+                <option value="Female" th:selected="${sSex == 'Female'}">Female</option>
+              </select>
+            </div>
+
+            <div class="form-group col-md-6">
+              <label for="dob">Date of Birth</label>
+              <input type="date" 
+              class="form-control" 
+              id="dob" 
+              name="pDOB" 
+              th:value="${pDOB}" 
+              placeholder="Date of Birth" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="phone">Phone No.</label>
+              <input type="text" 
+              class="form-control" 
+              id="phone" 
+              name="pPhoneNo" 
+              th:value="${pPhoneNo}" 
+              placeholder="Phone No." required>
+            </div>
+            <div class="col">
+              <label for="status">Relationship Status</label>
+              <select class="form-control" id="status" name="pStatus" required>
+                <option value="" disabled selected>Select Relationship Status</option>
+                <option value="single" th:selected="${sRelationStatus == 'single'}">Single</option>
+                <option value="married" th:selected="${sRelationStatus == 'married'}">Married</option>
+                <option value="divorced" th:selected="${sRelationStatus == 'divorced'}">Divorced</option>
+                <option value="widowed" th:selected="${sRelationStatus == 'widowed'}">Widowed</option>
+              </select>
+            </div>            
+          </div>
+          <div class="row ">
+            <div class="form-group col-md-12">
+              <label for="address">Address</label>
+              <input type="text" 
+              class="form-control" 
+              id="address" 
+              name="pAddress" 
+              th:value="${pAddress}" 
+              placeholder="Address" required>
+          </div>
+          </div>
+
+          <div class="form-row ">
+            <div class="form-group col-md-6">
+              <label for="name">Date In</label>
+              <input type="date" 
+              class="form-control" 
+              id="datein" 
+              name="pDate" 
+              th:value="${pDate}" 
+              placeholder="Date"required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="bloodType">Blood Type</label>
+                <input type="text" 
+                class="form-control" 
+                id="bloodType" 
+                name="pBloodType" 
+                th:value="${BloodType}" 
+                placeholder="Blood Type" required>
+              </div>
+              </div>
+
+            <div class="form-group col-md-6">
+              <label for="drugType">Drug Type :</label>
+              <div class="justify-content-center">
+                    <div class="form-col">
+                      <div class="justify-content-center">
+                        <div class="form-check">
+                          <input
+                            name="pDrugType"
+                            value="1"
+                            class="form-check-input"
+                            type="checkbox"
+                            id="gridCheck1"
+                          />
+                          <label class="form-check-label" for="gridCheck1">
+                            Cocaine 
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input
+                            name="pDrugType"
+                            value="2"
+                            class="form-check-input"
+                            type="checkbox"
+                            id="gridCheck1"
+                          />
+                          <label class="form-check-label" for="gridCheck1">
+                            Heroin 
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-check">
+                          <input
+                            name="pDrugType"
+                            value="3"
+                            class="form-check-input"
+                            type="checkbox"
+                            id="gridCheck1"
+                          />
+                          <label class="form-check-label" for="gridCheck1">
+                            Weed
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input
+                            name="pDrugType"
+                            value="4"
+                            class="form-check-input"
+                            type="checkbox"
+                            id="gridCheck1"
+                          />
+                          <label class="form-check-label" for="gridCheck1">
+                            Ecstasy
+                          </label>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="5"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Methamphetamine
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="6"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Hallucinogens
+                        </label>
+                      </div>
+                  
+                    </div>
+                </div>
+            </div>
+          </div>
+          </div>
+
+           <!-- <input type="text" 
+            class="form-control" 
+            id="drugType" 
+            name="pDrugType" 
+            th:value="${pDrugType}" 
+            placeholder="Drug Type" required> -->
+
+          <div class="form-group text-center">
+            <button type="reset" class="btn btn-secondary">Reset</button>
+            <button type="submit" class="btn btn-primary">Submit</button>
+>>>>>>> 9f03239236ad055becf0e28aec7165b6467d7616
           </div>
         </form>
         </div>

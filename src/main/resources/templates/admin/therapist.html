@@ -156,7 +156,7 @@
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
                                 <a class="dropdown-item" th:href="@{/update-therapist(id=${therapist.id})}">Edit</a>
                                 <!-- <a class="dropdown-item" th:href="@{/delete-therapist(id=${therapist.id})}">Delete</a> -->
-                                <a class="dropdown-item" th:href="@{/delete-therapist(id=${therapist.id})}" data-toggle="modal" data-target="#deleteModal">Delete</a>
+                                <a class="dropdown-item" th:data-id="${therapist.id}" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">Delete</a>
                               </div>
                             </div>
                           </td>
@@ -198,7 +198,7 @@
     $(document).ready(function() {
   $('#deleteModal').on('show.bs.modal', function(event) {
     var deleteId = $(event.relatedTarget).data('id');
-    var deleteUrl = '/delete-patient?pId=' + deleteId;
+    var deleteUrl = '/delete-therapist?id=' + deleteId;
     $('#deleteButton').attr('href', deleteUrl);
   });
 

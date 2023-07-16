@@ -95,7 +95,19 @@
 </div>
 <!-- End Side Bar-->
   <!--content-->
+  <div class="d-flex justify-content-center align-items-center">
+    <div class="d-flex justify-content-end col-8">
+      <!-- Add New Account Button -->
+      <div class="text-end">
+        <a th:href="@{/add-account}">
+          <button class="btn btn-success btn-sm me-2" type="button">+ New Account</button>
+        </a>
+      </div>
+    </div>
+  </div>
+  
 
+    <!-- Staff Accounts -->
   <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
       <div style="width: 80%;">
           <h3 style="text-align: left;">View Accounts</h3>
@@ -150,8 +162,8 @@
                         </button>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm custom-dropdown-menu" aria-labelledby="dropdownMenuButton${i}">
                           <a class="dropdown-item" th:href="@{/update-account(id=${user.id})}">Edit</a>
-                          <!-- <a class="dropdown-item" th:href="@{/delete-account(id=${user.id})}">Delete</a> -->
-                          <a class="dropdown-item" th:data-id="${user.id}" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">Delete</a>
+                          <!-- <a class="dropdown-item" th:href="@{/delete-account(id=${user.id})}">Delete</a>  -->
+                           <a class="dropdown-item" th:data-id="${user.id}" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">Delete</a>
                         </div>
                       </div>                                                                                                                                     
                       </div>

@@ -161,7 +161,7 @@
                                 <i class="fas fa-ellipsis-v"></i>
                               </button>
                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="dropdownMenuButton${i}">
-                                <a class="dropdown-item" th:href="@{/update-staff(id=${staff.id})}">Edit</a>
+                                <a class="dropdown-item" th:href="@{'/update-staff?id=' + ${staff.id}}">Edit</a>
                                 <!-- <a class="dropdown-item" th:href="@{/delete-account(id=${staffs.id})}">Delete</a> -->
                                 <a class="dropdown-item" th:data-id="${staff.id}" data-toggle="modal" data-target="#deleteModal">Delete</a>
                               </div>
@@ -205,7 +205,7 @@
     $(document).ready(function() {
   $('#deleteModal').on('show.bs.modal', function(event) {
     var deleteId = $(event.relatedTarget).data('id');
-    var deleteUrl = '/delete-patient?pId=' + deleteId;
+    var deleteUrl = '/delete-staff?id=' + deleteId;
     $('#deleteButton').attr('href', deleteUrl);
   });
 

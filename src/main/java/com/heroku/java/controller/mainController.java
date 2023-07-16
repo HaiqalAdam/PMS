@@ -18,6 +18,7 @@ import com.heroku.java.model.drug_usage;
 import com.heroku.java.model.patient;
 import com.heroku.java.model.patientdrug;
 import com.heroku.java.model.staff;
+import com.heroku.java.model.staffemp;
 import com.heroku.java.model.therapist;
 import com.heroku.java.model.users;
 
@@ -136,6 +137,7 @@ public class mainController {
         return "admin/adminmainmenu";
     }
 
+    // ======================================================THERAPIST=================================================================
     @GetMapping("/therapist")
     public String viewTherapist(HttpSession session, therapist thr, Model model) {
         try (Connection connection = dataSource.getConnection()) {
@@ -223,7 +225,7 @@ public class mainController {
             statement2.setString(7, t.getTRelationStatus());
             statement2.setString(8, t.getTSex());
             statement2.executeUpdate();
-            return "admin/register-therapist";
+            return "admin/therapist";
         } catch (SQLException sqe) {
             System.out.println("Error Code: " + sqe.getErrorCode());
             System.out.println("SQL State: " + sqe.getSQLState());
@@ -237,19 +239,17 @@ public class mainController {
     }
 
     @GetMapping("/update-therapist")
-    public String showUpdateTherapist(@ModelAttribute("therapist") therapist trp, @RequestParam("id") int userid,
+    public String showUpdateTherapist(@ModelAttribute("therapist") therapist trp, @RequestParam("id") int id,
             Model model) {
         try {
             Connection connection = dataSource.getConnection();
-            String sql = "SELECT e.*, t.* FROM employee e JOIN therapist t ON (e.id = t.id) WHERE e.id = ?;";
+            String sql = "SELECT * FROM therapist WHERE id = ?";
             final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, userid);
+            statement.setInt(1, id);
 
             final var resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Integer id = resultSet.getInt("id");
-                String usr = resultSet.getString("name");
-                String pwd = resultSet.getString("password");
+
                 String tName = resultSet.getString("therapistname");
                 String tSpecialist = resultSet.getString("therapistspecialist");
                 String tPhoneNo = resultSet.getString("therapistphoneno");
@@ -257,13 +257,12 @@ public class mainController {
                 Date tDate = resultSet.getDate("therapistdate");
                 String tRelationStatus = resultSet.getString("therapiststatus");
                 String tSex = resultSet.getString("therapistsex");
-                System.out.println(id + usr + pwd + tName);
-                therapist therapist = new therapist(id, usr, pwd, null, tName, tRelationStatus, tDate, tSex, tDOB,
+
+                therapist therapists = new therapist(id, tName, tRelationStatus, tDate, tSex, tDOB,
                         tPhoneNo, tSpecialist);
-                model.addAttribute("therapist", therapist);
-                System.out.println(id + usr + pwd + tName);
+                model.addAttribute("therapist", therapists);
             }
-            return "admin/update-account";
+            return "admin/update-therapist";
         } catch (SQLException sqe) {
             System.out.println("message : " + sqe.getMessage());
 
@@ -275,17 +274,69 @@ public class mainController {
     }
 
     @PostMapping("/update-therapist")
-    public String updateTherapist() {
-        return "admin/update-therapist";
+    public String updateTherapist(HttpSession session, therapist Therapist, @RequestParam("tId") int thid,
+            Model model) {
+
+        int tId = Therapist.getTId();
+        String tName = Therapist.getTName();
+        String tRelationStatus = Therapist.getTRelationStatus();
+        Date tDate = Therapist.getTDate();
+        Date tDOB = Therapist.getTDOB();
+        String tSex = Therapist.getTSex();
+        String tPhoneNo = Therapist.getTPhoneNo();
+        String tSpecialist = Therapist.getTSpecialist();
+
+        System.out.println(tId + " " + tName);
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE therapist SET id = ? ,therapistname = ? , therapiststatus = ?, therapistdate = ?, therapistdob = ?, therapistsex = ?, therapistphoneno = ?, therapistspecialist = ? WHERE id =?";
+            final var statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, tId);
+            statement.setString(2, tName);
+            statement.setString(3, tRelationStatus);
+            statement.setDate(4, tDate);
+            statement.setDate(5, tDOB);
+            statement.setString(6, tSex);
+            statement.setString(7, tPhoneNo);
+            statement.setString(8, tSpecialist);
+            statement.setInt(9, thid);
+
+            statement.executeUpdate();
+
+            System.out.println(tId + " " + tName);
+            return "redirect:/therapist";
+        } catch (Throwable t) {
+            System.out.println("message: " + t.getMessage());
+            System.out.println("error");
+            return "redirect:/adminmainmenu";
+        }
     }
 
-    // CREATE PATIENT
-    @GetMapping("/register-patient")
-    public String registerP() {
-        // model.addAttribute("user", model);
-        return "admin/register-patient";
+    @GetMapping("/delete-therapist")
+    public String deleteTherapist(@ModelAttribute("therapist") therapist therapist, @RequestParam("id") int userid,
+            Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "DELETE FROM therapist WHERE id=?;";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, userid);
+
+            // execute delete
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                // Deletion successful
+                return "redirect:/therapist";
+            } else {
+                // No rows affected, account not found
+                return "account-not-found";
+            }
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "redirect:/adminmainmenu";
+        }
     }
 
+    // ======================================================STAFF=================================================================
     @GetMapping("/staff")
     public String staffView(HttpSession session, Model model) {
         try (Connection connection = dataSource.getConnection()) {
@@ -382,63 +433,58 @@ public class mainController {
     }
 
     @GetMapping("/update-staff")
-    public String showUpdateStaff(@ModelAttribute("staff") staff s, staff staff, @RequestParam("id") int userid,
+    public String showUpdateStaff(HttpSession session, @ModelAttribute("staff") staff clerk, @RequestParam("id") int id,
             Model model) {
         try {
             Connection connection = dataSource.getConnection();
             String sql = "SELECT * FROM staff WHERE id = ?";
             final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, userid);
+            statement.setInt(1, id);
 
             final var resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                int id = resultSet.getInt("id");
-                String usr = resultSet.getString("name");
-                String pwd = resultSet.getString("password");
+                int sId = resultSet.getInt("id");
                 String sName = resultSet.getString("staffname");
                 String sRelationStatus = resultSet.getString("staffstatus");
                 Date sDate = resultSet.getDate("staffdate");
                 String sSex = resultSet.getString("staffsex");
-                Date sDOB = resultSet.getDate("staffdob");
+                Date sDOB = resultSet.getDate("stafftdob");
                 String sPhoneNo = resultSet.getString("staffphoneno");
                 String sPosition = resultSet.getString("staffposition");
 
-                staff.setId(id);
-                staff.setUsr(usr);
-                staff.setPwd(pwd);
-                staff.setSName(sName);
-                staff.setSRelationStatus(sRelationStatus);
-                staff.setSDate(sDate);
-                staff.setSSex(sSex);
-                staff.setSDOB(sDOB);
-                staff.setSPhoneNo(sPhoneNo);
-                staff.setSPosition(sPosition);
+                System.out.println(sId + sName + sRelationStatus + id);
 
-                model.addAttribute("staff", staff);
+                staff staffs = new staff(sId, sName, sRelationStatus, sDate, sSex, sDOB, sPhoneNo, sPosition);
+                model.addAttribute("staff", staffs);
             }
+
+            return "admin/update-staff";
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("message: " + e.getMessage());
+            System.out.println("error");
         }
 
         return "admin/update-staff";
     }
 
     @PostMapping("/update-staff")
-    public String updateStaff(HttpSession session, @ModelAttribute("staff") users usr, staff staff,
-            @RequestParam("id") int userid, Model model) {
-        int id = usr.getId();
-        String sName = staff.getSName();
-        String sRelationStatus = staff.getSRelationStatus();
-        Date sDate = staff.getSDate();
-        Date sDOB = staff.getSDOB();
-        String sSex = staff.getSSex();
-        String sPhoneNo = staff.getSPhoneNo();
-        String sPosition = staff.getSPosition();
+    public String updateStaff(HttpSession session, staff Staff, @RequestParam("sId") int stfid, Model model) {
+
+        int sId = Staff.getSId();
+        String sName = Staff.getSName();
+        String sRelationStatus = Staff.getSRelationStatus();
+        Date sDate = Staff.getSDate();
+        Date sDOB = Staff.getSDOB();
+        String sSex = Staff.getSSex();
+        String sPhoneNo = Staff.getSPhoneNo();
+        String sPosition = Staff.getSPosition();
+
+        System.out.println(sId + " " + sName);
         try (Connection connection = dataSource.getConnection()) {
-            String sql = "UPDATE staff SET id = ?, staffname = ? , staffstatus = ?, staffdate = ?, staffdob = ?, staffsex = ?, staffphoneno = ?, staffposition = ? WHERE id =?";
+            String sql = "UPDATE staff SET id = ? ,staffname = ? , staffstatus = ?, staffdate = ?, stafftdob = ?, staffsex = ?, staffphoneno = ?, staffposition = ? WHERE id =?";
             final var statement = connection.prepareStatement(sql);
 
-            statement.setInt(1, id);
+            statement.setInt(1, sId);
             statement.setString(2, sName);
             statement.setString(3, sRelationStatus);
             statement.setDate(4, sDate);
@@ -446,15 +492,49 @@ public class mainController {
             statement.setString(6, sSex);
             statement.setString(7, sPhoneNo);
             statement.setString(8, sPosition);
+            statement.setInt(9, stfid);
+
             statement.executeUpdate();
 
+            System.out.println(sId + " " + sName);
             return "redirect:/staff";
         } catch (Throwable t) {
             System.out.println("message: " + t.getMessage());
             System.out.println("error");
             return "redirect:/adminmainmenu";
         }
+    }
 
+    @GetMapping("/delete-staff")
+    public String deletetStaff(@ModelAttribute("staff") staff staff, @RequestParam("id") int userid,
+            Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "DELETE FROM staff WHERE id=?";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, userid);
+
+            // execute delete
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                // Deletion successful
+                return "redirect:/patient";
+            } else {
+                // No rows affected, account not found
+                return "account-not-found";
+            }
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "redirect:/adminmainmenu";
+        }
+    }
+
+    // ======================================================PATIENT=================================================================
+    // CREATE PATIENT
+    @GetMapping("/register-patient")
+    public String registerP() {
+        // model.addAttribute("user", model);
+        return "admin/register-patient";
     }
 
     @PostMapping("/register-patient")
@@ -706,30 +786,6 @@ public class mainController {
         try {
             Connection connection = dataSource.getConnection();
             String sql = "DELETE FROM therapist WHERE id=?;";
-            final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, userid);
-
-            // execute delete
-            int rowsAffected = statement.executeUpdate();
-            if (rowsAffected > 0) {
-                // Deletion successful
-                return "redirect:/patient";
-            } else {
-                // No rows affected, account not found
-                return "account-not-found";
-            }
-        } catch (Throwable t) {
-            System.out.println("message : " + t.getMessage());
-            return "redirect:/adminmainmenu";
-        }
-    }
-
-    @GetMapping("/delete-staff")
-    public String delStaff(@ModelAttribute("staff") staff staff, @RequestParam("id") int userid,
-            Model model) {
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "DELETE FROM staff WHERE id=?;";
             final var statement = connection.prepareStatement(sql);
             statement.setInt(1, userid);
 

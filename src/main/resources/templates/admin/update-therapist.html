@@ -96,31 +96,25 @@
           <div class="card-header">
             <h3 class="text-center">Update Therapist</h3>
           </div>
-          <form th:action="@{/update-therapist}" th:object="@{therapist}" method="post" modelAttribute="therapist">
+         
+          <form  th:action="@{/update-therapist}" 
+          method="post" 
+          
+          modelAttribute="therapist">
+          <div class="col">
+            <label for="id"></label>
+            <input
+              type="text"
+              class="form-control"
+              id="id"
+              name="tId"
+              th:value="${therapist.tId}"             
+              readonly
+            />
+          </div>
+          <div class="container">
           <div class="card-body">
-            <div class="container">
-              <div class="row">
-                <div class="col ">
-                  <label for="username">Username</label>
-                    <input type="text"
-                    class="form-control"
-                    id="usr"
-                    name="usr"
-                    th:value="${therapist.usr}" 
-                    placeholder="Username" 
-                    >
-                </div>
-                <div class="col ">
-                  <label for="password">Password</label>
-                  <input type="password" 
-                  class="form-control" 
-                  id="pwd" 
-                  name="pwd" 
-                  th:value="${therapist.pwd}" 
-                  placeholder="Password" 
-                  >
-                </div>
-              </div>
+            
                 <div class="row">
                     <div class="col ">
                         <label for="name">Name</label>

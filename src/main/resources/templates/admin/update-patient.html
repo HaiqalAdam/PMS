@@ -88,111 +88,232 @@
 </div>
 <!-- End Side Bar-->
   <!-- Page Content -->
-  
-  <div class="dashboard-con d-flex flex-column justify-content-center align-items-center offset-2 col-10" style="padding-top: 10px;">
-    <div style="width: 80%;">
-      <div class="card-body">
-        <div class="card text-black bg-white mb-3">
-          <div class="card-header">
-            <h3 class="text-center">Registration Form</h3>
+ 
+  <div class="container-fluid">
+    <div class="text-center offset-2 justify-content-center" style="margin-top: 5%;">
+      <h2>Update Patient Form</h2>
+    </div>
+    <div class="row offset-2 justify-content-center">
+      <div class="col-6">
+        <div class="card" style="border: solid 1px black;">
+          <div class="card-body custom-form" style="background-color: #ffffff;">
+
+      <form th:action="@{/update-patient?pId=} + ${patient.pId}" 
+      th:object="${patients}" 
+      method="post" 
+      modelAttribute="patient">
+
+        <div class="col mb-3">
+          <label for="id" class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-10">
+              <input type="hidden"
+              th:value = "${patient.pId}"
+               class="form-control"
+               name="pId"
+               placeholder="pId"
+               id="id" readonly>
           </div>
           <form th:action="@{/patient}" method="post" modelAttribute="patient">
           <div class="card-body">
             <div class="container">
-              <div class="row">
-                <div class="col ">
-                  <label for="name">Name</label>
-                  <input type="text" class="form-control" id="name" name="pName" th:value="${pName}" placeholder="Name" required>
-                </div>
-                <div class="col">
-                  <label for="ic">Ic Number</label>
-                  <input type="text" class="form-control" id="ic" name="pIc" th:value="${pIc}" placeholder="Ic Number" required>
-                </div>
-              </div>
-              <div class="row ">
-                <div class="col">
-                  <label for="status">Relationship Status</label>
-                  <select class="form-control" id="status" name="sStatus" required>
-                    <option value="" disabled selected>Select Relationship Status</option>
-                    <option value="single" th:selected="${sStatus == 'single'}">Single</option>
-                    <option value="married" th:selected="${sStatus == 'married'}">Married</option>
-                    <option value="divorced" th:selected="${sStatus == 'divorced'}">Divorced</option>
-                    <option value="widowed" th:selected="${sStatus == 'widowed'}">Widowed</option>
-                  </select>
-                </div>    
-                <div class="col">
-                  <label for="sex">Gender</label>
-                  <select class="form-control" id="sex" name="pSex" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="Male" th:selected="${pSex == 'Male'}">Male</option>
-                    <option value="Female" th:selected="${pSex == 'Female'}">Female</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="dateOfBirth">Date of Birth</label>
-                  <input type="date" class="form-control" id="dateOfBirth" name="pDateOfBirth" th:value="${pDateOfBirth}" required>
-                </div>
-                <div class="col">
-                  <label for="phone">Phone No.</label>
-                  <input type="text" class="form-control" id="phone" name="pPhoneNo" th:value="${pPhoneNo}" placeholder="Phone No." required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="drugType">Drug Type</label>
-                  <select class="form-control" id="drugType" name="pDrugType" required>
-                      <option value="" disabled selected>Select Drug Type</option>
-                      <option value="Central Nervous System (CNS) Depressants">Central Nervous System (CNS) Depressants</option>
-                      <option value="CNS Stimulants">CNS Stimulants</option>
-                      <option value="Hallucinogens">Hallucinogens</option>
-                      <option value="Dissociative Anesthetics">Dissociative Anesthetics</option>
-                      <option value="Narcotic Analgesics">Narcotic Analgesics</option>
-                      <option value="Inhalants">Inhalants</option>
-                      <option value="Cannabis">Cannabis</option>
-                  </select>
-              </div>
-              
-                <div class="col">
-                  <label for="dateIn">Date In</label>
-                  <input type="date" class="form-control" id="dateIn" name="pDateIn" th:value="${pDateIn}" required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="bloodType">Blood Type</label>
-                  <select class="form-control" id="bloodType" name="pBloodType" required>
-                    <option value="" disabled selected>Select Blood Type</option>
-                    <option value="A" th:selected="${pBloodType == 'A'}">A</option>
-                    <option value="B" th:selected="${pBloodType == 'B'}">B</option>
-                    <option value="AB" th:selected="${pBloodType == 'AB'}">AB</option>
-                    <option value="O" th:selected="${pBloodType == 'O'}">O</option>
-                  </select>
-                </div>
-                <div class="col">
-                  <label for="address">Address</label>
-                  <input type="text" class="form-control" id="address" name="pAddress" th:value="${pAddress}" placeholder="Address" required>
-                </div>
-              </div>
-            </div><br>
-            <div class="col-sm-10">
-              <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" required>
-              <label class="form-check-label" for="gridCheck1">
-                  are the details above correct?
-              </label>
-              </div>
+        <div class="form-row mt-4">
+          <div class="form-group col-md-12">
+            <label for="name">Name</label>
+            <input type="text" 
+            class="form-control" 
+            id="name" 
+            name="pName" 
+            th:value="${patient.pName}" 
+            placeholder="Name" required>
           </div>
-  
-            <div class="form-group text-center">
-              <button type="reset" class="btn btn-danger btn-sm">Reset</button>
-              <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-            </div>
-          </div>
-        </form>
         </div>
-      </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="ic">Ic Number</label>
+            <input type="text" 
+            class="form-control" 
+            id="ic" 
+            name="pIc" 
+            th:value="${patient.pIc}" 
+            placeholder="Ic Number" required>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="status">Status</label>
+            <input type="text" 
+            class="form-control" 
+            id="status" 
+            name="pStatus" 
+            th:value="${patient.pStatus}" 
+            placeholder="Status" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="sex">Sex</label>
+            <input type="text" 
+            class="form-control" 
+            id="sex" 
+            name="pSex" 
+            th:value="${patient.pSex}" 
+            placeholder="Sex" required>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="dob">Date of Birth</label>
+            <input type="date" 
+            class="form-control" 
+            id="dob" 
+            name="pDOB" 
+            th:value="${patient.pDOB}" 
+            placeholder="Date of Birth" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="phone">Phone No.</label>
+            <input type="text" 
+            class="form-control" 
+            id="phone" 
+            name="pPhoneNo" 
+            th:value="${patient.pPhoneNo}" 
+            placeholder="Phone No." required>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="address">Address</label>
+            <input type="text" 
+            class="form-control" 
+            id="address" 
+            name="pAddress" 
+            th:value="${patient.pAddress}" 
+            placeholder="Address" required>
+        </div>
+        </div>
+
+        <div class="form-row ">
+          <div class="form-group col-md-6">
+            <label for="name">Date In</label>
+            <input type="date" 
+            class="form-control" 
+            id="datein" 
+            name="pDate" 
+            th:value="${patient.pDate}" 
+            placeholder="Date"required>
+          </div>
+          <div class="form-group col-md-6">
+              <label for="bloodType">Blood Type</label>
+              <input type="text" 
+              class="form-control" 
+              id="bloodType" 
+              name="pBloodType" 
+              th:value="${patient.pBloodType}" 
+              placeholder="Blood Type" required>
+            </div>
+            </div>
+        
+          <div class="form-group col-md-6">
+            <label for="drugType">Drug Type :</label>
+            <div class="justify-content-center">
+                  <div class="form-col">
+                    <div class="justify-content-center">
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="1"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(1)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Cocaine 
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="2"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(2)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Heroin 
+                        </label>
+                      </div>
+                  </div>
+                  <div class="form-col">
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="3"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(3)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Weed
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="4"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(4)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Ecstasy
+                        </label>
+                      </div>
+                  </div>
+                  <div class="form-col">
+                    <div class="form-check">
+                      <input
+                        name="pDrugType"
+                        value="5"
+                        class="form-check-input"
+                        type="checkbox"
+                        id="gridCheck1"
+                        th:checked="${drugUsage.contains(5)}"
+                      />
+                      <label class="form-check-label" for="gridCheck1">
+                        Methamphetamine
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        name="pDrugType"
+                        value="6"
+                        class="form-check-input"
+                        type="checkbox"
+                        id="gridCheck1"
+                        th:checked="${drugUsage.contains(6)}"
+                      />
+                      <label class="form-check-label" for="gridCheck1">
+                        Hallucinogens
+                      </label>
+                    </div>
+                
+                  </div>
+              </div>
+          </div>
+        </div>
+        </div>
+
+        <div class="form-group text-center">
+          <button type="reset" class="btn btn-secondary">Reset</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
   
