@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class staff extends users {
 
+    private int sId;
     private String sName;
     private String sRelationStatus;
     private Date sDate;
@@ -16,8 +17,7 @@ public class staff extends users {
     }
 
     public staff(Integer id, String usr, String pwd, String role, String sName, String sRelationStatus, Date sDate,
-            String sSex, Date sDOB, String sPhoneNo,
-            String sPosition) {
+            String sSex, Date sDOB, String sPhoneNo, String sPosition) {
         super(id, usr, pwd, role);
         this.sName = sName;
         this.sRelationStatus = sRelationStatus;
@@ -26,6 +26,38 @@ public class staff extends users {
         this.sDOB = sDOB;
         this.sPhoneNo = sPhoneNo;
         this.sPosition = sPosition;
+    }
+
+    public staff(Integer id, String usr, String pwd, String sName, String sRelationStatus, Date sDate,
+            String sSex, Date sDOB, String sPhoneNo, String sPosition) {
+        super(id, usr, pwd);
+        this.sName = sName;
+        this.sRelationStatus = sRelationStatus;
+        this.sDate = sDate;
+        this.sSex = sSex;
+        this.sDOB = sDOB;
+        this.sPhoneNo = sPhoneNo;
+        this.sPosition = sPosition;
+    }
+
+     public staff(int sId, String sName, String sRelationStatus, Date sDate,
+            String sSex, Date sDOB, String sPhoneNo, String sPosition) {
+        super();
+        this.sId = sId;
+        this.sName = sName;
+        this.sRelationStatus = sRelationStatus;
+        this.sDate = sDate;
+        this.sSex = sSex;
+        this.sDOB = sDOB;
+        this.sPhoneNo = sPhoneNo;
+        this.sPosition = sPosition;
+    }
+    public Integer getSId() {
+        return this.sId;
+    }
+
+    public void setSId(int sId) {
+        this.sId = sId;
     }
 
     public String getSName() {

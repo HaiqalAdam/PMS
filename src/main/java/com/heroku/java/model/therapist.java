@@ -4,6 +4,7 @@ import java.sql.Date;
 
 public class therapist extends users {
 
+    private int tId;
     private String tName;
     private String tRelationStatus;
     private Date tDate;
@@ -15,20 +16,8 @@ public class therapist extends users {
     public therapist() {
     }
 
-    public therapist(String tName, String tRelationStatus, Date tDate, String tSex, Date tDOB, String tPhoneNo,
-            String tSpecialist) {
-        this.tName = tName;
-        this.tRelationStatus = tRelationStatus;
-        this.tDate = tDate;
-        this.tSex = tSex;
-        this.tDOB = tDOB;
-        this.tPhoneNo = tPhoneNo;
-        this.tSpecialist = tSpecialist;
-    }
-
     public therapist(Integer id, String usr, String pwd, String role, String tName, String tRelationStatus, Date tDate,
-            String tSex, Date tDOB, String tPhoneNo,
-            String tSpecialist) {
+            String tSex, Date tDOB, String tPhoneNo, String tSpecialist) {
         super(id, usr, pwd, role);
         this.tName = tName;
         this.tRelationStatus = tRelationStatus;
@@ -38,7 +27,38 @@ public class therapist extends users {
         this.tPhoneNo = tPhoneNo;
         this.tSpecialist = tSpecialist;
     }
+public therapist(Integer id, String usr, String pwd, String tName, String tRelationStatus, Date tDate,
+            String tSex, Date tDOB, String tPhoneNo, String tSpecialist) {
+        super(id, usr, pwd);
+        this.tName = tName;
+        this.tRelationStatus = tRelationStatus;
+        this.tDate = tDate;
+        this.tSex = tSex;
+        this.tDOB = tDOB;
+        this.tPhoneNo = tPhoneNo;
+        this.tSpecialist = tSpecialist;
+    }
+    public therapist(int tId, String tName, String tRelationStatus, Date tDate,
+            String tSex, Date tDOB, String tPhoneNo, String tSpecialist) {
+        super();
+        this.tId = tId;
+        this.tName = tName;
+        this.tRelationStatus = tRelationStatus;
+        this.tDate = tDate;
+        this.tSex = tSex;
+        this.tDOB = tDOB;
+        this.tPhoneNo = tPhoneNo;
+        this.tSpecialist = tSpecialist;
+    }
 
+    public Integer getTId() {
+        return this.tId;
+    }
+
+    public void setTId(int tId) {
+        this.tId = tId;
+    }
+    
     public String getTName() {
         return this.tName;
     }

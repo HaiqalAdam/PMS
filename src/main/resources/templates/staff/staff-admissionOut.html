@@ -49,7 +49,7 @@
     <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 94%;">
         <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
             <h5 style="margin-top: 20px;">Menu</h5>
-            <li><a th:href="@{/dashboard-therapist}"
+            <li><a th:href="@{/staffmainmenu}"
                 class="nav-link text-black d-flex justify-content-start"
                 aria-current="page"><span class="material-symbols-outlined"
                     style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
@@ -57,83 +57,70 @@
         <hr class="hr-line">
   
             <li class="nav-item"><a th:href="@{/staff-patient}"
-                class="nav-link active text-black d-flex justify-content-start"><span
+                class="nav-link text-black d-flex justify-content-start"><span
                 class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
 
-            <li class="nav-item"><a th:href="@{/therapist-progression}"
-                class="nav-link text-black d-flex justify-content-start"><span
-                class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>View Progression</a></li>
+            <li class="nav-item"><a th:href="@{/staff-admission}"
+                class="nav-link active text-black d-flex justify-content-start">
+                    <span class="material-symbols-outlined"
+                    style="margin-right: 20px;"> group_add </span>Admission
+            </a></li>
   
         </ul>
         <hr style="margin-bottom: 0px !important;">
     </div>
     <!-- End Side Bar-->
-    <!-- Content -->
-    <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
+     <!--content-->
+
+     <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
         <div style="width: 80%;">
-
-                <!-- Patient Data Section -->
-                <div>
-                    <h3>Patient Data</h3>
-                    <table class="table table-success text-center mt-4 col-md-12 mx-auto" style="border: solid 1px black; text-align: center;">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Date</th>
-                          <th>Status</th>
-                          <th>Sex</th>
-                          <th>Date of Birth</th>
-                          <th>Phone No.</th>
-                          <th>Drug Type</th>
-                          <th>Address</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Example patient data row -->
-                        <tr>
-                          <td>John Doe</td>
-                          <td>2023-06-15</td>
-                          <td>Active</td>
-                          <td>Male</td>
-                          <td>1990-05-10</td>
-                          <td>1234567890</td>
-                          <td>Medication A</td>
-                          <td>123 Main St, City</td>
-              
-                        </tr>
-                        <!-- Add more patient data rows here -->
-                      </tbody>
-                    </table>
-                  </div><br>
-
-                  <div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">
-                    Update the patient's progress.
-                  </div>
-        <form>
-            <h3>Progress Input</h3>
-          <div style="border: solid 1px black; text-align: center;">
-            <textarea class="form-control" id="progress" rows="3"></textarea>
-          </div><br>
-          <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
+        <div class="card-body">
+            <h3 style="text-align: left;">Admission</h3>
+            <div class="input-group mb-3 mt-4" style="height: 40px;">
+                <input type="text" class="form-control"
+                    placeholder="Enter Patient Ic" aria-label="Patient IC"
+                    aria-describedby="button-addon2">
+                <button class="btn btn-dark me-2" type="button" name = "searchName" modelAttribute = "adminAdmission">Search</button>
+            </div>    
+            <div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">
+                Click Out to Discharge patient.
+              </div>    
+            <table class="table table-success text-center mt-4 col-md-12 mx-auto" style="border: solid 1px black; text-align: center;">
+                <thead>
+                    <tr>
+                        <th>Patient Name</th>
+                        <th>Admission Out</th>
+                        <th>Assign Therapist</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="align-middle">Patient 1</td>
+                        <td class="align-middle"><button class="btn btn-danger btn-sm">Out</button></td>
+                        <td class="align-middle">
+                                <div class="dropdown-center">
+                                    <button class="btn btn-danger dropdown-toggle btn-sm" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Therapist
+                                      </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#">Therapist 1</a></li>
+                                        <li><a class="dropdown-item" href="#">Therapist 2</a></li>
+                                        <li><a class="dropdown-item" href="#">Therapist 3</a></li>
+                                      </ul>
+                                  </div>
+                        </td>
+                    </tr>
+                    <!-- Add more rows for other patients -->
+                </tbody>
+            </table>
+    
+        </div>
       </div>
-    </div><br>
-
-    <footer class="d-flex justify-content-center col-8 offset-3">
+      </div>
+      <footer class="d-flex justify-content-center col-8 offset-3">
         <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
       </footer>
-
-    
     <!-- End Content-->
-
-            <script>
-            //     function myFunction(x) {
-			//      alert("Row index is: " + x);
-		    // }
-            </script>
-
 
             <script
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
