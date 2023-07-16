@@ -67,65 +67,233 @@
   <!-- End Side Bar-->
   <!-- Page Content -->
  
-    <div class="container-fluid">
-      <div class="text-center offset-2 justify-content-center" style="margin-top: 5%;">
-        <h2>Update Form</h2>
-      </div>
-      <div class="row offset-2 justify-content-center">
-        <div class="col-6">
-          <div class="card" style="border: solid 1px black;">
-            <div class="card-body custom-form" style="background-color: #ffffff;">
-        <form>
-          <div class="form-row mt-4">
-            <div class="form-group col-md-12">
-              <label for="name">Name</label>
-              <input type="text" class="form-control" id="name" placeholder="Name">
-            </div>
+  <div class="container-fluid">
+    <div class="text-center offset-2 justify-content-center" style="margin-top: 5%;">
+      <h2>Update Patient Form</h2>
+    </div>
+    <div class="row offset-2 justify-content-center">
+      <div class="col-6">
+        <div class="card" style="border: solid 1px black;">
+          <div class="card-body custom-form" style="background-color: #ffffff;">
+
+      <form th:action="@{/staff-update-patient?pId=} + ${patient.pId}" 
+      th:object="${patients}" 
+      method="post" 
+      modelAttribute="patient">
+
+        <div class="col mb-3">
+          <label for="id" class="col-sm-2 col-form-label"></label>
+          <div class="col-sm-10">
+              <input type="hidden"
+              th:value = "${patient.pId}"
+               class="form-control"
+               name="pId"
+               placeholder="pId"
+               id="id" readonly>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="name">Date In</label>
-              <input type="date" class="form-control" id="datein" placeholder="Date">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="status">Status</label>
-              <input type="text" class="form-control" id="status" placeholder="Status">
-            </div>
+          <form th:action="@{/patient}" method="post" modelAttribute="patient">
+          <div class="card-body">
+            <div class="container">
+        <div class="form-row mt-4">
+          <div class="form-group col-md-12">
+            <label for="name">Name</label>
+            <input type="text" 
+            class="form-control" 
+            id="name" 
+            name="pName" 
+            th:value="${patient.pName}" 
+            placeholder="Name" required>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="sex">Sex</label>
-              <input type="text" class="form-control" id="sex" placeholder="Sex">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="dob">Date of Birth</label>
-              <input type="date" class="form-control" id="dob" placeholder="Date of Birth">
-            </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="ic">Ic Number</label>
+            <input type="text" 
+            class="form-control" 
+            id="ic" 
+            name="pIc" 
+            th:value="${patient.pIc}" 
+            placeholder="Ic Number" required>
           </div>
-          <div class="form-row">
-            <div class="form-group col-md-6">
-              <label for="phone">Phone No.</label>
-              <input type="text" class="form-control" id="phone" placeholder="Phone No.">
-            </div>
-            <div class="form-group col-md-6">
-              <label for="drugType">Drug Type</label>
-              <input type="text" class="form-control" id="drugType" placeholder="Drug Type">
-            </div>
+
+          <div class="form-group col-md-6">
+            <label for="status">Status</label>
+            <input type="text" 
+            class="form-control" 
+            id="status" 
+            name="pStatus" 
+            th:value="${patient.pStatus}" 
+            placeholder="Status" required>
           </div>
-          <div class="form-group">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="sex">Sex</label>
+            <input type="text" 
+            class="form-control" 
+            id="sex" 
+            name="pSex" 
+            th:value="${patient.pSex}" 
+            placeholder="Sex" required>
+          </div>
+
+          <div class="form-group col-md-6">
+            <label for="dob">Date of Birth</label>
+            <input type="date" 
+            class="form-control" 
+            id="dob" 
+            name="pDOB" 
+            th:value="${patient.pDOB}" 
+            placeholder="Date of Birth" required>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-md-6">
+            <label for="phone">Phone No.</label>
+            <input type="text" 
+            class="form-control" 
+            id="phone" 
+            name="pPhoneNo" 
+            th:value="${patient.pPhoneNo}" 
+            placeholder="Phone No." required>
+          </div>
+
+          <div class="form-group col-md-6">
             <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" placeholder="Address">
+            <input type="text" 
+            class="form-control" 
+            id="address" 
+            name="pAddress" 
+            th:value="${patient.pAddress}" 
+            placeholder="Address" required>
+        </div>
+        </div>
+
+        <div class="form-row ">
+          <div class="form-group col-md-6">
+            <label for="name">Date In</label>
+            <input type="date" 
+            class="form-control" 
+            id="datein" 
+            name="pDate" 
+            th:value="${patient.pDate}" 
+            placeholder="Date"required>
           </div>
-          <div class="form-group text-center">
-            <button type="reset" class="btn btn-secondary">Reset</button>
-            <button type="submit" class="btn btn-primary">Submit</button>
+          <div class="form-group col-md-6">
+              <label for="bloodType">Blood Type</label>
+              <input type="text" 
+              class="form-control" 
+              id="bloodType" 
+              name="pBloodType" 
+              th:value="${patient.pBloodType}" 
+              placeholder="Blood Type" required>
+            </div>
+            </div>
+        
+          <div class="form-group col-md-6">
+            <label for="drugType">Drug Type :</label>
+            <div class="justify-content-center">
+                  <div class="form-col">
+                    <div class="justify-content-center">
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="1"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(1)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Cocaine 
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="2"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(2)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Heroin 
+                        </label>
+                      </div>
+                  </div>
+                  <div class="form-col">
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="3"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(3)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Weed
+                        </label>
+                      </div>
+                      <div class="form-check">
+                        <input
+                          name="pDrugType"
+                          value="4"
+                          class="form-check-input"
+                          type="checkbox"
+                          id="gridCheck1"
+                          th:checked="${drugUsage.contains(4)}"
+                        />
+                        <label class="form-check-label" for="gridCheck1">
+                          Ecstasy
+                        </label>
+                      </div>
+                  </div>
+                  <div class="form-col">
+                    <div class="form-check">
+                      <input
+                        name="pDrugType"
+                        value="5"
+                        class="form-check-input"
+                        type="checkbox"
+                        id="gridCheck1"
+                        th:checked="${drugUsage.contains(5)}"
+                      />
+                      <label class="form-check-label" for="gridCheck1">
+                        Methamphetamine
+                      </label>
+                    </div>
+                    <div class="form-check">
+                      <input
+                        name="pDrugType"
+                        value="6"
+                        class="form-check-input"
+                        type="checkbox"
+                        id="gridCheck1"
+                        th:checked="${drugUsage.contains(6)}"
+                      />
+                      <label class="form-check-label" for="gridCheck1">
+                        Hallucinogens
+                      </label>
+                    </div>
+                
+                  </div>
+              </div>
           </div>
-        </form>
-      </div>
+        </div>
+        </div>
+
+        <div class="form-group text-center">
+          <button type="reset" class="btn btn-secondary">Reset</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </form>
     </div>
   </div>
-</div>
-    </div>
   
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
