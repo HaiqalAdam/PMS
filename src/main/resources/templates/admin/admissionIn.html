@@ -91,11 +91,11 @@
   <div class="card mb-3 d-flex justify-content-center col-6 offset-4" style="max-width: 60rem; margin-top: 5%;">
     <div class="card-body">
         <h2 class="head text-center">Admission</h2>
-        <form method="post" th:action="@{/admissionIn}" th:object="${adminAdmission}">
+        <form method="post" th:action="@{/admissionIn}">
             <div class="input-group mb-3 mt-4" style="height: 40px;">
-                <input type="text" class="form-control" th:value="${pIc}"
-                    placeholder="Enter Patient IC" aria-label="Patient IC"
-                    aria-describedby="button-addon2">
+                <input type="text" class="form-control"
+                    placeholder="Enter Patient Name" aria-label="Patient Name"
+                    aria-describedby="button-addon2" name = "pName">
                 <button class="btn btn-outline-success me-2" type="submit">Search</button>
             </div>
         </form>
@@ -107,34 +107,25 @@
               <button class="btn btn-success btn-sm me-2" type="button">Register</button>
             </a>
           </div>          
-        <table class="table mt-4 text-center">
+        <table class="table mt-4 text-center">             
             <thead>
                 <tr>
+                    <th>Patient ID</th>
                     <th>Patient Name</th>
                     <th>Admission In</th>
-                    <th>Assign Therapist</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr th:each="patient: ${patientList}">
-                    <td th:text = "${patient.pName}"></td>
-                    <td class="align-middle"><button class="btn btn-success">In</button></td>
+            <tbody> 
+                <tr th:each="patient: ${adminAdmission}">
+                    <td th:text="${patient.pId}"></td>
+                    <td th:text="${patient.pName}"></td>
                     <td class="align-middle">
-                        <div class="dropdown">
-                            <button class="btn btn-primary dropdown-toggle" type="button" id="therapistDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Assign Therapist
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="therapistDropdown">
-                                <a class="dropdown-item" href="#">Therapist 1</a>
-                                <a class="dropdown-item" href="#">Therapist 2</a>
-                                <a class="dropdown-item" href="#">Therapist 3</a>
-                                <!-- Add more therapist options from the database -->
-                            </div>
-                        </div>
+                            <button class="btn btn-success" th:href="@{/admissionOut(id=${patient.pId})}" type="submit">In</button> 
                     </td>
                 </tr>
                 <!-- Add more rows for other patients -->
             </tbody>
+        
         </table>
 
     </div>
