@@ -107,91 +107,7 @@
                   <label for="ic">Ic Number</label>
                   <input type="text" class="form-control" id="ic" name="pIc" th:value="${pIc}" placeholder="Ic Number" required>
                 </div>
-<<<<<<< HEAD
-              </div>
-              <div class="row ">
-                <div class="col">
-                  <label for="status">Relationship Status</label>
-                  <select class="form-control" id="status" name="sStatus" required>
-                    <option value="" disabled selected>Select Relationship Status</option>
-                    <option value="single" th:selected="${sStatus == 'single'}">Single</option>
-                    <option value="married" th:selected="${sStatus == 'married'}">Married</option>
-                    <option value="divorced" th:selected="${sStatus == 'divorced'}">Divorced</option>
-                    <option value="widowed" th:selected="${sStatus == 'widowed'}">Widowed</option>
-                  </select>
-                </div>    
-                <div class="col">
-                  <label for="sex">Gender</label>
-                  <select class="form-control" id="sex" name="pSex" required>
-                    <option value="" disabled selected>Select Gender</option>
-                    <option value="Male" th:selected="${pSex == 'Male'}">Male</option>
-                    <option value="Female" th:selected="${pSex == 'Female'}">Female</option>
-                  </select>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="dateOfBirth">Date of Birth</label>
-                  <input type="date" class="form-control" id="dateOfBirth" name="pDateOfBirth" th:value="${pDateOfBirth}" required>
-                </div>
-                <div class="col">
-                  <label for="phone">Phone No.</label>
-                  <input type="text" class="form-control" id="phone" name="pPhoneNo" th:value="${pPhoneNo}" placeholder="Phone No." required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="drugType">Drug Type</label>
-                  <select class="form-control" id="drugType" name="pDrugType" required>
-                      <option value="" disabled selected>Select Drug Type</option>
-                      <option value="Central Nervous System (CNS) Depressants">Central Nervous System (CNS) Depressants</option>
-                      <option value="CNS Stimulants">CNS Stimulants</option>
-                      <option value="Hallucinogens">Hallucinogens</option>
-                      <option value="Dissociative Anesthetics">Dissociative Anesthetics</option>
-                      <option value="Narcotic Analgesics">Narcotic Analgesics</option>
-                      <option value="Inhalants">Inhalants</option>
-                      <option value="Cannabis">Cannabis</option>
-                  </select>
-              </div>
-              
-                <div class="col">
-                  <label for="dateIn">Date In</label>
-                  <input type="date" class="form-control" id="dateIn" name="pDateIn" th:value="${pDateIn}" required>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <label for="bloodType">Blood Type</label>
-                  <select class="form-control" id="bloodType" name="pBloodType" required>
-                    <option value="" disabled selected>Select Blood Type</option>
-                    <option value="A" th:selected="${pBloodType == 'A'}">A</option>
-                    <option value="B" th:selected="${pBloodType == 'B'}">B</option>
-                    <option value="AB" th:selected="${pBloodType == 'AB'}">AB</option>
-                    <option value="O" th:selected="${pBloodType == 'O'}">O</option>
-                  </select>
-                </div>
-                <div class="col">
-                  <label for="address">Address</label>
-                  <input type="text" class="form-control" id="address" name="pAddress" th:value="${pAddress}" placeholder="Address" required>
-                </div>
-              </div>
-            </div><br>
-            <div class="col-sm-10">
-              <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="gridCheck1" required>
-              <label class="form-check-label" for="gridCheck1">
-                  are the details above correct?
-              </label>
-              </div>
-          </div>
-  
-            <div class="form-group text-center">
-              <button type="reset" class="btn btn-danger btn-sm">Reset</button>
-              <button type="submit" class="btn btn-primary btn-sm">Submit</button>
-            </div>
-=======
               </div>           
-
 
           <div class="form-row">
             <div class="col">
@@ -366,7 +282,6 @@
           <div class="form-group text-center">
             <button type="reset" class="btn btn-secondary">Reset</button>
             <button type="submit" class="btn btn-primary">Submit</button>
->>>>>>> 9f03239236ad055becf0e28aec7165b6467d7616
           </div>
         </form>
         </div>

@@ -860,14 +860,11 @@ public class mainController {
             final var resultSet2 = statement2.executeQuery(
                     "SELECT * FROM drug_usage ORDER BY drugid;");
 
-            // int row = 0;
             ArrayList<drug_usage> Drug = new ArrayList<>();
             while (resultSet2.next()) {
                 int dId = resultSet2.getInt("drugid");
                 int pId = resultSet2.getInt("patientid");
 
-                // System.out.println("drug ID :" + dId);
-                // System.out.println("patient ID :" + pId);
 
                 drug_usage drugs = new drug_usage(dId, pId);
                 Drug.add(drugs);
