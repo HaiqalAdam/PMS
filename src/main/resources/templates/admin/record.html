@@ -20,55 +20,78 @@
 
     <body>
         <!-- Start Nav Bar -->
-      <nav class="navbar fixed-top" style="border-bottom: 1px solid #cecece !important;">
-        <div class=" d-flex flex-row">
-            <a class="hamburger navbar-brand" href="#"> <img
-                th:src="@{/icon/hamburger.png}" alt="Logo" width="25"
-                height="30"></a>
-            <div class="container d-flex flex-row justify-content-start">
-            <a class="navbar-brand" href="#"> <img
-                th:src="@{/icon/logoPMS.png}" alt="Logo" width="35"
-                height="35" class="d-inline-block align-text-top"> PMSystems
-            </a>
+        <nav class="navbar fixed-top" style="border-bottom: 1px solid #cecece !important;">
+            <div class=" d-flex flex-row">
+                <a class="hamburger navbar-brand" href="#"> <img
+                    th:src="@{/icon/hamburger.png}" alt="Logo" width="25"
+                    height="30"></a>
+                <div class="container d-flex flex-row justify-content-start">
+                <a class="navbar-brand" href="#"> <img
+                    th:src="@{/icon/logoPMS.png}" alt="Logo" width="35"
+                    height="35" class="d-inline-block align-text-top"> PMSystems
+                </a>
+                </div>
             </div>
-        </div>
+            
+              <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
+                <button class="btn dropdown-toggle" type="button" id="settingsDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <span class="material-symbols-outlined"
+                    style="margin-top: 10px;" > settings </span>
+                </button>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-sm" aria-labelledby="settingsDropdown">
+                  <!-- Dropdown menu items -->
+                  <a class="dropdown-item" th:href="@{/logout}">LogOut</a>
+                </div>
+              </div>
+              
+            </div>            
+        </nav>
+        <!-- End Nav Bar-->
 
-          <div class="dropdown justify-content-end nav-item" style="margin-right: 40px;">
-            <button class="dropbtn"><span class="material-symbols-outlined"
-                style="margin-top: 10px;" > settings </span></button>
-            <div class="dropdown-content">
-                <a class="dropdown-item" th:href="@{/logout}">Log Out</a>
-            </div>
-          </div>
-          
-        </div>            
-    </nav>
+<!-- Start Side Bar-->
+<div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 92%;">
+<ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
+  <h5 style="margin-top: 20px;">Menu</h5>
+  <li><a th:href="@{/adminmainmenu}"
+      class="nav-link text-black active d-flex justify-content-start"
+      aria-current="page"><span class="material-symbols-outlined"
+      style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
+  <li class="nav-item"><a th:href="@{/view-account}"
+        class="nav-link text-black d-flex justify-content-start">
+        <span class="material-symbols-outlined"
+        style="margin-right: 20px;"> person_apron </span> Account
+  </a></li>
+  <li class="nav-item"><a th:href="@{/admissionIn}"
+      class="nav-link text-black d-flex justify-content-start">
+          <span class="material-symbols-outlined"
+          style="margin-right: 20px;"> group_add </span>Admission
+  </a></li>
+<hr class="hr-line">
 
-    <!-- End Nav Bar-->
-
-    <!-- Start Side Bar-->
-    <div id="sidebar" class="d-flex flex-column flex-shrink-0 text-black bg-white col-2 mt-5 position-fixed" style="height: 94%;">
-        <ul class="nav nav-underline flex-column mb-auto" style="padding-left: 40px;">
-            <h5 style="margin-top: 20px;">Menu</h5>
-            <li><a th:href="@{/dashboard-therapist}"
-                class="nav-link text-black d-flex justify-content-start"
-                aria-current="page"><span class="material-symbols-outlined"
-                    style="margin-right: 20px;"> dashboard </span> Dashboard </a></li>
+<li><a th:href="@{/staff}"
+class="nav-link text-black d-flex justify-content-start"
+aria-current="page"><span class="material-symbols-outlined"
+    style="margin-right: 20px;"> supervisor_account </span> Staff </a></li>
   
-        <hr class="hr-line">
-  
-            <li class="nav-item"><a th:href="@{/therapist-patient}"
-                class="nav-link text-black d-flex justify-content-start"><span
-                class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
+  <li><a th:href="@{/therapist}"
+      class="nav-link text-black d-flex justify-content-start"
+      aria-current="page"><span class="material-symbols-outlined"
+          style="margin-right: 20px;"> psychology </span> Therapist </a></li>
 
-                <li class="nav-item"><a th:href="@{/therapist-progression}"
-                    class="nav-link active text-black d-flex justify-content-start"><span
-                    class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>View Progression</a></li>
+  <li class="nav-item"><a th:href="@{/patient}"
+      class="nav-link text-black d-flex justify-content-start"><span
+      class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
   
-        </ul>
-        <hr style="margin-bottom: 0px !important;">
-    </div>
-    <!-- End Side Bar-->
+      <li class="nav-item"><a th:href="@{/record}"
+        class="nav-link text-black d-flex justify-content-start">
+            <span class="material-symbols-outlined"
+            style="margin-right: 20px;"> article </span>Record
+    </a></li>
+</ul>
+<hr style="margin-bottom: 0px !important;">
+</div>
+<!-- End Side Bar-->
+
 
     <!-- Content -->
     <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
@@ -88,7 +111,7 @@
   <tr class="bg-info">
     <th id="name" data-column="name" data-order="desc">Name</th>
     <th id="progression" data-column="progression" data-order="desc">Drugs</th>
-    <th id="action" data-column="action" data-order="desc">Action</th>
+
   </tr>
   <tbody id="myTable">
     <tr th:each="patients: ${patient}">
@@ -107,7 +130,7 @@
           </li>
         </ul>
       </td>
-      <td><a th:href="@{/therapist-patient(pid=${patients.pId})}"><button class="btn btn-success btn-sm">View</button></a></td>
+      <!-- <td><a th:href="@{/therapist-patient(pid=${patients.pId})}"><button class="btn btn-success btn-sm">View</button></a></td> -->
     </tr>
   </tbody>
 </table>
