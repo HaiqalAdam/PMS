@@ -120,7 +120,7 @@
                     <td th:text="${patient.pId}"></td>
                     <td th:text="${patient.pName}"></td>
                     <td class="align-middle">
-                            <button class="btn btn-success" th:href="@{/admissionOut(id=${patient.pId})}" type="submit">In</button> 
+                            <button class="btn btn-success" th:href="@{/admissionOut(pId=${patient.pId})}" type="submit">In</button> 
                     </td>
                 </tr>
                 <!-- Add more rows for other patients -->

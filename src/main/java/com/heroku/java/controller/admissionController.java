@@ -55,36 +55,7 @@ public class admissionController {
 
     @GetMapping("/admissionIn")
     public String admission(HttpSession session, ATP therapist, Model model) {
-        // try {
-        // Connection connection = dataSource.getConnection();
-        // final var statement = connection.prepareStatement("SELECT * FROM therapist");
-        // final var resultSet = statement.executeQuery();
-
-        // ArrayList<ATP> therapistlist = new ArrayList<>();
-        // while (resultSet.next()) {
-        // Integer tID = resultSet.getInt("id");
-        // String tNAME = resultSet.getString("therapistname");
-
-        // ATP therapists = new ATP(tID, tNAME);
-        // therapistlist.add(therapists);
-        // }
-        // model.addAttribute("therapistlist", therapistlist);
         return "admin/admissionIn";
-
-        // } catch (SQLException sqe) {
-        // System.out.println("error = " + sqe.getErrorCode());
-        // System.out.println("SQL state = " + sqe.getSQLState());
-        // System.out.println("Message = " + sqe.getMessage());
-        // System.out.println("printTrace /n");
-        // sqe.printStackTrace();
-        // return "admin/adminmainmenu";
-        // } catch (Exception e) {
-        // System.out.println("error = " + e.getMessage());
-        // return "admin/adminmainmenu";
-        // } catch (Throwable t) {
-        // System.out.println("message : " + t.getMessage());
-        // return "admin/adminmainmenu";
-        // }
     }
 
     @PostMapping("/admissionIn")
@@ -95,7 +66,6 @@ public class admissionController {
             final var statement = connection.prepareStatement(
                     "SELECT * FROM patient WHERE patientname like ?");
             statement.setString(1, "%" + pName + "%");
-            // statement.setInt(2, p.getPId());
             final var resultSet = statement.executeQuery();
 
             ArrayList<patient> patients = new ArrayList<>();
@@ -108,8 +78,6 @@ public class admissionController {
                 patients.add(patient2);
                 model.addAttribute("adminAdmission", patients); // Add the ptns object to the model
             }
-            return "admin/admissionIn";
-
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -118,6 +86,7 @@ public class admissionController {
             sqe.printStackTrace();
         } catch (Exception e) {
             System.out.println("error = " + e.getMessage());
+            e.printStackTrace();
         } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
         }

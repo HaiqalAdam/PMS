@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.heroku.java.model.drug;
 import com.heroku.java.model.drug_usage;
@@ -91,6 +92,38 @@ public class mainController {
             System.out.println("message : " + t.getMessage());
             return "/login";
         }
+    }
+
+    @GetMapping("/therapist/count")
+    @ResponseBody
+    public int getTherapistCount() {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+            final var resultSet = statement.executeQuery(
+                    "SELECT COUNT(*) AS count FROM therapist;");
+            resultSet.next();
+            return resultSet.getInt("count");
+        } catch (SQLException sqe) {
+            sqe.printStackTrace();
+            // Handle the exception appropriately
+        }
+        return 0;
+    }
+
+    @GetMapping("/patient/count")
+    @ResponseBody
+    public int getPatientCount() {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+            final var resultSet = statement.executeQuery(
+                    "SELECT COUNT(*) AS count FROM patient;");
+            resultSet.next();
+            return resultSet.getInt("count");
+        } catch (SQLException sqe) {
+            sqe.printStackTrace();
+            // Handle the exception appropriately
+        }
+        return 0;
     }
 
     /**
@@ -351,6 +384,7 @@ public class mainController {
             return "redirect:/";
         } catch (Exception e) {
             System.out.println("E message: " + e.getMessage());
+            e.printStackTrace();
             return "redirect:/";
         }
 
@@ -588,7 +622,7 @@ public class mainController {
             model.addAttribute("drugUsage", drugs);
 
             return "admin/update-patient";
-        }   catch (Throwable t) {
+        } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
             return "admin/adminmainmenu";
         }
@@ -598,59 +632,57 @@ public class mainController {
     String updatePatient(Model model, @ModelAttribute("patient") patient patient,
             @RequestParam(name = "pId") int patientId,
             @RequestParam(name = "pDrugType", required = false) List<String> drugType) {
-            System.out.println("type of drug : " + drugType);
+        System.out.println("type of drug : " + drugType);
 
-            patient.setPId(patientId);
+        patient.setPId(patientId);
 
-            boolean statusDelete = false;
-            boolean statusUpdate = false;
+        boolean statusDelete = false;
+        boolean statusUpdate = false;
 
-            try (Connection connection = dataSource.getConnection()) {
-                
-                // Update patient
-                String updatePatientQuery = "UPDATE patient SET patientname = ?, patientic = ?, patientsex = ?, patientaddress = ?, patientdate = ?, patientstatus = ?,patientdob = ?, patientphoneno = ?, patientbloodtype = ? WHERE patientid = ?";
-                try (PreparedStatement updatePatientStatement = connection.prepareStatement(updatePatientQuery)) {
-                    updatePatientStatement.setString(1, patient.getPName());
-                    updatePatientStatement.setString(2, patient.getPIc());
-                    updatePatientStatement.setString(3, patient.getPSex());
-                    updatePatientStatement.setString(4, patient.getPAddress());
-                    updatePatientStatement.setDate(5, patient.getPDate());
-                    updatePatientStatement.setString(6, patient.getPStatus());
-                    updatePatientStatement.setDate(7, patient.getPDOB());
-                    updatePatientStatement.setString(8, patient.getPPhoneNo());
-                    updatePatientStatement.setString(9, patient.getPBloodType());
-                    updatePatientStatement.setInt(10, patientId);
-                    int rowsAffected = updatePatientStatement.executeUpdate();
-                    statusUpdate = rowsAffected > 0;
+        try (Connection connection = dataSource.getConnection()) {
+
+            // Update patient
+            String updatePatientQuery = "UPDATE patient SET patientname = ?, patientic = ?, patientsex = ?, patientaddress = ?, patientdate = ?, patientstatus = ?,patientdob = ?, patientphoneno = ?, patientbloodtype = ? WHERE patientid = ?";
+            try (PreparedStatement updatePatientStatement = connection.prepareStatement(updatePatientQuery)) {
+                updatePatientStatement.setString(1, patient.getPName());
+                updatePatientStatement.setString(2, patient.getPIc());
+                updatePatientStatement.setString(3, patient.getPSex());
+                updatePatientStatement.setString(4, patient.getPAddress());
+                updatePatientStatement.setDate(5, patient.getPDate());
+                updatePatientStatement.setString(6, patient.getPStatus());
+                updatePatientStatement.setDate(7, patient.getPDOB());
+                updatePatientStatement.setString(8, patient.getPPhoneNo());
+                updatePatientStatement.setString(9, patient.getPBloodType());
+                updatePatientStatement.setInt(10, patientId);
+                int rowsAffected = updatePatientStatement.executeUpdate();
+                statusUpdate = rowsAffected > 0;
+            }
+
+            // Delete all drugs by patientId
+            String deleteDrugQuery = "DELETE FROM drug_usage WHERE patientid = ?";
+            try (PreparedStatement deleteDrugStatement = connection.prepareStatement(deleteDrugQuery)) {
+                deleteDrugStatement.setInt(1, patientId);
+                int rowsAffected = deleteDrugStatement.executeUpdate();
+                statusDelete = rowsAffected > 0;
+            }
+            // Insert new drugs
+            String insertDrugQuery = "INSERT INTO drug_usage (patientid, drugid) VALUES (?, ?)";
+            try (PreparedStatement insertDrugStatement = connection.prepareStatement(insertDrugQuery)) {
+                for (String value : drugType) {
+                    insertDrugStatement.setInt(1, patientId);
+                    insertDrugStatement.setInt(2, Integer.parseInt(value));
+                    insertDrugStatement.executeUpdate();
                 }
+            }
+            connection.close();
 
-                // Delete all drugs by patientId
-                String deleteDrugQuery = "DELETE FROM drug_usage WHERE patientid = ?";
-                try (PreparedStatement deleteDrugStatement = connection.prepareStatement(deleteDrugQuery)) {
-                    deleteDrugStatement.setInt(1, patientId);
-                    int rowsAffected = deleteDrugStatement.executeUpdate();
-                    statusDelete = rowsAffected > 0;
-                }
-                // Insert new drugs
-                String insertDrugQuery = "INSERT INTO drug_usage (patientid, drugid) VALUES (?, ?)";
-                try (PreparedStatement insertDrugStatement = connection.prepareStatement(insertDrugQuery)) {
-                    for (String value : drugType) {
-                        insertDrugStatement.setInt(1, patientId);
-                        insertDrugStatement.setInt(2, Integer.parseInt(value));
-                        insertDrugStatement.executeUpdate();
-                    }
-                }
-                connection.close();
-              
-        }   catch (Throwable t) {
+        } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
             return "admin/adminmainmenu";
         }
         return "redirect:/patient";
-}
+    }
 
-
-    
     // Delete Patient
     @GetMapping("/delete-patient")
     public String DeletePatient(@ModelAttribute("patient") patient patient, @RequestParam("pId") int ptnid,
