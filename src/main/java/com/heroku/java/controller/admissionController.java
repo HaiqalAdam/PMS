@@ -39,8 +39,38 @@ public class admissionController {
     }
 
     @GetMapping("/staff-admission")
-    public String staffAdmission() {
-        return "staff/staff-admission";
+    public String staffAdmission(HttpSession session,
+            @RequestParam("pName") String pName, ATP atp, patient p, Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            final var statement = connection.prepareStatement(
+                    "SELECT * FROM patient WHERE patientname like ?");
+            statement.setString(1, "%" + pName + "%");
+            final var resultSet = statement.executeQuery();
+
+            ArrayList<patient> patients = new ArrayList<>();
+            while (resultSet.next()) {
+                String patientName = resultSet.getString("patientname");
+                int pid = resultSet.getInt("patientid");
+                System.out.println("name = " + patientName);
+
+                patient patient2 = new patient(pid, patientName);
+                patients.add(patient2);
+                model.addAttribute("adminAdmission", patients); // Add the ptns object to the model
+            }
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+            e.printStackTrace();
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "staff-admission";
     }
 
     @GetMapping("/staff-admissionOut")
@@ -54,7 +84,7 @@ public class admissionController {
     }
 
     @GetMapping("/admissionIn")
-    public String admission(HttpSession session, ATP therapist, Model model) {
+    public String admission() {
         return "admin/admissionIn";
     }
 
