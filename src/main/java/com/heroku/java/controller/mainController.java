@@ -417,7 +417,7 @@ public class mainController {
             statement2.setString(7, s.getSRelationStatus());
             statement2.setString(8, s.getSSex());
             statement2.executeUpdate();
-            return "admin/register-staff";
+            return "admin/staff";
         } catch (SQLException sqe) {
             System.out.println("Error Code = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -574,7 +574,7 @@ public class mainController {
             }
             connection.close();
 
-            return "redirect:/register-patient";
+            return "redirect:/patient";
         } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
             System.out.println("error");
@@ -864,7 +864,6 @@ public class mainController {
             while (resultSet2.next()) {
                 int dId = resultSet2.getInt("drugid");
                 int pId = resultSet2.getInt("patientid");
-
 
                 drug_usage drugs = new drug_usage(dId, pId);
                 Drug.add(drugs);

@@ -106,7 +106,7 @@ public class therapistController {
     }
 
     @GetMapping("/therapist-patient")
-    public String therapist_patient(@RequestParam("pid") Integer pid, HttpSession session,
+    public String therapistpatient(@RequestParam("pid") Integer pid, HttpSession session,
             patient ptns, drug_usage drug_usage, Model model) {
         try {
             Connection connection = dataSource.getConnection();

@@ -78,7 +78,7 @@
             <div class="card-header">
               <h3 class="text-center">Registration Form</h3>
             </div>
-            <form th:action="@{/register-patient}" method="post" modelAttribute="patient">
+            <form th:action="@{/staff-register-patient}" method="post" modelAttribute="patient">
             <div class="card-body">
               <div class="container">
                 <div class="row">
@@ -92,7 +92,7 @@
                   </div>
                 </div>           
   
-            <div class="form-row">
+            <div class="row">
               <div class="col">
                 <label for="sex">Gender</label>
                 <select class="form-control" id="sex" name="pSex" required>
@@ -113,7 +113,7 @@
               </div>
             </div>
   
-            <div class="form-row">
+            <div class="row">
               <div class="form-group col-md-6">
                 <label for="phone">Phone No.</label>
                 <input type="text" 
@@ -146,7 +146,7 @@
             </div>
             </div>
   
-            <div class="form-row ">
+            <div class="row ">
               <div class="form-group col-md-6">
                 <label for="name">Date In</label>
                 <input type="date" 
