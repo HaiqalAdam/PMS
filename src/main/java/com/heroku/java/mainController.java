@@ -1,4 +1,4 @@
-package com.heroku.java.controller;
+package com.heroku.java;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -287,8 +287,7 @@ public class mainController {
     }
 
     @GetMapping("/delete-therapist")
-    public String delTherapist(@ModelAttribute("therapist") therapist therapist, @RequestParam("id") int userid,
-            Model model) {
+    public String deleteTherapist(@ModelAttribute("therapist") therapist therapist, @RequestParam("id") int userid, Model model) {
         try {
             Connection connection = dataSource.getConnection();
             String sql = "DELETE FROM therapist WHERE id=?;";
@@ -478,7 +477,7 @@ public class mainController {
     }
 
     @GetMapping("/delete-staff")
-    public String delStaff(@ModelAttribute("staff") staff staff, @RequestParam("id") int userid,
+    public String deletetStaff(@ModelAttribute("staff") staff staff, @RequestParam("id") int userid,
             Model model) {
         try {
             Connection connection = dataSource.getConnection();
@@ -752,6 +751,31 @@ public class mainController {
         }
 
     }
+
+    @PostMapping("/delete-therapist")
+    public String delTherapist(@ModelAttribute("therapist") therapist therapist, @RequestParam("id") int userid,
+            Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "DELETE FROM therapist WHERE id=?;";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, userid);
+
+            // execute delete
+            int rowsAffected = statement.executeUpdate();
+            if (rowsAffected > 0) {
+                // Deletion successful
+                return "redirect:/patient";
+            } else {
+                // No rows affected, account not found
+                return "account-not-found";
+            }
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "redirect:/adminmainmenu";
+        }
+    }
+
 
     @GetMapping("/database")
     String database(Map<String, Object> model) {
