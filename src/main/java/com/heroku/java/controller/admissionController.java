@@ -88,6 +88,22 @@ public class admissionController {
         return "admin/admissionOut";
     }
 
+    @PostMapping("/admissionOut")
+    public String admissionOutPatient(HttpSession session,
+            @RequestParam("pName") String pName, ATP atp, Model model, @RequestParam("tName") String tName) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String insertadmissionout = "INSERT INTO admission(admissionoutdate) VALUES(?)";
+            PreparedStatement ps = connection.prepareStatement(insertadmissionout);
+            ps.setTimestamp(1, new Timestamp(atp.getAdmissionOut().getTime()));
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+        return "admin/admissionOut";
+    }
+
     @GetMapping("/admissionIn")
     public String admission() {
         return "admin/admissionIn";
@@ -126,6 +142,23 @@ public class admissionController {
             System.out.println("message : " + t.getMessage());
         }
         return "admin/admissionIn";
+    }
+
+    @PostMapping("/assignTherapist")
+    public String assignTherapist(HttpSession session,
+            @RequestParam("pName") String pName, ATP atp, Model model, @RequestParam("tName") String tName) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String insertadmission = "INSERT INTO admission(admissionindate,patientid,id) VALUES(?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(insertadmission);
+            ps.setTimestamp(1, new Timestamp(atp.getAdmissionIn().getTime()));
+            ps.setInt(2, atp.getPatientid());
+            ps.setInt(3, atp.getId());
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+        return null;
     }
 
 }
