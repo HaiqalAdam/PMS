@@ -155,10 +155,42 @@ public class admissionController {
             ps.setInt(2, atp.getPatientid());
             ps.setInt(3, atp.getId());
 
+            Connection connection2 = dataSource.getConnection();
+            final var statement = connection2.createStatement();
+            final var rs = statement.executeQuery("SELECT therapistname FROM therapist");
+
+            List<String> therapistNames = new ArrayList<>();
+            while (rs.next()) {
+                therapistNames.add(rs.getString("therapistname"));
+            }
+
+            model.addAttribute("therapistNames", therapistNames);
+
         } catch (Exception e) {
             // TODO: handle exception
         }
         return null;
     }
+
+    // @PostMapping("/selectTherapist")
+    // public String selectTherapist(HttpSession session, ATP atp, Model model) {
+    // try {
+    // Connection connection2 = dataSource.getConnection();
+    // final var statement = connection2.createStatement();
+    // final var rs = statement.executeQuery("SELECT therapistname FROM therapist");
+
+    // List<String> therapistNames = new ArrayList<>();
+    // while (rs.next()) {
+    // therapistNames.add(rs.getString("therapistname"));
+    // }
+
+    // model.addAttribute("therapistNames", therapistNames);
+
+    // } catch (Exception e) {
+    // // TODO: handle exception
+    // }
+    // return null;
+
+    // }
 
 }
