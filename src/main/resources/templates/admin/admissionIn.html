@@ -125,7 +125,8 @@
                     <td th:text="${patient.pId}"></td>
                     <td th:text="${patient.pName}"></td>
                     <td class="align-middle">
-                        <button class="btn btn-success" data-toggle="modal" data-target="#assignModal" type="submit">In</button> 
+                        <button class="btn btn-success" th:data-id="${patient.pId}"data-toggle="modal" data-target="#assignModal" style="cursor: pointer;">In</button>
+                        <!--<a class="dropdown-item" th:data-id="${user.id}" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">Delete</a>-->
                     </td>
                 </tr>
             </tbody>
@@ -154,20 +155,6 @@
             </div>
             </div>
         </div>
-
-        <!-- Modal JS -->
-        <script>
-            $(document).ready(function () {
-                // Handle the click event on the "In" button
-                $('#assignModal').click(function () {
-                    // Get the patient name from the clicked row's data attribute
-                    var patientName = $(this).closest('tr').data('patientname');
-                    // var assignTherapist = 
-                    // Update the modal's body with the patient's name
-                    $('#assignModal .modal-body').html('<p>Patient Name: ' + patientName + '</p>');
-                });
-            });
-        </script>
 
     </div>
   </div>
