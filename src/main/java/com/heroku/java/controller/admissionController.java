@@ -63,6 +63,7 @@ public class admissionController {
                 patients.add(patient2);
                 model.addAttribute("adminAdmission", patients); // Add the ptns object to the model
             }
+
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -129,6 +130,18 @@ public class admissionController {
                 patients.add(patient2);
                 model.addAttribute("adminAdmission", patients); // Add the ptns object to the model
             }
+
+            Connection connection2 = dataSource.getConnection();
+            final var statement2 = connection2.createStatement();
+            final var rs = statement2.executeQuery("SELECT therapistname FROM therapist");
+
+            List<String> therapistNames = new ArrayList<>();
+            while (rs.next()) {
+                therapistNames.add(rs.getString("therapistname"));
+            }
+
+            model.addAttribute("therapistNames", therapistNames);
+
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -151,25 +164,24 @@ public class admissionController {
             Connection connection = dataSource.getConnection();
             String insertadmission = "INSERT INTO admission(admissionindate,patientid,id) VALUES(?,?,?)";
             PreparedStatement ps = connection.prepareStatement(insertadmission);
-            ps.setTimestamp(1, new Timestamp(atp.getAdmissionIn().getTime()));
+            ps.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             ps.setInt(2, atp.getPatientid());
             ps.setInt(3, atp.getId());
+            ps.execute();
 
-            Connection connection2 = dataSource.getConnection();
-            final var statement = connection2.createStatement();
-            final var rs = statement.executeQuery("SELECT therapistname FROM therapist");
-
-            List<String> therapistNames = new ArrayList<>();
-            while (rs.next()) {
-                therapistNames.add(rs.getString("therapistname"));
-            }
-
-            model.addAttribute("therapistNames", therapistNames);
-
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("error = " + e.getMessage());
+            e.printStackTrace();
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
         }
-        return null;
+        return "admin/admissionIn";
     }
 
     // @PostMapping("/selectTherapist")
