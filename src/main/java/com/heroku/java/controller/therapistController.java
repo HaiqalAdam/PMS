@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heroku.java.model.ATP;
 import com.heroku.java.model.drug_usage;
 import com.heroku.java.model.patient;
+import com.heroku.java.model.patientAdmission;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -173,5 +175,42 @@ public class therapistController {
     public String therapist_update_patient() {
         // model.addAttribute("user", model);
         return "therapist/therapist-update-patient";
+    }
+
+    @GetMapping("/therapist-view-admission")
+    public String therapistViewAdmission(patientAdmission pa, Model model) {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+            final var resultSet = statement.executeQuery(
+                    "SELECT a.admissionid, p.patientname, p.patientsex, p.patientbloodtype, p.patientstatus, p.patientdob FROM patient p JOIN admission a ON (p.patientid = a.patientid) ORDER BY a.admissionid;");
+
+            ArrayList<patientAdmission> patientAdmissionList = new ArrayList<>();
+            while (resultSet.next()) {
+                int admissionid = resultSet.getInt("admissionid");
+                String patientname = resultSet.getString("patientname");
+                String patientsex = resultSet.getString("patientsex");
+                String patientbloodtype = resultSet.getString("patientbloodtype");
+                String patientstatus = resultSet.getString("patientstatus");
+                Date patientdob = resultSet.getDate("patientdob");
+
+                patientAdmission patientAdmissionListData = new patientAdmission(admissionid, patientname, patientsex,
+                        patientbloodtype, patientstatus, patientdob);
+                patientAdmissionList.add(patientAdmissionListData);
+            }
+
+            model.addAttribute("patientAdmission", patientAdmissionList);
+
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "therapist/dashboard-therapist";
     }
 }
