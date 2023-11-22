@@ -11,12 +11,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.model.drug_usage;
 import com.heroku.java.model.patient;
+import com.heroku.java.model.precord;
+import com.heroku.java.model.therapist;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -168,10 +171,85 @@ public class therapistController {
     public String therapistP() {
         return "therapist/therapist-patient";
     }
+//=============================== CREATE PROGRESSION ========================
+
+    @GetMapping("/create-progression")
+    public String createP() {
+        // model.addAttribute("user", model);
+        return "therapist/create-progression";
+    }
+
+    @PostMapping("/create-progression")
+    public String intsertProgress(@ModelAttribute("precord") precord record) {
+        // model.addAttribute("user", model);
+         try {
+            Connection connection = dataSource.getConnection();
+            String insertPatientRecordSql = "INSERT INTO patient_record(recorddate, activities,  admissionid) VALUES(?,?,?);";
+            PreparedStatement insertPatientRecordStatement = connection.prepareStatement(insertPatientRecordSql);
+            insertPatientRecordStatement.setDate(1, record.getRdate());
+            insertPatientRecordStatement.setString(2, record.getRactivities());
+            insertPatientRecordStatement.setInt(3, record.getAdmissionid());
+            
+            insertPatientRecordStatement.execute();
+            return "therapist/create-progression";
+        } catch (SQLException sqe) {
+            System.out.println("Error Code: " + sqe.getErrorCode());
+            System.out.println("SQL State: " + sqe.getSQLState());
+            System.out.println("Message: " + sqe.getMessage());
+            sqe.printStackTrace();
+            return "therapist/create-progression";
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            return "therapist/create-progression";
+        }
+         
+    }
+//=============================== READ PROGRESSION ========================== 
 
     @GetMapping("/therapist-update-patient")
     public String therapist_update_patient() {
         // model.addAttribute("user", model);
         return "therapist/therapist-update-patient";
+    }
+
+    @GetMapping("/therapist-patientlist")
+    public String viewPatientRecord(HttpSession session, precord rec, Model model) {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+            final var resultSet = statement.executeQuery(
+                    "SELECT a.admissionid, p.patientname, r.* FROM admission a JOIN patient_record r ON (a.admissionid = r.admissionid) JOIN patient p ON (a.patientid = p.patientid) ORDER BY a.admissionid;");
+
+            ArrayList<precord> recordList = new ArrayList<>();
+            while (resultSet.next()) {
+                int Rid = resultSet.getInt("recordid");
+                Date Rdate = resultSet.getDate("recorddate");
+                String Ractivities = resultSet.getString("activities");
+                int admissionid = resultSet.getInt("admissionid");
+
+                precord record = new precord(Rid, Rdate, Ractivities, admissionid);
+                recordList.add(record);
+            }
+
+            model.addAttribute("precord", recordList);
+            return "therapist/therapist-patientlist";
+
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "therapist/therapist-patientlist";
+    }
+
+    
+    @PostMapping("/therapist-patientlist")
+    public String therapistPlist() {
+        return "therapist/therapist-patientlist";
     }
 }

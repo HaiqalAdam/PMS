@@ -16,6 +16,7 @@
             href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
             <link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
     </head>
+    
 
     <body>
         <!-- Start Nav Bar -->
@@ -57,71 +58,82 @@
         <hr class="hr-line">
 
         <li class="nav-item"><a th:href="@{/therapist-progression}"
-          class="nav-link text-black d-flex justify-content-start"><span
-          class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
+            class="nav-link text-black d-flex justify-content-start"><span
+            class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
 
-      <li class="nav-item"><a th:href="@{/therapist-patientlist}"
-          class="nav-link text-black d-flex justify-content-start"><span
-          class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>Progression</a></li>
+        <li class="nav-item"><a th:href="@{/therapist-patientlist}"
+            class="nav-link text-black d-flex justify-content-start"><span
+            class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>Progression</a></li>
   
         </ul>
         <hr style="margin-bottom: 0px !important;">
     </div>
     <!-- End Side Bar-->
+
     <!-- Content -->
-    <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
+    <div class="dashboard-con d-flex flex-column justify-content-center align-items-center offset-2 col-10" style="padding-top: 10px;">
         <div style="width: 80%;">
-
-                <!-- Patient Data Section -->
-                <div>
-                    <h3>Patient Data</h3>
-                    <table class="table table-success text-center mt-4 col-md-12 mx-auto" style="border: solid 1px black; text-align: center;">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Sex</th>
-                          <th>Drugs</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <!-- Example patient data row -->
-                        <tr th:each="patients: ${patient}">
-                          <td th:text="${patients.pName}"></td>
-                          <td th:text="${patients.pSex}"></td>
-                          <td>
-                            <ul>
-                              <li
-                                th:each="drugs : ${drug_usage}"
-                                th:if="${drugs.pId == patients.pId}">
-                                <span th:if="${drugs.dId == 1}">Cocaine</span>
-                                <span th:if="${drugs.dId == 2}">Heroin</span>
-                                <span th:if="${drugs.dId == 3}">Weed</span>
-                                <span th:if="${drugs.dId == 4}">Ecstasy</span>
-                                <span th:if="${drugs.dId == 5}">Methamphetamine</span>
-                                <span th:if="${drugs.dId == 6}">Hallucinogens</span>
-                              </li>
-                            </ul>
-                          </td>
-                        </tr>
-                        <!-- Add more patient data rows here -->
-                      </tbody>
-                    </table>
-                  </div><br>
-
-    </div><br>
-
-    <footer class="d-flex justify-content-center col-8 offset-3">
-        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
-      </footer>
-
+          <div class="card-body">
+            <div class="card text-black bg-white mb-3">
+              <div class="card-header">
+                <h3 class="text-center">Progression</h3>
+              </div>
+              <form th:action="@{/create-progression}" 
+              method="post" 
+              modelAttribute="precord">
+              <div class="card-body">
+                <div class="container">         
     
+              <div class="row">
+                
+                <div class="form-group col-md-6">
+                  <label for="Rdate">Record Date</label>
+                  <input type="date" 
+                  class="form-control" 
+                  id="recorddate" 
+                  name="Rdate" 
+                  th:value="${Rdate}" 
+                  placeholder="Date" required>
+                </div>
+                
+                  <div class="form-group col-md-6">
+                    <label for="admissionid">Admission ID</label>
+                    <input type="int" 
+                    class="form-control" 
+                    id="admissionid" 
+                    name="admissionid" 
+                    th:value="${admissionid}" 
+                    placeholder="ID" required>
+                  </div>
+              </div>
+              <div class="col">
+                <label for="activities">Activities</label>
+                <input type="text" 
+                class="form-control" 
+                id="activities" 
+                name="Ractivities" 
+                th:value="${Ractivities}" 
+                placeholder="Activities" required>
+              </div>
+    
+              </div>
+              </div>
+    
+    
+              <div class="form-group text-center">
+                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+        <footer class="d-flex justify-content-center col-8 offset-3">
+          <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+        </footer>
     <!-- End Content-->
-
-            <script>
-            //     function myFunction(x) {
-			//      alert("Row index is: " + x);
-		    // }
-            </script>
 
 
             <script
@@ -136,8 +148,6 @@
                 src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
                 integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
                 crossorigin="anonymous"></script>
-            
-                <!-- <script src="script.js"></script> -->
     </body>
 
     </html>

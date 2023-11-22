@@ -51,6 +51,11 @@ public therapist(Integer id, String usr, String pwd, String tName, String tRelat
         this.tSpecialist = tSpecialist;
     }
 
+    public therapist(Integer id, String usr, String pwd, String tName) {
+        super(id, usr, pwd);
+        this.tName = tName;
+    }
+
     public Integer getTId() {
         return this.tId;
     }
