@@ -13,6 +13,7 @@ import com.heroku.java.model.ATP;
 import com.heroku.java.model.drug;
 import com.heroku.java.model.patient;
 import com.heroku.java.model.therapist;
+import com.heroku.java.model.users;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -128,7 +129,24 @@ public class admissionController {
 
                 patient patient2 = new patient(pid, patientName);
                 patients.add(patient2);
-                model.addAttribute("adminAdmission", patients); // Add the ptns object to the model
+                model.addAttribute("adminAdmission", patients);
+
+                Connection connection2 = dataSource.getConnection();
+                final var statement2 = connection2.createStatement();
+                final var resultSet2 = statement2.executeQuery(
+                        "SELECT e.id, t.* FROM employee e JOIN therapist t ON (e.id = t.id) ORDER BY e.id;");
+
+                ArrayList<therapist> therapistList = new ArrayList<>();
+                while (resultSet2.next()) {
+                    int id = resultSet2.getInt("id");
+                    String tName = resultSet2.getString("therapistname");
+                    System.out.println("tName: " + tName);
+                    therapist therapists = new therapist(id, null, null, tName);
+                    therapistList.add(therapists);
+                }
+                model.addAttribute("therapist", therapistList);
+                return "admin/admissionIn";
+                // Add the ptns object to the model
             }
 
             Connection connection2 = dataSource.getConnection();
@@ -157,9 +175,27 @@ public class admissionController {
         return "admin/admissionIn";
     }
 
+    // @PostMapping("/assignTherapist")
+    // public String assignTherapist(HttpSession session,
+    // @RequestParam("pName") String pName, ATP atp, Model model) {
+    // try {
+    // Connection connection = dataSource.getConnection();
+    // String insertadmission = "INSERT INTO admission(admissionindate,patientid,id)
+    // VALUES(?,?,?)";
+    // PreparedStatement ps = connection.prepareStatement(insertadmission);
+    // ps.setTimestamp(1, new Timestamp(atp.getAdmissionIn().getTime()));
+    // ps.setInt(2, atp.getPatientid());
+    // ps.setInt(3, atp.getId());
+    // ps.executeQuery();
+
+    // return "admin/admissionIn";
+
     @PostMapping("/assignTherapist")
-    public String assignTherapist(HttpSession session,
-            @RequestParam("pName") String pName, ATP atp, Model model, @RequestParam("tName") String tName) {
+    public String assignTherapist(
+            HttpSession session,
+            @RequestParam("pName") String pName,
+            @ModelAttribute ATP atp,
+            Model model) {
         try {
             Connection connection = dataSource.getConnection();
             String insertadmission = "INSERT INTO admission(admissionindate,patientid,id) VALUES(?,?,?)";
@@ -167,7 +203,9 @@ public class admissionController {
             ps.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
             ps.setInt(2, atp.getPatientid());
             ps.setInt(3, atp.getId());
-            ps.execute();
+            ps.executeUpdate(); // Use executeUpdate() for INSERT operation
+
+            return "admin/admissionIn";
 
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
@@ -181,7 +219,7 @@ public class admissionController {
         } catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
         }
-        return "admin/admissionIn";
+        return "admin/adminmainmenu";
     }
 
     // @PostMapping("/selectTherapist")
