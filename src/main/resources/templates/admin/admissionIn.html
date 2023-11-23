@@ -125,42 +125,37 @@
                     <td th:text="${patient.pId}"></td>
                     <td th:text="${patient.pName}"></td>
                     <td class="align-middle">
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                            In
-                        </button>
-                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Assign Therapist</h1>
-                                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <h5 th:text="${patient.pName}"></h5>
-                                    <div class="mb-3">
-                                        <label for="therapistSelect" class="form-label">Select Therapist:</label>
-                                        <div class="dropdown">
-                                            <button class="btn btn-secondary dropdown-toggle" type="button" id="therapistDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Select Therapist
-                                            </button>
-                                            <ul class="dropdown-menu" aria-labelledby="therapistDropdown" id="therapistSelect">
-                                                <li th:each="therapistName : ${therapistNames}">
-                                                    <!-- <a class="dropdown-item" th:text="${therapistName}" href="#">Therapist Name</a> -->
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>                                
-                                <div class="modal-footer">
-                                  <button type="submit" class="btn btn-primary">Submit</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+                        <button class="btn btn-success" th:data-id="${patient.pId}"data-toggle="modal" data-target="#assignModal" style="cursor: pointer;">In</button>
+                        <!--<a class="dropdown-item" th:data-id="${user.id}" data-toggle="modal" data-target="#deleteModal" style="cursor: pointer;">Delete</a>-->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <!-- Modal -->
+        <div class="modal fade" id="assignModal" tabindex="-1" role="dialog" aria-labelledby="assignModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                <h5 class="modal-title" id="assignModalLabel">Assign Therapist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <div class="modal-body">
+                    <p>Patient Name: <span id="patientName"></span></p>
+                    <label for="therapistSelect">Select Therapist:</label>
+                    <select id="therapistSelect" class="form-control">
+                        <!-- Populate this dropdown with therapist names from the backend -->
+                    </select>
+                </div>
+                <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+            </div>
+        </div>
+
     </div>
   </div>
   <footer class="d-flex justify-content-center col-8 offset-3">
