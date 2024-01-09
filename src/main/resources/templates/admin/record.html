@@ -82,6 +82,10 @@ aria-current="page"><span class="material-symbols-outlined"
       class="nav-link text-black d-flex justify-content-start"><span
       class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
   
+      <li class="nav-item"><a th:href="@{/view-progression}"
+        class="nav-link text-black d-flex justify-content-start"><span
+        class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>Progression</a></li>     
+     
       <li class="nav-item"><a th:href="@{/record}"
         class="nav-link active text-black d-flex justify-content-start">
             <span class="material-symbols-outlined"
@@ -98,32 +102,26 @@ aria-current="page"><span class="material-symbols-outlined"
       <div style="width: 80%;">
           <h3 style="text-align: left;">Record</h3>
 <div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">
-  Click on the row to update and delete the patient details.
+  Table above is the Admission record.
 </div>
 
 <table class="table table-success align-middle" style="border: solid 1px black; text-align: center;">
   <tr class="bg-info">
-    <th id="name" data-column="name" data-order="desc">Name</th>
-    <th id="progression" data-column="progression" data-order="desc">Drugs</th>
-
+    <th id="Aid" data-column="Aid" data-order="desc">Admission ID</th>
+    <th id="Pid" data-column="Pid" data-order="desc">Patient ID</th>
+    <th id="Pname" data-column="Pname" data-order="desc">Patient Name</th>
+    <th id="Tid" data-column="Tid" data-order="desc">Therapist ID</th>
+    <th id="progressIn" data-column="progressIn" data-order="desc">In date</th>
+    <th id="progressOut" data-column="progressOut" data-order="desc">Out date</th>
   </tr>
   <tbody id="myTable">
-    <tr th:each="patients: ${patient}">
-      <td th:text="${patients.pName}"></td>
-      <td>
-        <ul>
-          <li
-            th:each="drugs : ${drug_usage}"
-            th:if="${drugs.pId == patients.pId}">
-            <span th:if="${drugs.dId == 1}">Cocaine</span>
-            <span th:if="${drugs.dId == 2}">Heroin</span>
-            <span th:if="${drugs.dId == 3}">Weed</span>
-            <span th:if="${drugs.dId == 4}">Ecstasy</span>
-            <span th:if="${drugs.dId == 5}">Methamphetamine</span>
-            <span th:if="${drugs.dId == 6}">Hallucinogens</span>
-          </li>
-        </ul>
-      </td>
+    <tr th:each="admissions: ${admission}">
+      <td th:text="${admissions.admissionid}"></td>
+      <td th:text="${admissions.Pid}"></td>
+      <td th:text="${admissions.Pname}"></td>
+      <td th:text="${admissions.Tid}"></td>
+      <td th:text="${admissions.InDate}"></td>
+      <td th:text="${admissions.OutDate}"></td>
       <!-- <td><a th:href="@{/therapist-patient(pid=${patients.pId})}"><button class="btn btn-success btn-sm">View</button></a></td> -->
     </tr>
   </tbody>

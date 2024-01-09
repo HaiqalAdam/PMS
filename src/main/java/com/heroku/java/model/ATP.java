@@ -4,18 +4,18 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ATP {
-    private Integer id;
+    private int id;
     private String therapistName;
-    private Integer patientid;
+    private int patientid;
     private String patientname;
-    private Integer admissionid;
+    private int admissionid;
     private Timestamp admissionIn;
     private Timestamp admissionOut;
 
     public ATP() {
     }
 
-    public ATP(Integer id, String therapistName, Integer patientid, String patientname, Integer admissionid,
+    public ATP(int id, String therapistName, int patientid, String patientname, int admissionid,
             Timestamp admissionIn, Timestamp admissionOut) {
         this.id = id;
         this.therapistName = therapistName;
@@ -26,16 +26,16 @@ public class ATP {
         this.admissionOut = admissionOut;
     }
 
-    public ATP(Integer id, String therapistName) {
+    public ATP(int id, String therapistName) {
         this.id = id;
         this.therapistName = therapistName;
     }
 
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -47,11 +47,11 @@ public class ATP {
         this.therapistName = therapistName;
     }
 
-    public Integer getPatientid() {
+    public int getPatientid() {
         return this.patientid;
     }
 
-    public void setPatientid(Integer patientid) {
+    public void setPatientid(int patientid) {
         this.patientid = patientid;
     }
 
@@ -63,11 +63,11 @@ public class ATP {
         this.patientname = patientname;
     }
 
-    public Integer getAdmissionid() {
+    public int getAdmissionid() {
         return this.admissionid;
     }
 
-    public void setAdmissionid(Integer admissionid) {
+    public void setAdmissionid(int admissionid) {
         this.admissionid = admissionid;
     }
 
