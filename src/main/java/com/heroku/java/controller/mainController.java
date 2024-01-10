@@ -860,7 +860,7 @@ public class mainController {
     }
     
     @GetMapping("/record")
-    public String therapist_progression(HttpSession session, admission adm, Model model) {
+    public String admission(HttpSession session, admission adm, Model model) {
         try (Connection connection = dataSource.getConnection()) {
             final var statement = connection.createStatement();
 
