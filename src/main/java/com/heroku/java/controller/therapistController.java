@@ -192,7 +192,7 @@ public class therapistController {
             insertPatientRecordStatement.setInt(3, record.getAdmissionid());
 
             insertPatientRecordStatement.execute();
-            return "therapist/create-progression";
+            return "therapist/therapist-patientlist";
         } catch (SQLException sqe) {
             System.out.println("Error Code: " + sqe.getErrorCode());
             System.out.println("SQL State: " + sqe.getSQLState());
@@ -218,7 +218,7 @@ public class therapistController {
         try (Connection connection = dataSource.getConnection()) {
             final var statement = connection.createStatement();
             final var resultSet = statement.executeQuery(
-                    "SELECT a.admissionid, p.patientname, r.* FROM admission a JOIN patient_record r ON (a.admissionid = r.admissionid) JOIN patient p ON (a.patientid = p.patientid) ORDER BY a.admissionid;");
+                    "SELECT * FROM patient_record ORDER BY recordid");
 
             ArrayList<precord> recordList = new ArrayList<>();
             while (resultSet.next()) {
@@ -251,5 +251,71 @@ public class therapistController {
     @PostMapping("/therapist-patientlist")
     public String therapistPlist() {
         return "therapist/therapist-patientlist";
+    }
+
+//=========================== UPDATE PROGRESSION ================================================
+
+@GetMapping("/update-progression")
+    public String ShowUpdateProgression(HttpSession session, @ModelAttribute("precord") precord rec,  @RequestParam("Rid") int recordid,Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT * FROM patient_record WHERE recordid = ?";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, recordid);
+
+            final var resultSet = statement.executeQuery();
+
+            while (resultSet.next()) {
+                int Rid = resultSet.getInt("recordid");
+                Date Rdate = resultSet.getDate("recorddate");
+                String Ractivities = resultSet.getString("activities");
+                int admissionid = resultSet.getInt("admissionid");
+
+                System.out.println( Rid);
+                System.out.println( Rdate);
+                System.out.println( Ractivities + admissionid);
+
+                precord record = new precord(Rid, Rdate, Ractivities, admissionid);
+                model.addAttribute("precord", record);
+            }
+
+            return "therapist/update-progression";
+        } catch (Exception e) {
+            System.out.println("message: " + e.getMessage());
+            System.out.println("error");
+        }
+        return "therapist/update-progression";
+    }
+
+// @PostMapping("/update-progression")
+//     public String UP() {
+//         return "therapist/update-progression";
+//     }
+@PostMapping("/update-progression")
+    public String updateProgression(Model model,  precord record,
+    @RequestParam("Rid") int rId) {
+
+        int Rid = record.getRid();
+        Date Rdate = record.getRdate();
+        String Ractivities = record.getRactivities();
+        int admissionid = record.getAdmissionid();
+
+        try (Connection connection = dataSource.getConnection()) {
+            String sql = "UPDATE patient_record SET recordid = ? , recorddate = ? , activities = ?, admissionid = ? WHERE recordid = ?";
+            final var statement = connection.prepareStatement(sql);
+
+            statement.setInt(1, Rid);
+            statement.setDate(2, Rdate);
+            statement.setString(3, Ractivities);
+            statement.setInt(4, admissionid);
+            statement.setInt(5, rId);
+
+            statement.executeUpdate();
+            return "therapist/therapist-patientlist";
+        } catch (Throwable t) {
+            System.out.println("message: " + t.getMessage());
+            System.out.println("error");
+            return "therapist/update-progression";
+        }
     }
 }

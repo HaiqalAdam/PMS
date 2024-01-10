@@ -82,6 +82,10 @@
             class="nav-link text-black d-flex justify-content-start"><span
             class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
         
+            <li class="nav-item"><a th:href="@{/view-progression}"
+                class="nav-link text-black d-flex justify-content-start"><span
+                class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>Progression</a></li>      
+            
             <li class="nav-item"><a th:href="@{/record}"
               class="nav-link text-black d-flex justify-content-start">
                   <span class="material-symbols-outlined"
@@ -121,9 +125,10 @@
                 </tr>
             </thead>
             <tbody> 
-                <tr th:each="patient: ${adminAdmission}"    >
+                <tr th:each="patient: ${adminAdmission}">
+                    <form th:action="@{/assignTherapist}" method="post" modelAttribute="admission" th:object="${admission}">
                     <td th:text="${patient.pId}"></td>
-                    <td th:text="${patient.pName}"></td>
+                    <td><span  th:text="${patient.pName}"></span> <input th:value="${patient.pId}" name="patientid" hidden></input></td>
                     <td class="align-middle">
                         <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                             In
@@ -132,21 +137,17 @@
                         aria-labelledby="staticBackdropLabel" aria-hidden="true">
                        <div class="modal-dialog modal-dialog-centered">
                            <div class="modal-content">
-                               <form th:action="@{/assignTherapist}" method="post">
                                    <div class="modal-header">
                                        <h1 class="modal-title fs-5" id="staticBackdropLabel">Assign Therapist</h1>
                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                    </div>
                                    <div class="modal-body">
                                        <h5 th:text="${patient.pName}"></h5>
+                                       
                                        <input type="hidden" th:name="pName" th:value="${patient.pName}" />
                                        <div class="mb-3">
-                                        <label for="Date" class="form-label">Date:</label>
-                                        <input type="date" class="form-control" id="indate" name="date" placeholder="Date" required>
-                                    </div>
-                                       <div class="mb-3">
                                            <label for="therapistSelect" class="form-label">Select Therapist:</label>
-                                           <select class="form-control" id="assigntherapist" name="tName" required>
+                                           <select class="form-control" id="assigntherapist" name="id" required>
                                                <option value="0" disabled selected>Select Therapist</option>
                                                <option th:each="therapist: ${therapist}"
                                                        th:value="${therapist.id}"
@@ -158,11 +159,11 @@
                                    <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                    </div>
-                               </form>
                            </div>
                        </div>
                    </div>
                 </td>
+            </form>
             </tr>
         </tbody>
     </table>

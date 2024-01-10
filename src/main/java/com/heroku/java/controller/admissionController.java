@@ -1,7 +1,6 @@
 package com.heroku.java.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,24 +9,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.heroku.java.model.ATP;
-import com.heroku.java.model.drug;
 import com.heroku.java.model.patient;
 import com.heroku.java.model.therapist;
-import com.heroku.java.model.users;
 
 import jakarta.servlet.http.HttpSession;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
 
-import java.sql.Statement;
 import java.sql.Timestamp;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 @SpringBootApplication
 @Controller
@@ -62,9 +55,25 @@ public class admissionController {
 
                 patient patient2 = new patient(pid, patientName);
                 patients.add(patient2);
-                model.addAttribute("adminAdmission", patients); // Add the ptns object to the model
-            }
+                model.addAttribute("adminAdmission", patients);
 
+                Connection connection2 = dataSource.getConnection();
+                final var statement2 = connection2.createStatement();
+                final var resultSet2 = statement2.executeQuery(
+                        "SELECT e.id, t.* FROM employee e JOIN therapist t ON (e.id = t.id) ORDER BY e.id;");
+
+                ArrayList<therapist> therapistList = new ArrayList<>();
+                while (resultSet2.next()) {
+                    int id = resultSet2.getInt("id");
+                    String tName = resultSet2.getString("therapistname");
+                    System.out.println("tName: " + tName);
+                    therapist therapists = new therapist(id, null, null, tName);
+                    therapistList.add(therapists);
+                }
+                model.addAttribute("therapist", therapistList);
+                return "admin/admissionIn";
+                // Add the ptns object to the model
+            }
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -85,29 +94,55 @@ public class admissionController {
         return "staff/staff-admissionOut";
     }
 
-    @GetMapping("/admissionOut")
-    public String admissionOut() {
-        return "admin/admissionOut";
-    }
-
-    @PostMapping("/admissionOut")
-    public String admissionOutPatient(HttpSession session,
-            @RequestParam("pName") String pName, ATP atp, Model model, @RequestParam("tName") String tName) {
+    // =================== Admin Admission In =========================
+    @GetMapping("/admissionIn")
+    public String admission(patient p, Model model) {
         try {
             Connection connection = dataSource.getConnection();
-            String insertadmissionout = "INSERT INTO admission(admissionoutdate) VALUES(?)";
-            PreparedStatement ps = connection.prepareStatement(insertadmissionout);
-            ps.setTimestamp(1, new Timestamp(atp.getAdmissionOut().getTime()));
+            final var statement = connection.prepareStatement(
+                    "SELECT * FROM patient ORDER BY patientid");
+            final var resultSet = statement.executeQuery();
 
+            ArrayList<patient> patients = new ArrayList<>();
+            while (resultSet.next()) {
+                String patientName = resultSet.getString("patientname");
+                int pid = resultSet.getInt("patientid");
+                System.out.println("name = " + patientName);
+
+                patient patient2 = new patient(pid, patientName);
+                patients.add(patient2);
+                model.addAttribute("adminAdmission", patients);
+
+                Connection connection2 = dataSource.getConnection();
+                final var statement2 = connection2.createStatement();
+                final var resultSet2 = statement2.executeQuery(
+                        "SELECT e.id, t.* FROM employee e JOIN therapist t ON (e.id = t.id) ORDER BY e.id;");
+
+                ArrayList<therapist> therapistList = new ArrayList<>();
+                while (resultSet2.next()) {
+                    int id = resultSet2.getInt("id");
+                    String tName = resultSet2.getString("therapistname");
+                    System.out.println("tName: " + tName);
+                    therapist therapists = new therapist(id, null, null, tName);
+                    therapistList.add(therapists);
+                }
+                model.addAttribute("therapist", therapistList);
+
+                // Add the ptns object to the model
+            }
+            return "admin/admissionIn";
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
         } catch (Exception e) {
-            // TODO: handle exception
+            System.out.println("error = " + e.getMessage());
+            e.printStackTrace();
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
         }
-
-        return "admin/admissionOut";
-    }
-
-    @GetMapping("/admissionIn")
-    public String admission() {
         return "admin/admissionIn";
     }
 
@@ -148,18 +183,6 @@ public class admissionController {
                 return "admin/admissionIn";
                 // Add the ptns object to the model
             }
-
-            Connection connection2 = dataSource.getConnection();
-            final var statement2 = connection2.createStatement();
-            final var rs = statement2.executeQuery("SELECT therapistname FROM therapist");
-
-            List<String> therapistNames = new ArrayList<>();
-            while (rs.next()) {
-                therapistNames.add(rs.getString("therapistname"));
-            }
-
-            model.addAttribute("therapistNames", therapistNames);
-
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -175,32 +198,20 @@ public class admissionController {
         return "admin/admissionIn";
     }
 
-    // @PostMapping("/assignTherapist")
-    // public String assignTherapist(HttpSession session,
-    // @RequestParam("pName") String pName, ATP atp, Model model) {
-    // try {
-    // Connection connection = dataSource.getConnection();
-    // String insertadmission = "INSERT INTO admission(admissionindate,patientid,id)
-    // VALUES(?,?,?)";
-    // PreparedStatement ps = connection.prepareStatement(insertadmission);
-    // ps.setTimestamp(1, new Timestamp(atp.getAdmissionIn().getTime()));
-    // ps.setInt(2, atp.getPatientid());
-    // ps.setInt(3, atp.getId());
-    // ps.executeQuery();
-
-    // return "admin/admissionIn";
-
     @PostMapping("/assignTherapist")
     public String assignTherapist(
             HttpSession session,
             @RequestParam("pName") String pName,
-            @ModelAttribute ATP atp,
+            @ModelAttribute("admission") ATP atp,
             Model model) {
+        System.out.println("patient id:" + atp.getPatientid());
         try {
             Connection connection = dataSource.getConnection();
             String insertadmission = "INSERT INTO admission(admissionindate,patientid,id) VALUES(?,?,?)";
             PreparedStatement ps = connection.prepareStatement(insertadmission);
-            ps.setTimestamp(1, new Timestamp(System.currentTimeMillis()));
+            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            atp.setAdmissionIn(ts);
+            ps.setTimestamp(1, new Timestamp(atp.getAdmissionIn().getTime()));
             ps.setInt(2, atp.getPatientid());
             ps.setInt(3, atp.getId());
             ps.executeUpdate(); // Use executeUpdate() for INSERT operation
@@ -222,25 +233,130 @@ public class admissionController {
         return "admin/adminmainmenu";
     }
 
-    // @PostMapping("/selectTherapist")
-    // public String selectTherapist(HttpSession session, ATP atp, Model model) {
-    // try {
-    // Connection connection2 = dataSource.getConnection();
-    // final var statement = connection2.createStatement();
-    // final var rs = statement.executeQuery("SELECT therapistname FROM therapist");
+    // ============================= Admin Admission Out
+    // ==================================
+    @GetMapping("/admissionOut")
+    public String admissionOut(patient p, Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            final var statement = connection.prepareStatement(
+                    "SELECT * FROM admission a JOIN patient p ON(a.patientid = p.patientid) WHERE admissionindate IS NOT NULL AND admissionoutdate IS NULL ORDER BY p.patientid ");
+            final var resultSet = statement.executeQuery();
 
-    // List<String> therapistNames = new ArrayList<>();
-    // while (rs.next()) {
-    // therapistNames.add(rs.getString("therapistname"));
-    // }
+            ArrayList<patient> patients = new ArrayList<>();
+            while (resultSet.next()) {
+                String patientName = resultSet.getString("patientname");
+                int pid = resultSet.getInt("patientid");
+                int admissionid = resultSet.getInt("admissionid");
+                System.out.println("name = " + patientName);
 
-    // model.addAttribute("therapistNames", therapistNames);
+                patient patient2 = new patient(pid, patientName, admissionid);
+                patients.add(patient2);
+                model.addAttribute("adminAdmission", patients);
 
-    // } catch (Exception e) {
-    // // TODO: handle exception
-    // }
-    // return null;
+                Connection connection2 = dataSource.getConnection();
+                final var statement2 = connection2.createStatement();
+                final var resultSet2 = statement2.executeQuery(
+                        "SELECT e.id, t.* FROM employee e JOIN therapist t ON (e.id = t.id) ORDER BY e.id;");
 
-    // }
+                ArrayList<therapist> therapistList = new ArrayList<>();
+                while (resultSet2.next()) {
+                    int id = resultSet2.getInt("id");
+                    String tName = resultSet2.getString("therapistname");
+                    System.out.println("tName: " + tName);
+                    therapist therapists = new therapist(id, null, null, tName);
+                    therapistList.add(therapists);
+                }
+                model.addAttribute("therapist", therapistList);
+
+                // Add the ptns object to the model
+            }
+            return "admin/admissionOut";
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+            e.printStackTrace();
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "admin/admissionOut";
+    }
+
+    @PostMapping("/admissionOut")
+    public String admissionOutAdmin(HttpSession session,
+            @RequestParam("pName") String pName, ATP atp, patient p, Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            final var statement = connection.prepareStatement(
+                    "SELECT * FROM patient WHERE patientname like ?");
+            statement.setString(1, "%" + pName + "%");
+            final var resultSet = statement.executeQuery();
+
+            ArrayList<patient> patients = new ArrayList<>();
+            while (resultSet.next()) {
+                String patientName = resultSet.getString("patientname");
+                int pid = resultSet.getInt("patientid");
+                System.out.println("name = " + patientName);
+
+                patient patient2 = new patient(pid, patientName);
+                patients.add(patient2);
+                model.addAttribute("adminAdmission", patients);
+                // Add the ptns object to the model
+            }
+            return "admin/admissionOut";
+
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+            e.printStackTrace();
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "admin/admissionOut";
+    }
+
+    @PostMapping("/Outdate")
+    public String outdate(
+            HttpSession session,
+            @RequestParam("pName") String pName,
+            @ModelAttribute("admission") ATP atp,
+            Model model) {
+        System.out.println("patient id:" + atp.getAdmissionid());
+        try {
+            Connection connection = dataSource.getConnection();
+            String admissionout = "UPDATE admission SET admissionoutdate = ? WHERE admissionid = ?";
+            PreparedStatement ps = connection.prepareStatement(admissionout);
+            Timestamp ts = new Timestamp(System.currentTimeMillis());
+            atp.setAdmissionOut(ts);
+            ps.setTimestamp(1, new Timestamp(atp.getAdmissionOut().getTime()));
+            ps.setInt(2, atp.getAdmissionid());
+            ps.executeUpdate(); // Use executeUpdate() for INSERT operation
+
+            return "admin/admissionOut";
+
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+            e.printStackTrace();
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "admin/adminmainmenu";
+    }
 
 }

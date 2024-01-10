@@ -14,6 +14,7 @@ public class patient {
     private Date pDOB;
     private String pPhoneNo;
     private String pBloodType;
+    private int admissionid;
 
     public patient() {
     }
@@ -27,6 +28,11 @@ public class patient {
         this.pName = pName;
     }
 
+    public patient(Integer pId, String pName, int admissionid) {
+        this.pId = pId;
+        this.pName = pName;
+        this.admissionid = admissionid;
+    }
     public patient(Integer pId, String pName, String pIc, String pSex, String pAddress, Date pDate, String pStatus,
             Date pDOB, String pPhoneNo, String pBloodType) {
         this.pId = pId;
@@ -41,12 +47,32 @@ public class patient {
         this.pBloodType = pBloodType;
     }
 
+
+    public patient(Integer pId, String pName, String pIc, String pSex, String pAddress, Date pDate, String pStatus,
+            Date pDOB, String pPhoneNo, String pBloodType, int admissionid) {
+        this.pId = pId;
+        this.pName = pName;
+        this.pIc = pIc;
+        this.pSex = pSex;
+        this.pAddress = pAddress;
+        this.pDate = pDate;
+        this.pStatus = pStatus;
+        this.pDOB = pDOB;
+        this.pPhoneNo = pPhoneNo;
+        this.pBloodType = pBloodType;
+        this.admissionid = admissionid;
+    }
+
     public Integer getPId() {
         return pId;
     }
 
     public void setPId(Integer pId) {
         this.pId = pId;
+    }
+    
+    public int getAdmissionid() {
+        return admissionid;
     }
 
     public String getPName() {
@@ -59,6 +85,10 @@ public class patient {
 
     public String getPIc() {
         return pIc;
+    }   
+
+    public void setAdmissionid(int admissionid) {
+        this.admissionid = admissionid;
     }
 
     public void setPIc(String pIc) {
