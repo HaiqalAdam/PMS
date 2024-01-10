@@ -192,7 +192,8 @@ public class therapistController {
             insertPatientRecordStatement.setInt(3, record.getAdmissionid());
 
             insertPatientRecordStatement.execute();
-            return "therapist/therapist-patientlist";
+            return "redirect:/therapist-patientlist";
+
         } catch (SQLException sqe) {
             System.out.println("Error Code: " + sqe.getErrorCode());
             System.out.println("SQL State: " + sqe.getSQLState());
@@ -206,12 +207,6 @@ public class therapistController {
 
     }
     // =============================== READ PROGRESSION ==========================
-
-    @GetMapping("/therapist-update-patient")
-    public String therapist_update_patient() {
-        // model.addAttribute("user", model);
-        return "therapist/therapist-update-patient";
-    }
 
     @GetMapping("/therapist-patientlist")
     public String viewPatientRecord(HttpSession session, precord rec, Model model) {
@@ -287,10 +282,6 @@ public class therapistController {
         return "therapist/update-progression";
     }
 
-// @PostMapping("/update-progression")
-//     public String UP() {
-//         return "therapist/update-progression";
-//     }
 @PostMapping("/update-progression")
     public String updateProgression(Model model,  precord record,
     @RequestParam("Rid") int rId) {
@@ -311,7 +302,7 @@ public class therapistController {
             statement.setInt(5, rId);
 
             statement.executeUpdate();
-            return "therapist/therapist-patientlist";
+            return "redirect:/therapist-patientlist";
         } catch (Throwable t) {
             System.out.println("message: " + t.getMessage());
             System.out.println("error");

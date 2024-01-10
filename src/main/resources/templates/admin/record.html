@@ -105,6 +105,8 @@ aria-current="page"><span class="material-symbols-outlined"
   Table above is the Admission record.
 </div>
 
+
+
 <table class="table table-success align-middle" style="border: solid 1px black; text-align: center;">
   <tr class="bg-info">
     <th id="Aid" data-column="Aid" data-order="desc">Admission ID</th>
@@ -126,6 +128,12 @@ aria-current="page"><span class="material-symbols-outlined"
     </tr>
   </tbody>
 </table>
+<form
+th:action="@{/export-to-pdf}"
+method="post"
+modelAttribute="generateItem">
+<button type="submit" class="btn btn-success" >Generate Record</button>
+</form>
 
       </div>
       </div>
