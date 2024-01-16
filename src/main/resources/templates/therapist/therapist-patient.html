@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" th:href="@{/icon/logoPMS.png}">
-        <title>Patient</title>
+        <title>Therapist</title>
 
         <link
             href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -56,9 +56,13 @@
   
         <hr class="hr-line">
 
-            <li class="nav-item"><a th:href="@{/therapist-progression}"
-                class="nav-link text-black active d-flex justify-content-start"><span
-                class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>View Progression</a></li>
+        <li class="nav-item"><a th:href="@{/therapist-progression}"
+          class="nav-link text-black active d-flex justify-content-start"><span
+          class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
+
+      <li class="nav-item"><a th:href="@{/therapist-patientlist}"
+          class="nav-link text-black d-flex justify-content-start"><span
+          class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>Progression</a></li>
   
         </ul>
         <hr style="margin-bottom: 0px !important;">
@@ -104,19 +108,6 @@
                     </table>
                   </div><br>
 
-                  <div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">
-                    Update the patient's progress.
-                  </div>
-        <form>
-            <h3>Progress Input</h3>
-          <div style="border: solid 1px black; text-align: center;">
-            <textarea class="form-control" id="progress" rows="3"></textarea>
-          </div><br>
-          <div class="form-group text-center">
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </div>
-        </form>
-      </div>
     </div><br>
 
     <footer class="d-flex justify-content-center col-8 offset-3">

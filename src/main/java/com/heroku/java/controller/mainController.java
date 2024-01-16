@@ -3,22 +3,17 @@ package com.heroku.java.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.autoconfigure.web.ServerProperties.Reactive.Session;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.heroku.java.model.drug;
+import com.heroku.java.model.admission;
 import com.heroku.java.model.drug_usage;
 import com.heroku.java.model.patient;
-import com.heroku.java.model.patientdrug;
+import com.heroku.java.model.precord;
 import com.heroku.java.model.staff;
-import com.heroku.java.model.staffemp;
 import com.heroku.java.model.therapist;
 import com.heroku.java.model.users;
 
@@ -30,10 +25,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -225,7 +217,7 @@ public class mainController {
             statement2.setString(7, t.getTRelationStatus());
             statement2.setString(8, t.getTSex());
             statement2.executeUpdate();
-            return "admin/therapist";
+            return "redirect:/therapist";
         } catch (SQLException sqe) {
             System.out.println("Error Code: " + sqe.getErrorCode());
             System.out.println("SQL State: " + sqe.getSQLState());
@@ -417,7 +409,7 @@ public class mainController {
             statement2.setString(7, s.getSRelationStatus());
             statement2.setString(8, s.getSSex());
             statement2.executeUpdate();
-            return "admin/staff";
+            return "redirect:/staff";
         } catch (SQLException sqe) {
             System.out.println("Error Code = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -432,8 +424,44 @@ public class mainController {
 
     }
 
+    // @GetMapping("/update-therapist")
+    // public String showUpdateTherapist(@ModelAttribute("therapist") therapist trp, @RequestParam("id") int id,
+    //         Model model) {
+    //     try {
+    //         Connection connection = dataSource.getConnection();
+    //         String sql = "SELECT * FROM therapist WHERE id = ?";
+    //         final var statement = connection.prepareStatement(sql);
+    //         statement.setInt(1, id);
+
+    //         final var resultSet = statement.executeQuery();
+    //         while (resultSet.next()) {
+
+    //             String tName = resultSet.getString("therapistname");
+    //             String tSpecialist = resultSet.getString("therapistspecialist");
+    //             String tPhoneNo = resultSet.getString("therapistphoneno");
+    //             Date tDOB = resultSet.getDate("therapistdob");
+    //             Date tDate = resultSet.getDate("therapistdate");
+    //             String tRelationStatus = resultSet.getString("therapiststatus");
+    //             String tSex = resultSet.getString("therapistsex");
+
+    //             therapist therapists = new therapist(id, tName, tRelationStatus, tDate, tSex, tDOB,
+    //                     tPhoneNo, tSpecialist);
+    //             model.addAttribute("therapist", therapists);
+    //         }
+    //         return "admin/update-therapist";
+    //     } catch (SQLException sqe) {
+    //         System.out.println("message : " + sqe.getMessage());
+
+    //         return "admin/adminmainmenu";
+    //     } catch (Exception e) {
+    //         System.out.println("Exception: " + e.getMessage());
+    //         return "admin/adminmainmenu";
+    //     }
+    // }
+
+
     @GetMapping("/update-staff")
-    public String showUpdateStaff(HttpSession session, @ModelAttribute("staff") staff clerk, @RequestParam("id") int id,
+    public String showUpdateStaff(@ModelAttribute("staff") staff clerk,  @RequestParam("id") int id,
             Model model) {
         try {
             Connection connection = dataSource.getConnection();
@@ -826,50 +854,69 @@ public class mainController {
         }
     }
 
+    @GetMapping("/view-progression")
+    public String viewProgression(HttpSession session, precord rec, Model model) {
+        try (Connection connection = dataSource.getConnection()) {
+            final var statement = connection.createStatement();
+            final var resultSet = statement.executeQuery(
+                    "SELECT * FROM patient_record ORDER BY recordid");
+
+            ArrayList<precord> recordList = new ArrayList<>();
+            while (resultSet.next()) {
+                int Rid = resultSet.getInt("recordid");
+                Date Rdate = resultSet.getDate("recorddate");
+                String Ractivities = resultSet.getString("activities");
+                int admissionid = resultSet.getInt("admissionid");
+
+                precord record = new precord(Rid, Rdate, Ractivities, admissionid);
+                recordList.add(record);
+            }
+
+            model.addAttribute("precord", recordList);
+            return "admin/view-progression";
+
+        } catch (SQLException sqe) {
+            System.out.println("error = " + sqe.getErrorCode());
+            System.out.println("SQL state = " + sqe.getSQLState());
+            System.out.println("Message = " + sqe.getMessage());
+            System.out.println("printTrace /n");
+            sqe.printStackTrace();
+        } catch (Exception e) {
+            System.out.println("error = " + e.getMessage());
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+        }
+        return "admin/view-progression";
+    }
+
+    
+    @PostMapping("/view-progression")
+    public String therapistPlist() {
+        return "admin/view-progression";
+    }
+    
     @GetMapping("/record")
-    public String therapist_progression(HttpSession session, patient ptns, drug_usage drug_usage, Model model) {
+    public String admission(HttpSession session, admission adm, Model model) {
         try (Connection connection = dataSource.getConnection()) {
             final var statement = connection.createStatement();
 
             final var resultSet = statement.executeQuery(
-                    "SELECT * FROM patient ORDER BY patientid;");
-
+                    "SELECT * FROM admission a JOIN patient p ON (a.patientid = p.patientid) ORDER BY a.admissionid;");
             // int row = 0;
-            ArrayList<patient> patient = new ArrayList<>();
+            ArrayList<admission> admission = new ArrayList<>();
             while (resultSet.next()) {
-                int pId = resultSet.getInt("patientid");
-                String pName = resultSet.getString("patientname");
-                String pIc = resultSet.getString("patientic");
-                String pSex = resultSet.getString("patientsex");
-                String pAddress = resultSet.getString("patientaddress");
-                Date pDate = resultSet.getDate("patientdate");
-                String pStatus = resultSet.getString("patientstatus");
-                Date pDOB = resultSet.getDate("patientdob");
-                String pPhoneNo = resultSet.getString("patientphoneno");
-                String pBloodType = resultSet.getString("patientbloodtype");
-
-                patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo,
-                        pBloodType);
-                patient.add(patients);
+                int admissionid = resultSet.getInt("admissionid");
+                int Pid = resultSet.getInt("patientid");
+                int Tid = resultSet.getInt("id");
+                String Pname = resultSet.getString("patientname");
+                Date InDate = resultSet.getDate("admissionindate");
+                Date OutDate = resultSet.getDate("admissionoutdate");
+    
+                admission admissons = new admission(admissionid, Pid, Tid, Pname, InDate, OutDate);
+                admission.add(admissons);
 
             }
-            model.addAttribute("patient", patient);
-
-            final var statement2 = connection.createStatement();
-
-            final var resultSet2 = statement2.executeQuery(
-                    "SELECT * FROM drug_usage ORDER BY drugid;");
-
-            ArrayList<drug_usage> Drug = new ArrayList<>();
-            while (resultSet2.next()) {
-                int dId = resultSet2.getInt("drugid");
-                int pId = resultSet2.getInt("patientid");
-
-                drug_usage drugs = new drug_usage(dId, pId);
-                Drug.add(drugs);
-            }
-            model.addAttribute("drug_usage", Drug);
-            // connection.close();
+            model.addAttribute("admission", admission);
             return "admin/record";
 
         } catch (Throwable t) {

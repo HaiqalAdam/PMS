@@ -78,6 +78,10 @@
           class="nav-link text-black d-flex justify-content-start"><span
           class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
       
+          <li class="nav-item"><a th:href="@{/view-progression}"
+            class="nav-link text-black d-flex justify-content-start"><span
+            class="material-symbols-outlined" style="margin-right: 20px;">rate_review </span>Progression</a></li>      
+          
           <li class="nav-item"><a th:href="@{/record}"
             class="nav-link text-black d-flex justify-content-start">
                 <span class="material-symbols-outlined"
@@ -141,7 +145,7 @@
                     <label for="specialist">Specialist</label>
                     <select class="form-control" id="specialist" name="tSpecialist">
                       <option value="" disabled selected>Specialist</option>
-                      <option value="Therapist" th:selected="${therapist.tSpecialist == 'Psychologist'}">Therapist</option>
+                      <option value="Psychologist" th:selected="${therapist.tSpecialist == 'Psychologist'}">Psychologist</option>
                       <option value="Ustaz" th:selected="${therapist.tSpecialist == 'Ustaz'}">Ustaz</option>
                     </select>
                   </div>                  

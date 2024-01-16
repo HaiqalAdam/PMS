@@ -58,7 +58,7 @@
         <hr class="hr-line">
 
         <li class="nav-item"><a th:href="@{/therapist-progression}"
-            class="nav-link text-black active d-flex justify-content-start"><span
+            class="nav-link text-black d-flex justify-content-start"><span
             class="material-symbols-outlined" style="margin-right: 20px;">ward </span>Patient</a></li>
 
         <li class="nav-item"><a th:href="@{/therapist-patientlist}"
@@ -71,43 +71,68 @@
     <!-- End Side Bar-->
 
     <!-- Content -->
-    <div class="dashboard-con d-flex flex-column justify-content-left align-items-center offset-2 col-10">
-      <div style="width: 80%;">
-          <h3 style="text-align: left;">Patient</h3>
-          <div class="input-group mb-3 mt-4" style="height: 40px;">
-              <input id="search-input" type="text" class="form-control"
-                  placeholder="Enter Patient Ic" aria-label="Patient IC"
-                  aria-describedby="button-addon2">
-              <button class="btn btn-dark me-2" type="button">Search</button>
+    <div class="dashboard-con d-flex flex-column justify-content-center align-items-center offset-2 col-10" style="padding-top: 10px;">
+        <div style="width: 80%;">
+          <div class="card-body">
+            <div class="card text-black bg-white mb-3">
+              <div class="card-header">
+                <h3 class="text-center">Progression</h3>
+              </div>
+              <form th:action="@{/create-progression}" 
+              method="post" 
+              modelAttribute="precord">
+              <div class="card-body">
+                <div class="container">         
+    
+              <div class="row">
+                
+                <div class="form-group col-md-6">
+                  <label for="Rdate">Record Date</label>
+                  <input type="date" 
+                  class="form-control" 
+                  id="recorddate" 
+                  name="Rdate" 
+                  th:value="${Rdate}" 
+                  placeholder="Date" required>
+                </div>
+              
+                  <div class="form-group col-md-6">
+                    <label for="admissionid">Admission ID</label>
+                    <input type="int" 
+                    class="form-control" 
+                    id="admissionid" 
+                    name="admissionid" 
+                    th:value="${admissionid}" 
+                    placeholder="ID" required>
+                  </div>
+              </div>
+              <div class="col">
+                <label for="activities">Activities</label>
+                <input type="text" 
+                class="form-control" 
+                id="activities" 
+                name="Ractivities" 
+                th:value="${Ractivities}" 
+                placeholder="Activities" required>
+              </div>
+    
+              </div>
+              </div>
+    
+    
+              <div class="form-group text-center">
+                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" class="btn btn-primary">Submit</button>
+              </div>
+            </form>
+            </div>
           </div>
-<div class="alert alert-info" role="alert" style="font-size: 14px; padding: 5px 10px;">
-  Click on the row to update and delete the patient details.
-</div>
-
-<div class="col-12 d-flex justify-content-end">
-  <a th:href="@{/create-progression}">
-    <button class="btn btn-success btn-sm me-2" type="button">Create Progression</button>
-  </a>
-</div>   
-
-<table class="table table-success align-middle" style="border: solid 1px black; text-align: center;">
-  <tr class="bg-info">
-    <th id="name" data-column="name" data-order="desc">Name</th>
-    <th id="action" data-column="action" data-order="desc">Action</th>
-  </tr>
-  <tbody id="myTable">
-    <tr th:each="patients: ${patient}">
-      <td th:text="${patients.pName}"></td>
-      <td><a th:href="@{/therapist-patient(pid=${patients.pId})}"><button class="btn btn-success btn-sm">View</button></a></td>
-    </tr>
-  </tbody>
-</table>
-
+        </div>
       </div>
-      </div>
-      <footer class="d-flex justify-content-center col-8 offset-3">
-        <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
-      </footer>
+      
+        <footer class="d-flex justify-content-center col-8 offset-3">
+          <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
+        </footer>
     <!-- End Content-->
 
 
