@@ -95,16 +95,8 @@
                   th:value="${Rdate}" 
                   placeholder="Date" required>
                 </div>
-                
+            
                 <div class="form-group col-md-6">
-                  <label for="admissionid">Admission ID</label>
-                  <select class="form-control" id="admissionid" name="admissionid" th:value="${admissionid}" required>
-                      <option th:value="" selected disabled>Select Admission ID</option>
-                      <!-- Use Thymeleaf to loop through the admission IDs -->
-                      <option th:each="id : ${admissionIds}" th:value="${admissionid}"></option>
-                  </select>
-                </div>
-                  <!-- <div class="form-group col-md-6">
                     <label for="admissionid">Admission ID</label>
                     <input type="int" 
                     class="form-control" 
@@ -112,7 +104,8 @@
                     name="admissionid" 
                     th:value="${admissionid}" 
                     placeholder="ID" required>
-                  </div> -->
+                </div> 
+
               </div>
               <div class="col">
                 <label for="activities">Activities</label>
