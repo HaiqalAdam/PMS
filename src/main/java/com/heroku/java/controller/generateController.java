@@ -112,7 +112,7 @@ public class generateController {
     Font fontTiltle = FontFactory.getFont(FontFactory.COURIER_BOLD);
     fontTiltle.setSize(20);
     // Creating paragraph
-    Paragraph paragraph1 = new Paragraph("PMS Recort", fontTiltle);
+    Paragraph paragraph1 = new Paragraph("PMS Record", fontTiltle);
     // Aligning the paragraph in the document
     paragraph1.setAlignment(Paragraph.ALIGN_CENTER);
     // Adding the created paragraph in the document
