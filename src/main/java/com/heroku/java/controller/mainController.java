@@ -223,10 +223,10 @@ public class mainController {
             System.out.println("SQL State: " + sqe.getSQLState());
             System.out.println("Message: " + sqe.getMessage());
             sqe.printStackTrace();
-            return "redirect:/";
+            return "admin/adminmainmenu";
         } catch (Exception e) {
             System.out.println("Exception: " + e.getMessage());
-            return "redirect:/";
+            return "admin/adminmainmenu";
         }
     }
 
@@ -415,13 +415,12 @@ public class mainController {
             System.out.println("SQL state = " + sqe.getSQLState());
             System.out.println("Message = " + sqe.getMessage());
             sqe.printStackTrace();
-            return "redirect:/";
+            return "admin/adminmainmenu";
         } catch (Exception e) {
             System.out.println("E message: " + e.getMessage());
             e.printStackTrace();
-            return "redirect:/";
+            return "admin/adminmainmenu";
         }
-
     }
 
     @GetMapping("/update-staff")
@@ -557,13 +556,18 @@ public class mainController {
             System.out.println("patient id " + patientId);
 
             for (String value : drugType) {
-                String updateBridgeSql = "INSERT INTO drug_usage (patientid, drugid) VALUES (?, ?)";
-                PreparedStatement insertBridgeStatement = connection.prepareStatement(updateBridgeSql);
-                insertBridgeStatement.setInt(1, patientId);
-                insertBridgeStatement.setInt(2, Integer.parseInt(value));
-                insertBridgeStatement.executeUpdate();
-                System.out.println(value);
+                try {
+                    String updateBridgeSql = "INSERT INTO drug_usage (patientid, drugid) VALUES (?, ?)";
+                    PreparedStatement insertBridgeStatement = connection.prepareStatement(updateBridgeSql);
+                    insertBridgeStatement.setInt(1, patientId);
+                    insertBridgeStatement.setInt(2, Integer.parseInt(value));
+                    insertBridgeStatement.executeUpdate();
+                    System.out.println(value);
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
             }
+
             connection.close();
 
             return "redirect:/patient";
@@ -853,12 +857,11 @@ public class mainController {
         return "admin/view-progression";
     }
 
-    
     @PostMapping("/view-progression")
     public String therapistPlist() {
         return "admin/view-progression";
     }
-    
+
     @GetMapping("/record")
     public String admission(HttpSession session, admission adm, Model model) {
         try (Connection connection = dataSource.getConnection()) {
@@ -875,7 +878,7 @@ public class mainController {
                 String Pname = resultSet.getString("patientname");
                 Date InDate = resultSet.getDate("admissionindate");
                 Date OutDate = resultSet.getDate("admissionoutdate");
-    
+
                 admission admissons = new admission(admissionid, Pid, Tid, Pname, InDate, OutDate);
                 admission.add(admissons);
 
