@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootApplication
@@ -48,8 +50,195 @@ public class therapistController {
         return "therapist/dashboard-therapist";
     }
 
+    // @GetMapping("/therapist-progression")
+    // public String therapist_progression(HttpSession session, patient ptns, drug_usage drug_usage, Model model) {
+    //     try (Connection connection = dataSource.getConnection()) {
+    //         final var statement = connection.createStatement();
+
+    //         final var resultSet = statement.executeQuery(
+    //                 "SELECT * FROM patient ORDER BY patientid;");
+
+    //         // int row = 0;
+    //         ArrayList<patient> patient = new ArrayList<>();
+    //         while (resultSet.next()) {
+    //             int pId = resultSet.getInt("patientid");
+    //             String pName = resultSet.getString("patientname");
+    //             String pIc = resultSet.getString("patientic");
+    //             String pSex = resultSet.getString("patientsex");
+    //             String pAddress = resultSet.getString("patientaddress");
+    //             Date pDate = resultSet.getDate("patientdate");
+    //             String pStatus = resultSet.getString("patientstatus");
+    //             Date pDOB = resultSet.getDate("patientdob");
+    //             String pPhoneNo = resultSet.getString("patientphoneno");
+    //             String pBloodType = resultSet.getString("patientbloodtype");
+
+    //             patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo,
+    //                     pBloodType);
+    //             patient.add(patients);
+
+    //         }
+    //         model.addAttribute("patient", patient);
+
+    //         final var statement2 = connection.createStatement();
+
+    //         final var resultSet2 = statement2.executeQuery(
+    //                 "SELECT * FROM drug_usage ORDER BY drugid;");
+
+    //         // int row = 0;
+    //         ArrayList<drug_usage> Drug = new ArrayList<>();
+    //         while (resultSet2.next()) {
+    //             int dId = resultSet2.getInt("drugid");
+    //             int pId = resultSet2.getInt("patientid");
+
+    //             // System.out.println("drug ID :" + dId);
+    //             // System.out.println("patient ID :" + pId);
+
+    //             drug_usage drugs = new drug_usage(dId, pId);
+    //             Drug.add(drugs);
+    //         }
+    //         model.addAttribute("drug_usage", Drug);
+    //         // connection.close();
+    //         return "therapist/therapist-progression";
+
+    //     }catch(SQLException sqlex){
+    //         System.out.println(sqlex.getMessage());
+    //     } 
+        
+    //     catch (Throwable t) {
+    //         System.out.println("message : " + t.getMessage());
+    //     }
+
+    //         return "therapist/dashboard-therapist";
+
+    // }
+
     @GetMapping("/therapist-progression")
-    public String therapist_progression(HttpSession session, patient ptns, drug_usage drug_usage, Model model) {
+    public String therapist_progression(@ModelAttribute("patient") drug_usage drug_usage, @RequestParam("id") int patientid,
+            Model model) {
+        try {
+            Connection connection = dataSource.getConnection();
+            String sql = "SELECT * FROM patient WHERE patientid = ?;";
+            final var statement = connection.prepareStatement(sql);
+            statement.setInt(1, patientid);
+
+            final var resultSet = statement.executeQuery();
+            patient patients = new patient();
+
+            while (resultSet.next()) {
+                int pId = resultSet.getInt("patientid");
+                String pName = resultSet.getString("patientname");
+                String pIc = resultSet.getString("patientic");
+                String pSex = resultSet.getString("patientsex");
+                String pAddress = resultSet.getString("patientaddress");
+                Date pDate = resultSet.getDate("patientdate");
+                String pStatus = resultSet.getString("patientstatus");
+                Date pDOB = resultSet.getDate("patientdob");
+                String pPhoneNo = resultSet.getString("patientphoneno");
+                String pBloodType = resultSet.getString("patientbloodtype");
+                // String pdDrugType = resultSet.getString("drugtype");
+
+                System.out.println("patient ID :" + pId);
+                System.out.println("patient name :" + pName);
+
+                patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo, pBloodType);
+            }
+            model.addAttribute("patient", patients);
+
+            Connection connection2 = dataSource.getConnection();
+            String sql2 = "SELECT drugid FROM drug_usage WHERE patientid = ?;";
+            final var statement2 = connection2.prepareStatement(sql2);
+            statement2.setInt(1, patientid);
+
+            List<Integer> drugs = new ArrayList<>();
+            try (ResultSet resultSet2 = statement2.executeQuery()) {
+                while (resultSet2.next()) {
+                    int dId = resultSet2.getInt("drugid");
+                    System.out.println("drug ID :" + dId);
+                    drugs.add(dId);
+                }
+            }
+            System.out.println(drugs.isEmpty());
+            model.addAttribute("drugUsage", drugs);
+
+            return "therapist/therapist-progression";
+        } catch (Throwable t) {
+            System.out.println("message : " + t.getMessage());
+            return "therapist/dashboard-therapist";
+        }
+    }
+    
+    // @GetMapping("/therapist-patient")
+    // public String therapistpatient(@RequestParam("pid") Integer pid, HttpSession session,
+    //         patient ptns, drug_usage drug_usage, Model model) {
+    //     try {
+    //         Connection connection = dataSource.getConnection();
+    //         String sql = "SELECT * FROM patient WHERE patientid = ?;";
+    //         final var statement = connection.prepareStatement(sql);
+    //         statement.setInt(1, pid);
+
+    //         final var resultSet = statement.executeQuery();
+
+    //         // int row = 0;
+    //         ArrayList<patient> patient = new ArrayList<>();
+    //         while (resultSet.next()) {
+    //             int pId = resultSet.getInt("patientid");
+    //             String pName = resultSet.getString("patientname");
+    //             String pIc = resultSet.getString("patientic");
+    //             String pSex = resultSet.getString("patientsex");
+    //             String pAddress = resultSet.getString("patientaddress");
+    //             Date pDate = resultSet.getDate("patientdate");
+    //             String pStatus = resultSet.getString("patientstatus");
+    //             Date pDOB = resultSet.getDate("patientdob");
+    //             String pPhoneNo = resultSet.getString("patientphoneno");
+    //             String pBloodType = resultSet.getString("patientbloodtype");
+
+    //             patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo,
+    //                     pBloodType);
+    //             patient.add(patients);
+
+    //         }
+    //         model.addAttribute("patient", patient);
+
+    //         final var statement2 = connection.createStatement();
+
+    //         final var resultSet2 = statement2.executeQuery(
+    //                 "SELECT * FROM drug_usage ORDER BY drugid;");
+
+    //         // int row = 0;
+    //         ArrayList<drug_usage> Drug = new ArrayList<>();
+    //         while (resultSet2.next()) {
+    //             int dId = resultSet2.getInt("drugid");
+    //             int pId = resultSet2.getInt("patientid");
+
+    //             // System.out.println("drug ID :" + dId);
+    //             // System.out.println("patient ID :" + pId);
+
+    //             drug_usage drugs = new drug_usage(dId, pId);
+    //             Drug.add(drugs);
+    //         }
+    //         model.addAttribute("drug_usage", Drug);
+    //         // connection.close();
+    //         return "therapist/therapist-patient";
+
+    //     } catch (Throwable t) {
+    //         System.out.println("message : " + t.getMessage());
+    //         return "therapist/dashboard-therapist";
+    //     }
+    // }
+
+    @GetMapping("/therapist-patient")
+    public String therapistP() {
+        return "therapist/therapist-patient";
+    }
+
+    @GetMapping("/therapist-update-patient")
+    public String therapist_update_patient() {
+        // model.addAttribute("user", model);
+        return "therapist/therapist-update-patient";
+    }
+
+    @GetMapping("/therapist-record")
+    public String therapist_record(HttpSession session, patient ptns, drug_usage drug_usage, Model model) {
         try (Connection connection = dataSource.getConnection()) {
             final var statement = connection.createStatement();
 
@@ -96,82 +285,19 @@ public class therapistController {
             }
             model.addAttribute("drug_usage", Drug);
             // connection.close();
-            return "therapist/therapist-progression";
+            return "therapist/therapist-record";
 
-        } catch (Throwable t) {
+        }catch(SQLException sqlex){
+            System.out.println(sqlex.getMessage());
+        } 
+        
+        catch (Throwable t) {
             System.out.println("message : " + t.getMessage());
-            return "therapist/dashboard-therapist";
         }
 
-    }
-
-    @GetMapping("/therapist-patient")
-    public String therapistpatient(@RequestParam("pid") Integer pid, HttpSession session,
-            patient ptns, drug_usage drug_usage, Model model) {
-        try {
-            Connection connection = dataSource.getConnection();
-            String sql = "SELECT * FROM patient WHERE patientid = ?;";
-            final var statement = connection.prepareStatement(sql);
-            statement.setInt(1, pid);
-
-            final var resultSet = statement.executeQuery();
-
-            // int row = 0;
-            ArrayList<patient> patient = new ArrayList<>();
-            while (resultSet.next()) {
-                int pId = resultSet.getInt("patientid");
-                String pName = resultSet.getString("patientname");
-                String pIc = resultSet.getString("patientic");
-                String pSex = resultSet.getString("patientsex");
-                String pAddress = resultSet.getString("patientaddress");
-                Date pDate = resultSet.getDate("patientdate");
-                String pStatus = resultSet.getString("patientstatus");
-                Date pDOB = resultSet.getDate("patientdob");
-                String pPhoneNo = resultSet.getString("patientphoneno");
-                String pBloodType = resultSet.getString("patientbloodtype");
-
-                patient patients = new patient(pId, pName, pIc, pSex, pAddress, pDate, pStatus, pDOB, pPhoneNo,
-                        pBloodType);
-                patient.add(patients);
-
-            }
-            model.addAttribute("patient", patient);
-
-            final var statement2 = connection.createStatement();
-
-            final var resultSet2 = statement2.executeQuery(
-                    "SELECT * FROM drug_usage ORDER BY drugid;");
-
-            // int row = 0;
-            ArrayList<drug_usage> Drug = new ArrayList<>();
-            while (resultSet2.next()) {
-                int dId = resultSet2.getInt("drugid");
-                int pId = resultSet2.getInt("patientid");
-
-                // System.out.println("drug ID :" + dId);
-                // System.out.println("patient ID :" + pId);
-
-                drug_usage drugs = new drug_usage(dId, pId);
-                Drug.add(drugs);
-            }
-            model.addAttribute("drug_usage", Drug);
-            // connection.close();
-            return "therapist/therapist-patient";
-
-        } catch (Throwable t) {
-            System.out.println("message : " + t.getMessage());
             return "therapist/dashboard-therapist";
-        }
+
     }
 
-    @PostMapping("/therapist-patient")
-    public String therapistP() {
-        return "therapist/therapist-patient";
-    }
-
-    @GetMapping("/therapist-update-patient")
-    public String therapist_update_patient() {
-        // model.addAttribute("user", model);
-        return "therapist/therapist-update-patient";
-    }
+    
 }

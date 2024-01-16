@@ -141,6 +141,7 @@ public class admissionController {
             }
 
             model.addAttribute("therapistNames", therapistNames);
+            System.out.println(therapistNames);
 
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
