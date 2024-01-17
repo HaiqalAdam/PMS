@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.heroku.java.model.ATP;
 import com.heroku.java.model.drug_usage;
 import com.heroku.java.model.patient;
 import com.heroku.java.model.precord;
@@ -171,7 +172,7 @@ public class therapistController {
     public String therapistP() {
         return "therapist/therapist-patient";
     }
-//=============================== CREATE PROGRESSION ========================
+    // =============================== CREATE PROGRESSION ========================
 
     @GetMapping("/create-progression")
     public String createP() {
@@ -182,14 +183,14 @@ public class therapistController {
     @PostMapping("/create-progression")
     public String intsertProgress(@ModelAttribute("precord") precord record) {
         // model.addAttribute("user", model);
-         try {
+        try {
             Connection connection = dataSource.getConnection();
             String insertPatientRecordSql = "INSERT INTO patient_record(recorddate, activities,  admissionid) VALUES(?,?,?);";
             PreparedStatement insertPatientRecordStatement = connection.prepareStatement(insertPatientRecordSql);
             insertPatientRecordStatement.setDate(1, record.getRdate());
             insertPatientRecordStatement.setString(2, record.getRactivities());
             insertPatientRecordStatement.setInt(3, record.getAdmissionid());
-            
+
             insertPatientRecordStatement.execute();
             return "redirect:/therapist-patientlist";
 
@@ -203,9 +204,9 @@ public class therapistController {
             System.out.println("Exception: " + e.getMessage());
             return "therapist/create-progression";
         }
-         
+
     }
-//=============================== READ PROGRESSION ========================== 
+    // =============================== READ PROGRESSION ==========================
 
     @GetMapping("/therapist-patientlist")
     public String viewPatientRecord(HttpSession session, precord rec, Model model) {
@@ -242,7 +243,6 @@ public class therapistController {
         return "therapist/therapist-patientlist";
     }
 
-    
     @PostMapping("/therapist-patientlist")
     public String therapistPlist() {
         return "therapist/therapist-patientlist";

@@ -94,9 +94,9 @@ public class admissionController {
         return "staff/staff-admissionOut";
     }
 
-    //=================== Admin Admission In =========================
+    // =================== Admin Admission In =========================
     @GetMapping("/admissionIn")
-    public String admission( patient p, Model model) {
+    public String admission(patient p, Model model) {
         try {
             Connection connection = dataSource.getConnection();
             final var statement = connection.prepareStatement(
@@ -127,10 +127,10 @@ public class admissionController {
                     therapistList.add(therapists);
                 }
                 model.addAttribute("therapist", therapistList);
-               
+
                 // Add the ptns object to the model
             }
-             return "admin/admissionIn";
+            return "admin/admissionIn";
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -233,9 +233,10 @@ public class admissionController {
         return "admin/adminmainmenu";
     }
 
-    //============================= Admin Admission Out ==================================
+    // ============================= Admin Admission Out
+    // ==================================
     @GetMapping("/admissionOut")
-    public String admissionOut( patient p, Model model) {
+    public String admissionOut(patient p, Model model) {
         try {
             Connection connection = dataSource.getConnection();
             final var statement = connection.prepareStatement(
@@ -267,10 +268,10 @@ public class admissionController {
                     therapistList.add(therapists);
                 }
                 model.addAttribute("therapist", therapistList);
-               
+
                 // Add the ptns object to the model
             }
-             return "admin/admissionOut";
+            return "admin/admissionOut";
         } catch (SQLException sqe) {
             System.out.println("error = " + sqe.getErrorCode());
             System.out.println("SQL state = " + sqe.getSQLState());
@@ -287,7 +288,7 @@ public class admissionController {
     }
 
     @PostMapping("/admissionOut")
-     public String admissionOutAdmin(HttpSession session,
+    public String admissionOutAdmin(HttpSession session,
             @RequestParam("pName") String pName, ATP atp, patient p, Model model) {
         try {
             Connection connection = dataSource.getConnection();
@@ -324,8 +325,7 @@ public class admissionController {
         return "admin/admissionOut";
     }
 
-
-     @PostMapping("/Outdate")
+    @PostMapping("/Outdate")
     public String outdate(
             HttpSession session,
             @RequestParam("pName") String pName,
