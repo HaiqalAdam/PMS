@@ -423,44 +423,8 @@ public class mainController {
         }
     }
 
-    // @GetMapping("/update-therapist")
-    // public String showUpdateTherapist(@ModelAttribute("therapist") therapist trp, @RequestParam("id") int id,
-    //         Model model) {
-    //     try {
-    //         Connection connection = dataSource.getConnection();
-    //         String sql = "SELECT * FROM therapist WHERE id = ?";
-    //         final var statement = connection.prepareStatement(sql);
-    //         statement.setInt(1, id);
-
-    //         final var resultSet = statement.executeQuery();
-    //         while (resultSet.next()) {
-
-    //             String tName = resultSet.getString("therapistname");
-    //             String tSpecialist = resultSet.getString("therapistspecialist");
-    //             String tPhoneNo = resultSet.getString("therapistphoneno");
-    //             Date tDOB = resultSet.getDate("therapistdob");
-    //             Date tDate = resultSet.getDate("therapistdate");
-    //             String tRelationStatus = resultSet.getString("therapiststatus");
-    //             String tSex = resultSet.getString("therapistsex");
-
-    //             therapist therapists = new therapist(id, tName, tRelationStatus, tDate, tSex, tDOB,
-    //                     tPhoneNo, tSpecialist);
-    //             model.addAttribute("therapist", therapists);
-    //         }
-    //         return "admin/update-therapist";
-    //     } catch (SQLException sqe) {
-    //         System.out.println("message : " + sqe.getMessage());
-
-    //         return "admin/adminmainmenu";
-    //     } catch (Exception e) {
-    //         System.out.println("Exception: " + e.getMessage());
-    //         return "admin/adminmainmenu";
-    //     }
-    // }
-
-
     @GetMapping("/update-staff")
-    public String showUpdateStaff(@ModelAttribute("staff") staff clerk,  @RequestParam("id") int id,
+    public String showUpdateStaff(@ModelAttribute("staff") staff clerk, @RequestParam("id") int id,
             Model model) {
         try {
             Connection connection = dataSource.getConnection();
