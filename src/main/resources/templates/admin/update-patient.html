@@ -156,13 +156,18 @@
 
         <div class="form-row">
           <div class="form-group col-md-6">
-            <label for="sex">Sex</label>
-            <input type="text" 
+            <label for="sex">Gender</label>
+            <select class="form-control" id="sex" name="pSex">
+              <option value="" disabled selected>Select Gender</option>
+              <option value="Male" th:selected="${patient.pSex == 'Male'}">Male</option>
+              <option value="Female" th:selected="${patient.pSex == 'Female'}">Female</option>
+            </select>
+            <!-- <input type="text" 
             class="form-control" 
             id="sex" 
             name="pSex" 
             th:value="${patient.pSex}" 
-            placeholder="Sex" required>
+            placeholder="Sex" required> -->
           </div>
 
           <div class="form-group col-md-6">
