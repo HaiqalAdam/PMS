@@ -315,11 +315,23 @@
 
         <div class="form-group text-center">
           <button type="reset" class="btn btn-secondary">Reset</button>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary" id = "chkbtn">Submit</button>
         </div>
       </form>
     </div>
   </div>
+  <script>
+    document.getElementById("chkbtn").addEventListener("click", function (event) {
+    var checkboxes = document.querySelectorAll("input[name='pDrugType']:checked");
+    var checked = checkboxes.length;
+
+    if (!checked) {
+        alert("You must check at least one checkbox.");
+        event.preventDefault(); // Prevent default form submission
+    }
+  });
+
+</script>
   
     <footer class="d-flex justify-content-center col-8 offset-3">
       <p>&copy; <span id="currentYear"></span> Patient Management System. All rights reserved.</p>
